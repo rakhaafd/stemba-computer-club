@@ -195,7 +195,7 @@ const Leaderboard = () => {
           </CardContent>
         </Card>
 
-        {/* Stats Summary */}
+        {/* Stats Summary
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card className="bg-[#1a1a1a] border-[#2a2a2a]">
             <CardContent className="p-6 text-center">
@@ -223,7 +223,7 @@ const Leaderboard = () => {
               <div className="text-[var(--color-secondary)]">Active Members</div>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
 
         {/* Leaderboard Table */}
         <Card className="bg-[#1a1a1a] border-[#2a2a2a]">
@@ -324,7 +324,7 @@ const Leaderboard = () => {
           </CardContent>
         </Card>
 
-        {/* Legend */}
+        {/* Legend
         <Card className="bg-[#1a1a1a] border-[#2a2a2a] mt-8">
           <CardContent className="p-6">
             <h3 className="font-bold text-[#EFEEEA] mb-4 font-primary">How Points are Calculated</h3>
@@ -355,7 +355,7 @@ const Leaderboard = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card>  */}
       </div>
 
       {/* Close dropdown when clicking outside */}
