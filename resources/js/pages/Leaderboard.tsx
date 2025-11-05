@@ -531,7 +531,7 @@ const Leaderboard = () => {
                         <Trophy className="h-8 w-8 text-yellow-500" />
                         <h1 className="font-primary text-4xl font-bold">Leaderboard</h1>
                     </div>
-                    <p className="mx-auto max-w-2xl text-xl text-[var(--color-secondary)]">
+                    <p className="mx-auto max-w-2xl text-xl text-[#99a1af]">
                         Track member activity and attendance across different fields. Recognize our most dedicated members!
                     </p>
                 </div>
@@ -542,7 +542,7 @@ const Leaderboard = () => {
                             <div className="mb-2 font-primary text-2xl font-bold text-yellow-500">
                                 {leaderboardData.find((m) => m.rank === 1)?.name || '-'}
                             </div>
-                            <div className="text-[var(--color-secondary)]">Top Performer</div>
+                            <div className="text-[#99a1af]">Top Performer</div>
                         </CardContent>
                     </Card>
 
@@ -551,14 +551,14 @@ const Leaderboard = () => {
                             <div className="mb-2 font-primary text-2xl font-bold text-green-400">
                                 {Math.round(leaderboardData.reduce((acc, curr) => acc + curr.attendance, 0) / leaderboardData.length) || 0}%
                             </div>
-                            <div className="text-[var(--color-secondary)]">Average Attendance</div>
+                            <div className="text-[#99a1af]">Average Attendance</div>
                         </CardContent>
                     </Card>
 
                     <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                         <CardContent className="p-6 text-center">
                             <div className="mb-2 font-primary text-2xl font-bold text-blue-400">{leaderboardData.length}</div>
-                            <div className="text-[var(--color-secondary)]">Active Members</div>
+                            <div className="text-[#99a1af]">Active Members</div>
                         </CardContent>
                     </Card>
                 </div> */}
@@ -567,7 +567,7 @@ const Leaderboard = () => {
                     <CardContent className="p-6">
                         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                             <div className="flex items-center gap-2">
-                                <Filter className="h-5 w-5 text-[var(--color-secondary)]" />
+                                <Filter className="h-5 w-5 text-[#99a1af]" />
                                 <span className="font-medium text-[#EFEEEA]">Filters:</span>
                             </div>
 
@@ -576,7 +576,7 @@ const Leaderboard = () => {
                                 <div className="relative">
                                     <button
                                         onClick={() => setIsYearOpen(!isYearOpen)}
-                                        className="flex w-full items-center justify-between rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] transition-colors hover:border-[var(--color-secondary)] sm:w-32"
+                                        className="flex w-full items-center justify-between rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] transition-colors hover:border-[#99a1af] sm:w-32"
                                     >
                                         <span>{selectedYear}</span>
                                         <ChevronDown className="h-4 w-4" />
@@ -592,7 +592,7 @@ const Leaderboard = () => {
                                                     }}
                                                     className={`w-full px-3 py-2 text-left transition-colors hover:bg-[#2a2a2a] ${
                                                         selectedYear === year
-                                                            ? 'bg-[var(--color-secondary)]/20 text-[var(--color-secondary)]'
+                                                            ? 'bg-[#99a1af]/20 text-[#99a1af]'
                                                             : 'text-[#EFEEEA]'
                                                     }`}
                                                 >
@@ -607,7 +607,7 @@ const Leaderboard = () => {
                                 <div className="relative">
                                     <button
                                         onClick={() => setIsFieldOpen(!isFieldOpen)}
-                                        className="flex w-full items-center justify-between rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] transition-colors hover:border-[var(--color-secondary)] sm:w-48"
+                                        className="flex w-full items-center justify-between rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] transition-colors hover:border-[#99a1af] sm:w-48"
                                     >
                                         <span>{getCurrentFieldLabel()}</span>
                                         <ChevronDown className="h-4 w-4" />
@@ -623,7 +623,7 @@ const Leaderboard = () => {
                                                     }}
                                                     className={`w-full px-3 py-2 text-left transition-colors hover:bg-[#2a2a2a] ${
                                                         selectedField === field.value
-                                                            ? 'bg-[var(--color-secondary)]/20 text-[var(--color-secondary)]'
+                                                            ? 'bg-[#99a1af]/20 text-[#99a1af]'
                                                             : 'text-[#EFEEEA]'
                                                     }`}
                                                 >
@@ -636,7 +636,7 @@ const Leaderboard = () => {
 
                                 <Button
                                     variant="outline"
-                                    className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
+                                    className="border-[#99a1af] text-[#EFEEEA] hover:bg-[#99a1af]/10"
                                     onClick={() => {
                                         setSelectedYear('2024');
                                         setSelectedField('all');
@@ -650,11 +650,11 @@ const Leaderboard = () => {
                 </Card>
                 {/* Items Per Page Selector */}
                 <div className="mb-4 flex items-center justify-between">
-                    <div className="text-sm text-[var(--color-secondary)]">
+                    <div className="text-sm text-[#99a1af]">
                         Showing {startIndex + 1}-{Math.min(endIndex, totalItems)} of {totalItems} members
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-sm text-[var(--color-secondary)]">Show:</span>
+                        <span className="text-sm text-[#99a1af]">Show:</span>
                         <select
                             value={itemsPerPage}
                             onChange={(e) => handleItemsPerPageChange(e.target.value)}
@@ -674,19 +674,19 @@ const Leaderboard = () => {
                             <Trophy className="h-5 w-5 text-yellow-500" />
                             Member Rankings
                         </CardTitle>
-                        <CardDescription className="text-[var(--color-secondary)]">
+                        <CardDescription className="text-[#99a1af]">
                             Sorted by attendance performance - Page {currentPage} of {totalPages}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         {isLoading ? (
                             <div className="py-8 text-center">
-                                <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-[var(--color-secondary)]"></div>
-                                <p className="mt-4 text-[var(--color-secondary)]">Loading leaderboard data...</p>
+                                <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-[#99a1af]"></div>
+                                <p className="mt-4 text-[#99a1af]">Loading leaderboard data...</p>
                             </div>
                         ) : leaderboardData.length === 0 ? (
                             <div className="py-8 text-center">
-                                <p className="text-[var(--color-secondary)]">No members found for the selected filters.</p>
+                                <p className="text-[#99a1af]">No members found for the selected filters.</p>
                             </div>
                         ) : (
                             <div className="space-y-4">
@@ -696,11 +696,11 @@ const Leaderboard = () => {
                                         className={`flex items-center gap-4 rounded-lg border p-4 transition-all duration-300 ${
                                             member.rank <= 3
                                                 ? 'border-yellow-500/30 bg-gradient-to-r from-[#2a2a2a] to-[#1a1a1a] shadow-lg'
-                                                : 'border-[#2a2a2a] bg-[#161616] hover:border-[var(--color-secondary)]'
+                                                : 'border-[#2a2a2a] bg-[#161616] hover:border-[#99a1af]'
                                         }`}
                                     >
                                         {/* Rank */}
-                                        <div className="flex h-12 w-12 items-center justify-center">{getRankIcon(member.rank)}</div>
+                                        <div className="flex h-12 w-12 items-center justify-center text-[#EFEEEA]">{getRankIcon(member.rank)}</div>
 
                                         {/* Avatar and Name */}
                                         <div className="flex flex-1 items-center gap-4">
@@ -722,11 +722,11 @@ const Leaderboard = () => {
                                         {/* Stats - Hanya Attendance dan Projects */}
                                         <div className="hidden items-center gap-8 text-sm md:flex">
                                             <div className="text-center">
-                                                <div className="text-[var(--color-secondary)]">Attendance</div>
+                                                <div className="text-[#99a1af]">Attendance</div>
                                                 <div className={`font-bold ${getAttendanceColor(member.attendance)}`}>{member.attendance}%</div>
                                             </div>
                                             {/* <div className="text-center">
-                                                <div className="text-[var(--color-secondary)]">Projects</div>
+                                                <div className="text-[#99a1af]">Projects</div>
                                                 <div className="font-bold text-[#EFEEEA]">{member.projects}</div>
                                             </div> */}
                                         </div>
@@ -734,13 +734,13 @@ const Leaderboard = () => {
                                         {/* Mobile Stats - Hanya Attendance dan Projects */}
                                         <div className="flex items-center gap-6 md:hidden">
                                             <div className="text-center">
-                                                <div className="text-xs text-[var(--color-secondary)]">Attendance</div>
+                                                <div className="text-xs text-[#99a1af]">Attendance</div>
                                                 <div className={`text-sm font-bold ${getAttendanceColor(member.attendance)}`}>
                                                     {member.attendance}%
                                                 </div>
                                             </div>
                                             {/* <div className="text-center">
-                                                <div className="text-xs text-[var(--color-secondary)]">Projects</div>
+                                                <div className="text-xs text-[#99a1af]">Projects</div>
                                                 <div className="text-sm font-bold text-[#EFEEEA]">{member.projects}</div>
                                             </div> */}
                                         </div>
@@ -755,7 +755,7 @@ const Leaderboard = () => {
                     <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                         <CardContent className="p-6">
                             <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-                                <div className="text-sm text-[var(--color-secondary)]">
+                                <div className="text-sm text-[#99a1af]">
                                     Page {currentPage} of {totalPages} • {totalItems} total members
                                 </div>
 
@@ -807,7 +807,7 @@ const Leaderboard = () => {
                 <Card className="mt-8 border-[#2a2a2a] bg-[#1a1a1a]">
                     <CardContent className="p-6">
                         <h3 className="mb-4 font-primary font-bold text-[#EFEEEA]">How Points are Calculated</h3>
-                        <div className="grid grid-cols-1 gap-4 text-sm text-[var(--color-secondary)] md:grid-cols-2">
+                        <div className="grid grid-cols-1 gap-4 text-sm text-[#99a1af] md:grid-cols-2">
                             <div className="flex items-center gap-2">
                                 <div className="h-3 w-3 rounded-full bg-green-500"></div>
                                 <span>Attendance (90-100%): 20 points per session</span>
