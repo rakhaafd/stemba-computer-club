@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\RegisterCode;
 use App\Services\UserAuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,7 @@ class UserAuth extends Controller
     public function store(Request $request)
     {
         $credentials = [
-            'email' => $request->input('email'),
+            'email' => $request->input('identifier'),
             'password' => $request->input('password'),
         ];
         // $info = 'invalid';
@@ -47,7 +48,7 @@ class UserAuth extends Controller
             return redirect()->intended('/');
         }
         // dd($info);
-
+        dd('invalid credential');
         return back()->withErrors([
             'email' => 'Invalid credentials.',
         ]);
@@ -85,8 +86,29 @@ class UserAuth extends Controller
         //
     }
 
-    public function register(Request $request) {
-        $this->user->register($request->all());
+    public function register(Request $request)
+    {
+        // ✅ Validation rules
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'kelas' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'kode' => 'required|string',
+        ]);
+        // dd($request->all());
+        // ✅ Check register code
+        $code = RegisterCode::first(); // only one active code
+        if (!$code || $validated['kode'] !== $code->code) {
+            return back()->withErrors(['kode' => 'Kode pendaftaran tidak valid.']);
+        }
+
+        // ✅ Create user
+        $user = $this->user->register($validated);
+
+        // ✅ Auto-login after register
+        Auth::login($user);
+
         return redirect()->intended('/');
     }
 }
