@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useForm } from "@inertiajs/react"
 import { Button } from "@components/ui/button"
 import { Input } from "@components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card"
@@ -11,16 +11,10 @@ import {
   FormDescription, 
   FormMessage 
 } from "@components/ui/form"
-
-interface PresensiData {
-  nama: string
-  kelas: string
-  email: string
-  kode: string
-}
+import { useState } from "react"
 
 const PresensiForm = () => {
-  const [formData, setFormData] = useState<PresensiData>({
+  const { data, setData, post, processing, reset, errors } = useForm({
     nama: "",
     kelas: "",
     email: "",
@@ -31,28 +25,21 @@ const PresensiForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
+    setData(name as keyof typeof data, value)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Simpan data atau kirim ke API
-    console.log("Data presensi:", formData)
-    setIsSubmitted(true)
-    
-    // Reset form setelah 2 detik
-    setTimeout(() => {
-      setFormData({
-        nama: "",
-        kelas: "",
-        email: "",
-        kode: ""
-      })
-      setIsSubmitted(false)
-    }, 2000)
+
+    post("/user/presensi", {
+      onSuccess: () => {
+        setIsSubmitted(true)
+        setTimeout(() => {
+          reset()
+          setIsSubmitted(false)
+        }, 2000)
+      },
+    })
   }
 
   return (
@@ -72,7 +59,7 @@ const PresensiForm = () => {
             📝 Form Kehadiran
           </Badge>
         </CardHeader>
-        
+
         <CardContent className="pb-8 px-8">
           {isSubmitted ? (
             <div className="text-center py-12">
@@ -83,7 +70,7 @@ const PresensiForm = () => {
                 Presensi Berhasil!
               </h3>
               <p className="text-[#99a1af] text-lg">
-                Terima kasih <span className="text-[#EFEEEA] font-semibold">{formData.nama}</span> sudah melakukan presensi.
+                Terima kasih <span className="text-[#EFEEEA] font-semibold">{data.nama}</span> sudah melakukan presensi.
               </p>
             </div>
           ) : (
@@ -94,13 +81,14 @@ const PresensiForm = () => {
                   <FormControl>
                     <Input
                       name="nama"
-                      value={formData.nama}
+                      value={data.nama}
                       onChange={handleChange}
                       placeholder="Masukkan nama lengkap"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base"
                       required
                     />
                   </FormControl>
+                  {errors.nama && <FormMessage>{errors.nama}</FormMessage>}
                   <FormDescription className="text-sm">
                     Nama lengkap sesuai dengan identitas
                   </FormDescription>
@@ -111,13 +99,14 @@ const PresensiForm = () => {
                   <FormControl>
                     <Input
                       name="kelas"
-                      value={formData.kelas}
+                      value={data.kelas}
                       onChange={handleChange}
                       placeholder="Contoh: X IPA 1, XI IPS 2"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base"
                       required
                     />
                   </FormControl>
+                  {errors.kelas && <FormMessage>{errors.kelas}</FormMessage>}
                   <FormDescription className="text-sm">
                     Kelas dan jurusan saat ini
                   </FormDescription>
@@ -131,13 +120,14 @@ const PresensiForm = () => {
                     <Input
                       name="email"
                       type="email"
-                      value={formData.email}
+                      value={data.email}
                       onChange={handleChange}
                       placeholder="email@example.com"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base"
                       required
                     />
                   </FormControl>
+                  {errors.email && <FormMessage>{errors.email}</FormMessage>}
                   <FormDescription className="text-sm">
                     Email aktif untuk konfirmasi
                   </FormDescription>
@@ -148,13 +138,14 @@ const PresensiForm = () => {
                   <FormControl>
                     <Input
                       name="kode"
-                      value={formData.kode}
+                      value={data.kode}
                       onChange={handleChange}
                       placeholder="Masukkan kode yang diberikan"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base font-mono"
                       required
                     />
                   </FormControl>
+                  {errors.kode && <FormMessage>{errors.kode}</FormMessage>}
                   <FormDescription className="text-sm">
                     Kode unik yang diberikan oleh mentor
                   </FormDescription>
@@ -165,9 +156,9 @@ const PresensiForm = () => {
                 <Button 
                   type="submit" 
                   className="w-full bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9] text-lg py-3 h-14 text-base font-semibold"
-                  disabled={!formData.nama || !formData.kelas || !formData.email || !formData.kode}
+                  disabled={processing}
                 >
-                  Submit Presensi
+                  {processing ? "Mengirim..." : "Submit Presensi"}
                 </Button>
               </div>
             </Form>
