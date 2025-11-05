@@ -3,6 +3,7 @@ import { Button } from "@components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card"
 import { Badge } from "@components/ui/badge"
 import PresensiForm from "@fragments/PresensiForm"
+import Footer from "@/components/Footer"
 
 const Presensi = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -47,22 +48,7 @@ const Presensi = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#2a2a2a] py-12 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-[#EFEEEA] rounded-full flex items-center justify-center">
-              <span className="text-[#161616] font-bold text-lg font-primary">SCC</span>
-            </div>
-            <span className="text-xl font-bold font-primary">Stemba Computer Club</span>
-          </div>
-          <p className="text-[#99a1af] max-w-md mx-auto">
-            Sistem presensi digital untuk kegiatan Stemba Computer Club
-          </p>
-          <div className="border-t border-[#2a2a2a] mt-8 pt-8 text-center text-[#99a1af]">
-            <p>&copy; 2024 Stemba Computer Club. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

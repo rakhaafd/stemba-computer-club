@@ -42,7 +42,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-[var(--color-primary)] hover:text-[#EFEEEA] transition-colors duration-200"
+              className="text-[var(--color-secondary)] hover:text-[#EFEEEA] transition-colors duration-200"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -96,7 +96,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                     scrollToSection(item);
                     setIsMenuOpen(false);
                   }}
-                  className="text-[var(--color-primary)] hover:text-[#EFEEEA] transition-colors duration-200 capitalize font-medium text-left py-2"
+                  className="text-[var(--color-secondary)] hover:text-[#efeeea7b] transition-colors duration-200 capitalize font-medium text-left py-2"
                 >
                   {item}
                 </button>

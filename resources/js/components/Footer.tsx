@@ -19,9 +19,9 @@ const Footer = () => {
           <div>
             <h3 className="font-bold text-[#EFEEEA] mb-4 font-primary">Contact</h3>
             <div className="space-y-2 text-[var(--color-secondary)]">
-              <div>stemba.cc@email.com</div>
-              <div>STEMBA School Campus</div>
-              <div>Meeting: Every Wednesday 3-5 PM</div>
+              <div>stembascc@gmail.com</div>
+              <div>@scc_stemba on instagram</div>
+              <div>Meeting: Every Friday 3-5 PM</div>
             </div>
           </div>
         </div>
