@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@components/ui/button"
 import { Input } from "@components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card"
@@ -17,6 +17,86 @@ interface PresensiData {
   kelas: string
   email: string
   kode: string
+  subject: string
+}
+
+const CustomSelect = ({ 
+  value, 
+  onChange, 
+  options, 
+  placeholder 
+}: { 
+  value: string
+  onChange: (value: string) => void
+  options: string[]
+  placeholder: string
+}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  const handleSelect = (option: string) => {
+    onChange(option)
+    setIsOpen(false)
+  }
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full text-left bg-[#161616] border border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#99a1af] focus:ring-opacity-20 transition-colors duration-200 flex items-center justify-between ${
+          !value ? "text-[#99a1af]" : ""
+        }`}
+      >
+        <span>{value || placeholder}</span>
+        <svg 
+          className={`w-5 h-5 text-[#99a1af] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M19 9l-7 7-7-7" 
+          />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-50 w-full mt-1 bg-[#161616] border border-[#2a2a2a] rounded-md shadow-lg overflow-hidden">
+          <div className="py-1">
+            {options.map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => handleSelect(option)}
+                className={`w-full text-left px-3 py-3 text-base transition-colors duration-150 ${
+                  value === option
+                    ? "bg-[#2a2a2a] text-[#EFEEEA]"
+                    : "text-[#99a1af] hover:bg-[#1f1f1f] hover:text-[#EFEEEA]"
+                }`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 const PresensiForm = () => {
@@ -24,16 +104,30 @@ const PresensiForm = () => {
     nama: "",
     kelas: "",
     email: "",
-    kode: ""
+    kode: "",
+    subject: ""
   })
 
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const subjects = [
+    "UI/UX Design",
+    "Cyber Security", 
+    "Web Programming"
+  ]
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }))
+  }
+
+  const handleSubjectChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      subject: value
     }))
   }
 
@@ -49,7 +143,8 @@ const PresensiForm = () => {
         nama: "",
         kelas: "",
         email: "",
-        kode: ""
+        kode: "",
+        subject: ""
       })
       setIsSubmitted(false)
     }, 2000)
@@ -146,11 +241,27 @@ const PresensiForm = () => {
                 </FormField>
               </div>
 
+              {/* Subject Dropdown */}
+              <FormField>
+                <FormLabel className="text-base">Today's Subject</FormLabel>
+                <FormControl className="mt-2">
+                  <CustomSelect
+                    value={formData.subject}
+                    onChange={handleSubjectChange}
+                    options={subjects}
+                    placeholder="Select a subject"
+                  />
+                </FormControl>
+                <FormDescription className="text-[#99a1af] mt-2">
+                  Choose the subject of today's class
+                </FormDescription>
+              </FormField>
+
               <div className="pt-4">
                 <Button 
                   type="submit" 
                   className="w-full bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9] text-lg py-3 h-14 text-base font-semibold"
-                  disabled={!formData.nama || !formData.kelas || !formData.email || !formData.kode}
+                  disabled={!formData.nama || !formData.kelas || !formData.email || !formData.kode || !formData.subject}
                 >
                   Submit
                 </Button>
