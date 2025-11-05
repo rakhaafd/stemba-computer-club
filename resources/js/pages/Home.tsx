@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
-import { Input } from '@components/ui/input';
 import { Badge } from '@components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog';
+import Navbar from '@components/Navbar';
+import Footer from '@components/Footer';
+import { Input } from '@/components/ui/input';
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [email, setEmail] = useState('');
 
   useEffect(() => {
     setIsVisible(true);
@@ -111,58 +112,8 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-[#161616] text-[#EFEEEA] overflow-hidden">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-[#161616]/90 backdrop-blur-sm z-50 border-b border-[#2a2a2a]">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#EFEEEA] rounded-full flex items-center justify-center">
-                <span className="text-[#161616] font-bold text-lg font-primary">SCC</span>
-              </div>
-              <span className="text-xl font-bold font-primary">SCC</span>
-            </div>
-            
-            <div className="hidden md:flex items-center gap-8">
-              {['about', 'features', 'activities', 'team', 'contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className="text-[var(--color-primary)] hover:text-[#EFEEEA] transition-colors duration-200 capitalize font-medium"
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                  Join Waitlist
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="bg-[#1a1a1a] border-[#2a2a2a] text-[#EFEEEA]">
-                <DialogHeader>
-                  <DialogTitle className="font-primary">Join Stemba Computer Club</DialogTitle>
-                  <DialogDescription className="text-[var(--color-secondary)]">
-                    Enter your email to get notified when registrations open.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <Input 
-                    placeholder="Enter your email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA]"
-                  />
-                  <Button className="w-full bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                    Notify Me
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation - Menggunakan komponen Navbar */}
+      <Navbar scrollToSection={scrollToSection} />
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative px-6 pt-20">
@@ -495,53 +446,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-[#2a2a2a] py-12 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-[#EFEEEA] rounded-full flex items-center justify-center">
-                  <span className="text-[#161616] font-bold text-lg font-primary">SCC</span>
-                </div>
-                <span className="text-xl font-bold font-primary">Stemba Computer Club</span>
-              </div>
-              <p className="text-[var(--color-secondary)] max-w-md">
-                Empowering the next generation of tech innovators through collaborative learning 
-                and hands-on projects.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="font-bold text-[#EFEEEA] mb-4 font-primary">Quick Links</h3>
-              <div className="space-y-2">
-                {['about', 'features', 'activities', 'team'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className="block text-[var(--color-secondary)] hover:text-[#EFEEEA] transition-colors duration-200 capitalize"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-bold text-[#EFEEEA] mb-4 font-primary">Contact</h3>
-              <div className="space-y-2 text-[var(--color-secondary)]">
-                <div>stemba.cc@email.com</div>
-                <div>STEMBA School Campus</div>
-                <div>Meeting: Every Wednesday 3-5 PM</div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-[#2a2a2a] mt-8 pt-8 text-center text-[var(--color-secondary)]">
-            <p>&copy; 2024 Stemba Computer Club. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      {/* Footer - Menggunakan komponen Footer */}
+      <Footer />
     </div>
   );
 };
