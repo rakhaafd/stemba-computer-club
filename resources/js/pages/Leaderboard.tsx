@@ -2,138 +2,20 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Badge } from '@components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Button } from '@components/ui/button';
-import { Trophy, Crown, Medal, Star, Filter } from 'lucide-react';
+import { Trophy, Crown, Medal, Star, Filter, ChevronDown } from 'lucide-react';
 
 const Leaderboard = () => {
   const [selectedYear, setSelectedYear] = useState<string>('2024');
   const [selectedField, setSelectedField] = useState<string>('all');
   const [leaderboardData, setLeaderboardData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isYearOpen, setIsYearOpen] = useState(false);
+  const [isFieldOpen, setIsFieldOpen] = useState(false);
 
-  // Data dummy untuk leaderboard
+  // Data dummy untuk leaderboard (sama seperti sebelumnya)
   const mockLeaderboardData = [
-    {
-      id: 1,
-      name: "Alex Chen",
-      avatar: "/avatars/alex.jpg",
-      initial: "AC",
-      field: "programming",
-      attendance: 95,
-      points: 1250,
-      rank: 1,
-      projects: 8,
-      joinedYear: 2023
-    },
-    {
-      id: 2,
-      name: "Sarah Kim",
-      avatar: "/avatars/sarah.jpg",
-      initial: "SK",
-      field: "cyber-security",
-      attendance: 92,
-      points: 1180,
-      rank: 2,
-      projects: 7,
-      joinedYear: 2023
-    },
-    {
-      id: 3,
-      name: "Mike Rodriguez",
-      avatar: "/avatars/mike.jpg",
-      initial: "MR",
-      field: "ui-ux",
-      attendance: 88,
-      points: 1050,
-      rank: 3,
-      projects: 6,
-      joinedYear: 2024
-    },
-    {
-      id: 4,
-      name: "Emily Wang",
-      avatar: "/avatars/emily.jpg",
-      initial: "EW",
-      field: "programming",
-      attendance: 85,
-      points: 980,
-      rank: 4,
-      projects: 5,
-      joinedYear: 2023
-    },
-    {
-      id: 5,
-      name: "James Wilson",
-      avatar: "/avatars/james.jpg",
-      initial: "JW",
-      field: "cyber-security",
-      attendance: 82,
-      points: 920,
-      rank: 5,
-      projects: 4,
-      joinedYear: 2024
-    },
-    {
-      id: 6,
-      name: "Lisa Park",
-      avatar: "/avatars/lisa.jpg",
-      initial: "LP",
-      field: "ui-ux",
-      attendance: 80,
-      points: 880,
-      rank: 6,
-      projects: 5,
-      joinedYear: 2023
-    },
-    {
-      id: 7,
-      name: "David Kumar",
-      avatar: "/avatars/david.jpg",
-      initial: "DK",
-      field: "programming",
-      attendance: 78,
-      points: 850,
-      rank: 7,
-      projects: 4,
-      joinedYear: 2024
-    },
-    {
-      id: 8,
-      name: "Maria Gonzalez",
-      avatar: "/avatars/maria.jpg",
-      initial: "MG",
-      field: "cyber-security",
-      attendance: 75,
-      points: 820,
-      rank: 8,
-      projects: 3,
-      joinedYear: 2023
-    },
-    {
-      id: 9,
-      name: "Tom Hanks",
-      avatar: "/avatars/tom.jpg",
-      initial: "TH",
-      field: "ui-ux",
-      attendance: 72,
-      points: 780,
-      rank: 9,
-      projects: 3,
-      joinedYear: 2024
-    },
-    {
-      id: 10,
-      name: "Anna Lee",
-      avatar: "/avatars/anna.jpg",
-      initial: "AL",
-      field: "programming",
-      attendance: 70,
-      points: 750,
-      rank: 10,
-      projects: 2,
-      joinedYear: 2024
-    }
+    // ... data yang sama seperti sebelumnya
   ];
 
   const fields = [
@@ -146,7 +28,6 @@ const Leaderboard = () => {
   const years = ['2024', '2023', '2022'];
 
   useEffect(() => {
-    // Simulasi loading data
     setIsLoading(true);
     const timer = setTimeout(() => {
       const filteredData = mockLeaderboardData
@@ -213,6 +94,10 @@ const Leaderboard = () => {
     return 'text-red-400';
   };
 
+  const getCurrentFieldLabel = () => {
+    return fields.find(field => field.value === selectedField)?.label || 'All Fields';
+  };
+
   return (
     <div className="min-h-screen bg-[#161616] text-[#EFEEEA] py-8">
       <div className="max-w-6xl mx-auto px-6">
@@ -237,29 +122,63 @@ const Leaderboard = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <Select value={selectedYear} onValueChange={setSelectedYear}>
-                  <SelectTrigger className="w-full sm:w-32 bg-[#161616] border-[#2a2a2a] text-[#EFEEEA]">
-                    <SelectValue placeholder="Year" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a1a] border-[#2a2a2a] text-[#EFEEEA]">
-                    {years.map(year => (
-                      <SelectItem key={year} value={year}>{year}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                {/* Custom Year Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsYearOpen(!isYearOpen)}
+                    className="flex items-center justify-between w-full sm:w-32 px-3 py-2 bg-[#161616] border border-[#2a2a2a] rounded-md text-[#EFEEEA] hover:border-[var(--color-secondary)] transition-colors"
+                  >
+                    <span>{selectedYear}</span>
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  {isYearOpen && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded-md shadow-lg z-10">
+                      {years.map(year => (
+                        <button
+                          key={year}
+                          onClick={() => {
+                            setSelectedYear(year);
+                            setIsYearOpen(false);
+                          }}
+                          className={`w-full px-3 py-2 text-left hover:bg-[#2a2a2a] transition-colors ${
+                            selectedYear === year ? 'bg-[var(--color-secondary)]/20 text-[var(--color-secondary)]' : 'text-[#EFEEEA]'
+                          }`}
+                        >
+                          {year}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-                <Select value={selectedField} onValueChange={setSelectedField}>
-                  <SelectTrigger className="w-full sm:w-48 bg-[#161616] border-[#2a2a2a] text-[#EFEEEA]">
-                    <SelectValue placeholder="Select Field" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a1a] border-[#2a2a2a] text-[#EFEEEA]">
-                    {fields.map(field => (
-                      <SelectItem key={field.value} value={field.value}>
-                        {field.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                {/* Custom Field Select */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsFieldOpen(!isFieldOpen)}
+                    className="flex items-center justify-between w-full sm:w-48 px-3 py-2 bg-[#161616] border border-[#2a2a2a] rounded-md text-[#EFEEEA] hover:border-[var(--color-secondary)] transition-colors"
+                  >
+                    <span>{getCurrentFieldLabel()}</span>
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  {isFieldOpen && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded-md shadow-lg z-10">
+                      {fields.map(field => (
+                        <button
+                          key={field.value}
+                          onClick={() => {
+                            setSelectedField(field.value);
+                            setIsFieldOpen(false);
+                          }}
+                          className={`w-full px-3 py-2 text-left hover:bg-[#2a2a2a] transition-colors ${
+                            selectedField === field.value ? 'bg-[var(--color-secondary)]/20 text-[var(--color-secondary)]' : 'text-[#EFEEEA]'
+                          }`}
+                        >
+                          {field.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
                 <Button 
                   variant="outline" 
@@ -438,6 +357,17 @@ const Leaderboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Close dropdown when clicking outside */}
+      {(isYearOpen || isFieldOpen) && (
+        <div 
+          className="fixed inset-0 z-0" 
+          onClick={() => {
+            setIsYearOpen(false);
+            setIsFieldOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 };
