@@ -57,19 +57,19 @@ const PresensiForm = () => {
 
   return (
     <div className="min-h-screen bg-[#161616] flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl mx-auto bg-[#1a1a1a] border-[#2a2a2a]">
+      <Card className="w-full max-w-7xl mx-auto bg-[#1a1a1a] border-[#2a2a2a]">
         <CardHeader className="text-center pb-8 px-8 pt-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 bg-[#EFEEEA] rounded-full flex items-center justify-center">
               <span className="text-[#161616] font-bold text-lg font-primary">SCC</span>
             </div>
-            <CardTitle className="font-primary text-[#EFEEEA] text-3xl">Presensi</CardTitle>
+            <CardTitle className="font-primary text-[#EFEEEA] text-4xl">Presensi</CardTitle>
           </div>
           <CardDescription className="text-[#99a1af] text-lg">
             Isi form berikut untuk melakukan presensi Stemba Computer Club
           </CardDescription>
           <Badge variant="secondary" className="mt-4 bg-[#EFEEEA] text-[#161616] text-base py-1.5 px-4">
-            📝 Form Kehadiran
+            Form Kehadiran XX/XX/20XX
           </Badge>
         </CardHeader>
         
@@ -97,13 +97,10 @@ const PresensiForm = () => {
                       value={formData.nama}
                       onChange={handleChange}
                       placeholder="Masukkan nama lengkap"
-                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base"
+                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
                       required
                     />
                   </FormControl>
-                  <FormDescription className="text-sm">
-                    Nama lengkap sesuai dengan identitas
-                  </FormDescription>
                 </FormField>
 
                 <FormField>
@@ -113,14 +110,11 @@ const PresensiForm = () => {
                       name="kelas"
                       value={formData.kelas}
                       onChange={handleChange}
-                      placeholder="Contoh: X IPA 1, XI IPS 2"
-                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base"
+                      placeholder="Contoh: X SIJA 1, XI SIJA 2"
+                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2 "
                       required
                     />
                   </FormControl>
-                  <FormDescription className="text-sm">
-                    Kelas dan jurusan saat ini
-                  </FormDescription>
                 </FormField>
               </div>
 
@@ -134,13 +128,10 @@ const PresensiForm = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="email@example.com"
-                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base"
+                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
                       required
                     />
                   </FormControl>
-                  <FormDescription className="text-sm">
-                    Email aktif untuk konfirmasi
-                  </FormDescription>
                 </FormField>
 
                 <FormField>
@@ -151,13 +142,10 @@ const PresensiForm = () => {
                       value={formData.kode}
                       onChange={handleChange}
                       placeholder="Masukkan kode yang diberikan"
-                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base font-mono"
+                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
                       required
                     />
                   </FormControl>
-                  <FormDescription className="text-sm">
-                    Kode unik yang diberikan oleh mentor
-                  </FormDescription>
                 </FormField>
               </div>
 
