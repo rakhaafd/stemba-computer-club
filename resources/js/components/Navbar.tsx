@@ -59,7 +59,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
             <Dialog>
               <DialogTrigger asChild>
                 <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                  Join Waitlist
+                  Attendence
                 </Button>
               </DialogTrigger>
               <DialogContent className="bg-[#1a1a1a] border-[#2a2a2a] text-[#EFEEEA]">

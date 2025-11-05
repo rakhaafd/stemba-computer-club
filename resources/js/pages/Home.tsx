@@ -131,8 +131,7 @@ const Home = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-[var(--color-secondary)] mb-8 leading-relaxed">
-            Where <span className="text-[#EFEEEA]">code meets creativity</span> and innovation knows no bounds. 
-            Join the next generation of tech innovators.
+            We serve as a space for students passionate about technology, programming, design, and cybersecurity to learn, share knowledge, and grow together as the next generation of digital innovators.
           </p>
           
           <div className="flex gap-4 justify-center flex-wrap">
@@ -149,7 +148,7 @@ const Home = () => {
               className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10 text-lg px-8"
               onClick={() => scrollToSection('about')}
             >
-              Learn More
+              Join Comunity
             </Button>
           </div>
         </div>
