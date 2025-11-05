@@ -19,6 +19,10 @@ Route::get('/', function () {
     return inertia('Home');
 });
 
+Route::get('/admin/dashboard', function () {
+    return inertia('Admin/Dashboard');
+});
+
 Route::get('/auth/admin', function () {
     return inertia('Admin/Auth');
 });

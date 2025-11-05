@@ -60,16 +60,13 @@ const PresensiForm = () => {
       <Card className="w-full max-w-7xl mx-auto bg-[#1a1a1a] border-[#2a2a2a]">
         <CardHeader className="text-center pb-8 px-8 pt-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-[#EFEEEA] rounded-full flex items-center justify-center">
-              <span className="text-[#161616] font-bold text-lg font-primary">SCC</span>
-            </div>
-            <CardTitle className="font-primary text-[#EFEEEA] text-4xl">Presensi</CardTitle>
+            <CardTitle className="font-primary text-[#EFEEEA] text-4xl">Attendance Form</CardTitle>
           </div>
           <CardDescription className="text-[#99a1af] text-lg">
-            Isi form berikut untuk melakukan presensi Stemba Computer Club
+            Fill out the following form to register for Stemba Computer Club attendance.
           </CardDescription>
           <Badge variant="secondary" className="mt-4 bg-[#EFEEEA] text-[#161616] text-base py-1.5 px-4">
-            Form Kehadiran XX/XX/20XX
+            Attendance Date: XX/XX/20XX
           </Badge>
         </CardHeader>
         
@@ -80,23 +77,23 @@ const PresensiForm = () => {
                 <span className="text-3xl text-white">✓</span>
               </div>
               <h3 className="text-2xl font-bold text-[#EFEEEA] mb-3 font-primary">
-                Presensi Berhasil!
+                Attendance Success!
               </h3>
               <p className="text-[#99a1af] text-lg">
-                Terima kasih <span className="text-[#EFEEEA] font-semibold">{formData.nama}</span> sudah melakukan presensi.
+                Thank You <span className="text-[#EFEEEA] font-semibold">{formData.nama}</span> for submitting.
               </p>
             </div>
           ) : (
             <Form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <FormField>
-                  <FormLabel className="text-base">Nama Lengkap</FormLabel>
+                  <FormLabel className="text-base">Full Name</FormLabel>
                   <FormControl>
                     <Input
                       name="nama"
                       value={formData.nama}
                       onChange={handleChange}
-                      placeholder="Masukkan nama lengkap"
+                      placeholder="Insert your full name"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
                       required
                     />
@@ -104,13 +101,13 @@ const PresensiForm = () => {
                 </FormField>
 
                 <FormField>
-                  <FormLabel className="text-base">Kelas</FormLabel>
+                  <FormLabel className="text-base">Class</FormLabel>
                   <FormControl>
                     <Input
                       name="kelas"
                       value={formData.kelas}
                       onChange={handleChange}
-                      placeholder="Contoh: X SIJA 1, XI SIJA 2"
+                      placeholder="Ex: X SIJA 1, XI SIJA 2"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2 "
                       required
                     />
@@ -135,13 +132,13 @@ const PresensiForm = () => {
                 </FormField>
 
                 <FormField>
-                  <FormLabel className="text-base">Kode Presensi</FormLabel>
+                  <FormLabel className="text-base">Attendance Code</FormLabel>
                   <FormControl>
                     <Input
                       name="kode"
                       value={formData.kode}
                       onChange={handleChange}
-                      placeholder="Masukkan kode yang diberikan"
+                      placeholder="Insert the code provided"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
                       required
                     />
@@ -155,7 +152,7 @@ const PresensiForm = () => {
                   className="w-full bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9] text-lg py-3 h-14 text-base font-semibold"
                   disabled={!formData.nama || !formData.kelas || !formData.email || !formData.kode}
                 >
-                  Submit Presensi
+                  Submit
                 </Button>
               </div>
             </Form>

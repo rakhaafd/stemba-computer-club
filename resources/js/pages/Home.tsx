@@ -123,7 +123,7 @@ const Home = () => {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
           <Badge variant="secondary" className="mb-6 bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-            🚀 Now Accepting New Members
+            Cyber Security · Web Development · UI/UX Design
           </Badge>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6 font-primary tracking-tight">
