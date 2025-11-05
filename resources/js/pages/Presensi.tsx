@@ -19,13 +19,10 @@ const Presensi = () => {
   return (
     <div className="min-h-screen bg-[#161616] text-[#EFEEEA]">
       {/* Hero Section */}
-      <section className="py-16 px-6 pt-20">
+      <section className="py-2 px-6 pt-20">
         <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <Badge variant="secondary" className="mb-6 bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-            📋 Sistem Presensi
-          </Badge>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 font-primary tracking-tight">
             Presensi <span className="text-[#99a1af]">SCC</span>
