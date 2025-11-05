@@ -21,9 +21,9 @@ const buttonVariants = cva(
         link: "text-[#EFEEEA] underline-offset-4 hover:underline",
       },
       size: {
-        default: "px-5 py-2", // Diubah dari py-2.5 menjadi py-2
-        sm: "px-4 py-1.5 text-sm", // Ditambahkan py-1.5
-        lg: "px-6 py-2.5 text-lg", // Diubah dari py-3 menjadi py-2.5
+        default: "px-5 py-2.5",
+        sm: "px-4 text-sm",
+        lg: "px-6 py-3 text-lg",
         icon: "size-9",
       },
     },
