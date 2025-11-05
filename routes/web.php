@@ -11,7 +11,7 @@ Route::prefix('/auth')->group(function () {
     require_once __DIR__ . '/auth/auth.php';
 });
 
-Route::prefix('/user')->group(function () {
+Route::prefix('/user/')->group(function () {
     require_once __DIR__ . '/user/presensi.php';
 });
 
