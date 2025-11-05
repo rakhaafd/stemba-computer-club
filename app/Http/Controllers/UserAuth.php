@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Services\UserAuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserAuth extends Controller
 {
+    public function __construct(public UserAuthService $user)
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +35,22 @@ class UserAuth extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $credentials = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
+        // $info = 'invalid';
+        if (Auth::attempt($credentials)) {
+            // $info = 'sucesss';
+            // dd($info);
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+        // dd($info);
+
+        return back()->withErrors([
+            'email' => 'Invalid credentials.',
+        ]);
     }
 
     /**
@@ -62,5 +83,10 @@ class UserAuth extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function register(Request $request) {
+        $this->user->register($request->all());
+        return redirect()->intended('/');
     }
 }
