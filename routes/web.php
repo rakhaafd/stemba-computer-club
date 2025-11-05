@@ -18,3 +18,7 @@ Route::prefix('/user/')->group(function () {
 Route::get('/', function () {
     return inertia('Home');
 });
+
+Route::get('/auth/admin', function () {
+    return inertia('Admin/Auth');
+});
