@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/tes', function () {
+Route::get('/leaderboard', function () {
     return inertia('Leaderboard');
 });
 
@@ -17,4 +17,8 @@ Route::prefix('/user/')->group(function () {
 
 Route::get('/', function () {
     return inertia('Home');
+});
+
+Route::get('/auth/admin', function () {
+    return inertia('Admin/Auth');
 });
