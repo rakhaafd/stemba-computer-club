@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\TimeAccessPresensiMiddleware;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,6 +14,8 @@ Route::prefix('/auth')->group(function () {
 
 Route::prefix('/user/')->group(function () {
     require_once __DIR__ . '/user/presensi.php';
+    Route::middleware([TimeAccessPresensiMiddleware::class])->group(function () {
+    });
 });
 
 Route::get('/', function () {
