@@ -26,18 +26,18 @@ const Presensi = () => {
         }`}>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 font-primary tracking-tight">
-            Presensi <span className="text-[#99a1af]">SCC</span>
+            Attendance <span className="text-[#99a1af]">SCC</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-[#99a1af] mb-8 leading-relaxed max-w-3xl mx-auto">
-            Lakukan presensi kehadiran untuk kegiatan Stemba Computer Club dengan mudah dan cepat.
+            Take attendance for Stemba Computer Club activities easily and quickly.
           </p>
 
           <Button 
             onClick={scrollToForm}
             className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9] text-lg px-8"
           >
-            Isi Presensi Sekarang
+            Fill out now!
           </Button>
         </div>
       </section>
