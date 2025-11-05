@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('week_number')->nullable();
+            $table->date('date')->nullable(); // optional: to record session date
             $table->timestamps();
         });
     }
