@@ -301,8 +301,7 @@ const Home = () => {
       
       {/* Hero Section dengan Terminal Animation */}
       <section className="min-h-screen flex items-center justify-center relative px-6 pt-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#161616] via-[#161616] to-[#1a1a1a]"></div>
-       
+        <div className="absolute inset-0 bg-gradient-to-br from-[#161616] via-[#161616] to-[#1a1a1a]"></div>       
         <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto items-center z-10">
           {/* Text Content */}
           <div className={`transition-all duration-1000 ${
@@ -338,8 +337,6 @@ const Home = () => {
                 View Memories
               </Button>
             </div>
-          </div>
-
           {/* Terminal Animation */}
           <div className={`transition-all duration-1000 delay-500 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -382,7 +379,7 @@ const Home = () => {
                   <div className="text-3xl md:text-4xl font-bold text-[#EFEEEA] font-primary mb-2 group-hover:text-[var(--color-secondary)] transition-colors duration-300">
                     {stat.number}
                   </div>
-                  <div className="text-[var(--color-secondary)] text-sm md:text-base">
+                  <div className="text-[#99a1af] text-sm md:text-base">
                     {stat.label}
                   </div>
                 </CardContent>
@@ -582,11 +579,11 @@ const Home = () => {
       <section id="about" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
+            <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
               About Us
             </Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary">
-              Welcome to <span className="text-[var(--color-secondary)]">Stemba Computer Club</span>
+              Welcome to <span className="text-[#99a1af]">Stemba Computer Club</span>
             </h2>
             <p className="text-xl text-[var(--color-secondary)] max-w-3xl mx-auto">
               A vibrant community where technology enthusiasts come together to learn,
@@ -608,7 +605,7 @@ const Home = () => {
                 <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
                   Join Our Community
                 </Button>
-                <Button variant="outline" className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10">
+                <Button variant="outline" className="border-[#99a1af] text-[#EFEEEA] hover:bg-[#99a1af]/10">
                   View Projects
                 </Button>
               </div>
@@ -620,13 +617,13 @@ const Home = () => {
                   {features.map((feature, index) => (
                     <div
                       key={feature.title}
-                      className="bg-[#161616] p-4 rounded-lg border border-[#2a2a2a] hover:border-[var(--color-secondary)] transition-all duration-300"
+                      className="bg-[#161616] p-4 rounded-lg border border-[#2a2a2a] hover:border-[#99a1af] transition-all duration-300"
                     >
                       <div className="text-2xl mb-2">{feature.icon}</div>
                       <h3 className="font-bold text-[#EFEEEA] mb-1 font-primary">
                         {feature.title}
                       </h3>
-                      <p className="text-sm text-[var(--color-secondary)]">
+                      <p className="text-sm text-[#99a1af]">
                         {feature.description}
                       </p>
                     </div>
@@ -638,28 +635,96 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Features Section */}
+      <section id="features" className="py-20 bg-[#1a1a1a]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
+              Why Join Us
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary">
+              What Makes Us <span className="text-[#99a1af]">Different</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Mentorship Program",
+                description: "Get guidance from experienced mentors and industry professionals",
+                icon: "🎯"
+              },
+              {
+                title: "Project Portfolio",
+                description: "Build an impressive portfolio of real-world projects",
+                icon: "💼"
+              },
+              {
+                title: "Career Development",
+                description: "Prepare for tech careers with interview prep and resume workshops",
+                icon: "🚀"
+              },
+              {
+                title: "Community Events",
+                description: "Participate in workshops, tech talks, and networking events",
+                icon: "👥"
+              },
+              {
+                title: "Resource Library",
+                description: "Access curated learning resources and tools",
+                icon: "📚"
+              },
+              {
+                title: "Flexible Learning",
+                description: "Learn at your own pace with structured learning paths",
+                icon: "⏱️"
+              }
+            ].map((feature, index) => (
+              <Card 
+                key={feature.title}
+                className="bg-[#161616] border-[#2a2a2a] hover:border-[#EFEEEA] transition-all duration-300 group"
+              >
+                <CardHeader>
+                  <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-300">
+                    {feature.icon}
+                  </div>
+                  <CardTitle className="font-primary text-[#EFEEEA]">
+                    {feature.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-[#99a1af]">
+                    {feature.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Activities Section */}
       <section id="activities" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
+            <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
               Our Focus Areas
             </Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary">
-              Explore <span className="text-[var(--color-secondary)]">Technologies</span>
+              Explore <span className="text-[#99a1af]">Technologies</span>
             </h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {activities.map((activity, index) => (
               <Card
                 key={activity.title}
-                className="bg-[#1a1a1a] border-[#2a2a2a] hover:border-[var(--color-secondary)] transition-all duration-300 group hover:scale-105"
+                className="bg-[#1a1a1a] border-[#2a2a2a] hover:border-[#99a1af] transition-all duration-300 group hover:scale-105"
               >
                 <CardHeader>
-                  <CardTitle className="font-primary text-[#EFEEEA] group-hover:text-[var(--color-secondary)] transition-colors duration-300">
+                  <CardTitle className="font-primary text-[#EFEEEA] group-hover:text-[#99a1af] transition-colors duration-300">
                     {activity.title}
                   </CardTitle>
-                  <CardDescription className="text-[var(--color-secondary)]">
+                  <CardDescription className="text-[#99a1af]">
                     {activity.description}
                   </CardDescription>
                 </CardHeader>
@@ -686,13 +751,13 @@ const Home = () => {
       <section id="team" className="py-20 bg-[#1a1a1a]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
+            <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
               Meet The Team
             </Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary">
-              Our <span className="text-[var(--color-secondary)]">Leadership</span>
+              Our <span className="text-[#99a1af]">Leadership</span>
             </h2>
-            <p className="text-xl text-[var(--color-secondary)] max-w-3xl mx-auto">
+            <p className="text-xl text-[#99a1af] max-w-3xl mx-auto">
               Passionate students dedicated to making technology education accessible to all.
             </p>
           </div>
@@ -709,7 +774,7 @@ const Home = () => {
                   <CardTitle className="font-primary text-[#EFEEEA]">
                     {member.name}
                   </CardTitle>
-                  <CardDescription className="text-[var(--color-secondary)] mt-2">
+                  <CardDescription className="text-[#99a1af] mt-2">
                     {member.role}
                   </CardDescription>
                 </CardContent>
@@ -727,7 +792,7 @@ const Home = () => {
               <Badge variant="secondary" className="mb-4 bg-[#EFEEEA] text-[#161616]">
                 Limited Spots Available
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary text-[var(--color-secondary)]">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary text-[#99a1af]">
                 Ready to Start Your Tech Journey
               </h2>
               <p className="text-xl text-[var(--color-secondary)] mb-8 max-w-2xl mx-auto">
@@ -744,7 +809,7 @@ const Home = () => {
                   <DialogContent className="bg-[#1a1a1a] border-[#2a2a2a] text-[#EFEEEA]">
                     <DialogHeader>
                       <DialogTitle className="font-primary">Application Form</DialogTitle>
-                      <DialogDescription className="text-[var(--color-secondary)]">
+                      <DialogDescription className="text-[#99a1af]">
                         Fill out your details to join Stemba Computer Club
                       </DialogDescription>
                     </DialogHeader>
@@ -761,7 +826,7 @@ const Home = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10 text-lg px-8"
+                  className="border-[#99a1af] text-[#EFEEEA] hover:bg-[#99a1af]/10 text-lg px-8"
                   onClick={() => scrollToSection('about')}
                 >
                   Learn More
