@@ -696,6 +696,16 @@ const AdminDashboard = () => {
                                                 className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[var(--color-secondary)] focus:ring-2 focus:ring-[var(--color-secondary)] focus:outline-none"
                                             />
                                         </div>
+                                        
+                                        {/* Link Information */}
+                                        <div className="space-y-2 md:col-span-2">
+                                            <label className="text-sm font-medium text-[#EFEEEA]">Link Information</label>
+                                            <textarea
+                                                placeholder="Link competition...."
+                                                rows={3}
+                                                className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[var(--color-secondary)] focus:ring-2 focus:ring-[var(--color-secondary)] focus:outline-none"
+                                            />
+                                        </div>
 
                                         {/* Eligibility Requirements */}
                                         <div className="space-y-2 md:col-span-2">
