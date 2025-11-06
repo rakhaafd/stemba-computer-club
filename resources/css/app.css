@@ -15,6 +15,7 @@
     --bg-color: #161616
 }
 
+
 body {
     background-color: var(--bg-color);
     color: var(--color-primary);
