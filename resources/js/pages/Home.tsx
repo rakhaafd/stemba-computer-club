@@ -295,7 +295,7 @@ const Home = () => {
 
                         <h1 className="mb-6 font-primary text-5xl font-bold tracking-tight md:text-7xl">Stemba Computer Club</h1>
 
-                        <p className="mb-8 text-xl leading-relaxed text-[--color-secondary] md:text-2xl">
+                        <p className="mb-8 text-xl leading-relaxed text-[var(--color-secondary)] md:text-2xl">
                             A place where students learn, share knowledge, explore new challenges, and grow together as the next wave of digital
                             innovators.
                         </p>
@@ -311,7 +311,7 @@ const Home = () => {
                             <Button
                                 variant="outline"
                                 size="lg"
-                                className="border-[--color-secondary] px-8 text-lg text-[#EFEEEA] hover:bg-[--color-secondary]/10"
+                                className="border-[var(--color-secondary)] px-8 text-lg text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
                                 onClick={() => scrollToSection('memories')}
                             >
                                 View Memories
@@ -356,10 +356,10 @@ const Home = () => {
                         {stats.map((stat, index) => (
                             <Card
                                 key={index}
-                                className="group border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[--color-secondary]"
+                                className="group border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
                             >
                                 <CardContent className="p-6">
-                                    <div className="mb-2 font-primary text-3xl font-bold text-[#EFEEEA] transition-colors duration-300 group-hover:text-[--color-secondary] md:text-4xl">
+                                    <div className="mb-2 font-primary text-3xl font-bold text-[#EFEEEA] transition-colors duration-300 group-hover:text-[var(--color-secondary)] md:text-4xl">
                                         {stat.number}
                                     </div>
                                     <div className="text-sm text-[#99a1af] md:text-base">{stat.label}</div>
@@ -380,17 +380,17 @@ const Home = () => {
                         <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
                             Welcome to <span className="text-[#99a1af]">Stemba Computer Club</span>
                         </h2>
-                        <p className="mx-auto max-w-3xl text-xl text-[--color-secondary]">
+                        <p className="mx-auto max-w-3xl text-xl text-[var(--color-secondary)]">
                             A vibrant community where technology enthusiasts come together to learn, innovate, and shape the future through code.
                         </p>
                     </div>
                     <div className="grid items-center gap-12 lg:grid-cols-2">
                         <div className="space-y-6">
-                            <p className="text-lg leading-relaxed text-[--color-secondary]">
+                            <p className="text-lg leading-relaxed text-[var(--color-secondary)]">
                                 Stemba Computer Club (SCC) is a student community from the SIJA Department (Information Systems, Networking, and
                                 Applications) at SMKN 7 Semarang.
                             </p>
-                            <p className="text-lg leading-relaxed text-[--color-secondary]">
+                            <p className="text-lg leading-relaxed text-[var(--color-secondary)]">
                                 We are passionate about technology, programming, UI/UX design, and cybersecurity — a place where students learn, share
                                 knowledge, explore new challenges, and grow together as the next wave of digital innovators.
                             </p>
@@ -426,13 +426,13 @@ const Home = () => {
             <section id="memories" className="bg-[#161616] py-20">
                 <div className="mx-auto max-w-7xl px-6">
                     <div className="mb-16 text-center">
-                        <Badge variant="secondary" className="mb-4 bg-[--color-secondary] text-[#161616]">
+                        <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
                             Our Memories
                         </Badge>
                         <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
-                            Club <span className="text-[--color-secondary]">Activities</span>
+                            Club <span className="text-[var(--color-secondary)]">Activities</span>
                         </h2>
-                        <p className="mx-auto max-w-3xl text-xl text-[--color-secondary]">
+                        <p className="mx-auto max-w-3xl text-xl text-[var(--color-secondary)]">
                             Relive the amazing moments and events that make our community special
                         </p>
                     </div>
@@ -442,28 +442,30 @@ const Home = () => {
                         {memories.map((memory) => (
                             <Card
                                 key={memory.id}
-                                className="group overflow-hidden border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:scale-105 hover:border-[--color-secondary]"
+                                className="group overflow-hidden border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
                             >
-                                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[--color-secondary]/20 to-[#EFEEEA]/10">
+                                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[var(--color-secondary)]/20 to-[#EFEEEA]/10">
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent opacity-60"></div>
                                     <div className="absolute right-4 bottom-4 left-4">
                                         <div className="flex items-center justify-between">
-                                            <Badge className="bg-[#161616] text-[--color-secondary]">{memory.type}</Badge>
-                                            <span className="rounded bg-[#161616] px-2 py-1 text-xs text-[--color-secondary]">{memory.date}</span>
+                                            <Badge className="bg-[#161616] text-[var(--color-secondary)]">{memory.type}</Badge>
+                                            <span className="rounded bg-[#161616] px-2 py-1 text-xs text-[var(--color-secondary)]">
+                                                {memory.date}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                                 <CardHeader>
-                                    <CardTitle className="font-primary text-[#EFEEEA] transition-colors duration-300 group-hover:text-[--color-secondary]">
+                                    <CardTitle className="font-primary text-[#EFEEEA] transition-colors duration-300 group-hover:text-[var(--color-secondary)]">
                                         {memory.title}
                                     </CardTitle>
-                                    <CardDescription className="text-[--color-secondary]">{memory.description}</CardDescription>
+                                    <CardDescription className="text-[var(--color-secondary)]">{memory.description}</CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="space-y-2">
                                         {memory.highlights.map((highlight, index) => (
-                                            <div key={index} className="flex items-center text-sm text-[--color-secondary]">
-                                                <div className="mr-2 h-1.5 w-1.5 rounded-full bg-[--color-secondary]"></div>
+                                            <div key={index} className="flex items-center text-sm text-[var(--color-secondary)]">
+                                                <div className="mr-2 h-1.5 w-1.5 rounded-full bg-[var(--color-secondary)]"></div>
                                                 {highlight}
                                             </div>
                                         ))}
@@ -493,8 +495,8 @@ const Home = () => {
                                         <CardContent className="relative z-10 flex h-full flex-col justify-center p-8">
                                             <div className="mb-4 text-5xl">{feature.icon}</div>
                                             <h3 className="mb-3 font-primary text-2xl font-bold text-[#EFEEEA]">{feature.title}</h3>
-                                            <p className="mb-6 text-lg text-[--color-secondary]">{feature.description}</p>
-                                            <div className="font-primary text-3xl font-bold text-[--color-secondary]">{feature.stats}</div>
+                                            <p className="mb-6 text-lg text-[var(--color-secondary)]">{feature.description}</p>
+                                            <div className="font-primary text-3xl font-bold text-[var(--color-secondary)]">{feature.stats}</div>
                                         </CardContent>
                                     </Card>
                                 </div>
@@ -509,8 +511,8 @@ const Home = () => {
                                     onClick={() => handleFeatureChange(index)}
                                     className={`h-3 w-3 rounded-full transition-all duration-300 ${
                                         index === activeFeature
-                                            ? 'w-8 bg-[--color-secondary]'
-                                            : 'bg-[--color-secondary]/30 hover:bg-[--color-secondary]/50'
+                                            ? 'w-8 bg-[var(--color-secondary)]'
+                                            : 'bg-[var(--color-secondary)]/30 hover:bg-[var(--color-secondary)]/50'
                                     }`}
                                 />
                             ))}
@@ -530,17 +532,17 @@ const Home = () => {
                                     'Build a solid foundation for a cybersecurity career',
                                 ].map((item, index) => (
                                     <div key={index} className="group flex items-start space-x-4">
-                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[--color-secondary] transition-transform duration-300 group-hover:scale-110">
+                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-secondary)] transition-transform duration-300 group-hover:scale-110">
                                             <div className="h-2 w-2 rounded-full bg-[#161616]"></div>
                                         </div>
-                                        <p className="flex-1 text-lg text-[--color-secondary] transition-colors duration-300 group-hover:text-[#EFEEEA]">
+                                        <p className="flex-1 text-lg text-[var(--color-secondary)] transition-colors duration-300 group-hover:text-[#EFEEEA]">
                                             {item}
                                         </p>
                                     </div>
                                 ))}
                                 <div className="mt-8 border-t border-[#2a2a2a] pt-6">
                                     <h4 className="mb-3 font-primary text-lg font-bold text-[#EFEEEA]">Pathway to the Future:</h4>
-                                    <p className="text-lg text-[--color-secondary]">Cyber Analyst • Penetration Tester • Security Engineer</p>
+                                    <p className="text-lg text-[var(--color-secondary)]">Cyber Analyst • Penetration Tester • Security Engineer</p>
                                 </div>
                             </>
                         )}
@@ -554,17 +556,17 @@ const Home = () => {
                                     'Create a portfolio that showcases your coding journey',
                                 ].map((item, index) => (
                                     <div key={index} className="group flex items-start space-x-4">
-                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[--color-secondary] transition-transform duration-300 group-hover:scale-110">
+                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-secondary)] transition-transform duration-300 group-hover:scale-110">
                                             <div className="h-2 w-2 rounded-full bg-[#161616]"></div>
                                         </div>
-                                        <p className="flex-1 text-lg text-[--color-secondary] transition-colors duration-300 group-hover:text-[#EFEEEA]">
+                                        <p className="flex-1 text-lg text-[var(--color-secondary)] transition-colors duration-300 group-hover:text-[#EFEEEA]">
                                             {item}
                                         </p>
                                     </div>
                                 ))}
                                 <div className="mt-8 border-t border-[#2a2a2a] pt-6">
                                     <h4 className="mb-3 font-primary text-lg font-bold text-[#EFEEEA]">Pathway to the Future:</h4>
-                                    <p className="text-lg text-[--color-secondary]">Web Developer • Front-End Engineer • Full-Stack Developer</p>
+                                    <p className="text-lg text-[var(--color-secondary)]">Web Developer • Front-End Engineer • Full-Stack Developer</p>
                                 </div>
                             </>
                         )}
@@ -578,17 +580,17 @@ const Home = () => {
                                     'Build a professional design portfolio that stands out',
                                 ].map((item, index) => (
                                     <div key={index} className="group flex items-start space-x-4">
-                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[--color-secondary] transition-transform duration-300 group-hover:scale-110">
+                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-secondary)] transition-transform duration-300 group-hover:scale-110">
                                             <div className="h-2 w-2 rounded-full bg-[#161616]"></div>
                                         </div>
-                                        <p className="flex-1 text-lg text-[--color-secondary] transition-colors duration-300 group-hover:text-[#EFEEEA]">
+                                        <p className="flex-1 text-lg text-[var(--color-secondary)] transition-colors duration-300 group-hover:text-[#EFEEEA]">
                                             {item}
                                         </p>
                                     </div>
                                 ))}
                                 <div className="mt-8 border-t border-[#2a2a2a] pt-6">
                                     <h4 className="mb-3 font-primary text-lg font-bold text-[#EFEEEA]">Pathway to the Future:</h4>
-                                    <p className="text-lg text-[--color-secondary]">UI/UX Designer • Product Designer • Interaction Designer</p>
+                                    <p className="text-lg text-[var(--color-secondary)]">UI/UX Designer • Product Designer • Interaction Designer</p>
                                 </div>
                             </>
                         )}
@@ -684,7 +686,11 @@ const Home = () => {
                                 <CardContent>
                                     <div className="flex flex-wrap gap-2">
                                         {activity.skills.map((skill) => (
-                                            <Badge key={skill} variant="secondary" className="border-[#2a2a2a] bg-[#161616] text-[--color-secondary]">
+                                            <Badge
+                                                key={skill}
+                                                variant="secondary"
+                                                className="border-[#2a2a2a] bg-[#161616] text-[var(--color-secondary)]"
+                                            >
                                                 {skill}
                                             </Badge>
                                         ))}
@@ -714,7 +720,7 @@ const Home = () => {
                         {teamMembers.map((member) => (
                             <Card
                                 key={member.name}
-                                className="border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[--color-secondary]"
+                                className="border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
                             >
                                 <CardContent className="p-6">
                                     <Avatar className="mx-auto mb-4 h-20 w-20">
@@ -739,7 +745,7 @@ const Home = () => {
                                 Limited Spots Available
                             </Badge>
                             <h2 className="mb-4 font-primary text-3xl font-bold text-[#99a1af] md:text-4xl">Ready to Start Your Tech Journey</h2>
-                            <p className="mx-auto mb-8 max-w-2xl text-xl text-[--color-secondary]">
+                            <p className="mx-auto mb-8 max-w-2xl text-xl text-[var(--color-secondary)]">
                                 Join Stemba Computer Club today and become part of a community that's shaping the future of technology.
                             </p>
                             <div className="flex flex-wrap justify-center gap-4">

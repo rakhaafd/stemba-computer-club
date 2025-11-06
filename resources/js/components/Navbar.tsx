@@ -45,7 +45,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                             <button
                                 key={item}
                                 onClick={() => scrollToSection(item)}
-                                className="cursor-pointer font-medium text-[--color-secondary] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
+                                className="cursor-pointer font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
                             >
                                 {item}
                             </button>
@@ -75,7 +75,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                             <div className="border-b border-[#2a2a2a] px-4 py-2 text-sm text-[#EFEEEA]">{user.name}</div>
                                             <a
                                                 href="/profile"
-                                                className="block px-4 py-2 text-sm text-[--color-secondary] transition-colors duration-200 hover:bg-[#2a2a2a] hover:text-[#EFEEEA]"
+                                                className="block px-4 py-2 text-sm text-[var(--color-secondary)] transition-colors duration-200 hover:bg-[#2a2a2a] hover:text-[#EFEEEA]"
                                             >
                                                 Edit Profile
                                             </a>
@@ -84,7 +84,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                                 href="/auth/logout"
                                                 method="post"
                                                 as="button"
-                                                className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-[--color-secondary] transition-colors duration-200 hover:bg-[#2a2a2a] hover:text-[#EFEEEA]"
+                                                className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-[var(--color-secondary)] transition-colors duration-200 hover:bg-[#2a2a2a] hover:text-[#EFEEEA]"
                                             >
                                                 Logout
                                             </Link>
@@ -95,7 +95,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                 // User is not logged in - Show login button
                                 <a
                                     href="/auth/login"
-                                    className="font-medium text-[--color-secondary] transition-colors duration-200 hover:text-[#EFEEEA]"
+                                    className="font-medium text-[var(--color-secondary)] transition-colors duration-200 hover:text-[#EFEEEA]"
                                 >
                                     Login
                                 </a>
@@ -113,7 +113,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                         <div className="md:hidden">
                             <button
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="text-[--color-secondary] transition-colors duration-200 hover:text-[#EFEEEA]"
+                                className="text-[var(--color-secondary)] transition-colors duration-200 hover:text-[#EFEEEA]"
                             >
                                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     {isMenuOpen ? (
@@ -138,7 +138,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                         scrollToSection(item);
                                         setIsMenuOpen(false);
                                     }}
-                                    className="py-2 text-left font-medium text-[--color-secondary] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
+                                    className="py-2 text-left font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
                                 >
                                     {item}
                                 </button>
@@ -160,7 +160,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                         </div>
                                         <a
                                             href="/profile"
-                                            className="block w-full py-2 text-left text-[--color-secondary] transition-colors duration-200 hover:text-[#EFEEEA]"
+                                            className="block w-full py-2 text-left text-[var(--color-secondary)] transition-colors duration-200 hover:text-[#EFEEEA]"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             Edit Profile
@@ -169,7 +169,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                             href="/auth/logout"
                                             method="post"
                                             as="button"
-                                            className="block w-full cursor-pointer py-2 text-left text-[--color-secondary] transition-colors duration-200 hover:text-[#EFEEEA]"
+                                            className="block w-full cursor-pointer py-2 text-left text-[var(--color-secondary)] transition-colors duration-200 hover:text-[#EFEEEA]"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             Logout
@@ -178,7 +178,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                 ) : (
                                     <a
                                         href="/auth/login"
-                                        className="block w-full py-2 text-center font-medium text-[--color-secondary] transition-colors duration-200 hover:text-[#EFEEEA]"
+                                        className="block w-full py-2 text-center font-medium text-[var(--color-secondary)] transition-colors duration-200 hover:text-[#EFEEEA]"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         Login
@@ -202,7 +202,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                                     <DialogContent className="border-[#2a2a2a] bg-[#1a1a1a] text-[#EFEEEA]">
                                         <DialogHeader>
                                             <DialogTitle className="font-primary">Join Stemba Computer Club</DialogTitle>
-                                            <DialogDescription className="text-[--color-secondary]">
+                                            <DialogDescription className="text-[var(--color-secondary)]">
                                                 Enter your email to get notified when registrations open.
                                             </DialogDescription>
                                         </DialogHeader>
