@@ -103,24 +103,24 @@ const Home = () => {
 
     const features = [
         {
-            icon: '🚀',
-            title: 'Project-Based Learning',
-            description: 'Learn by building real-world projects with modern technologies',
+            icon: '🎯',
+            title: 'Skill Development',
+            description: 'Empowering students to master technology through hands-on learning and real experiences.',
         },
         {
-            icon: '👥',
-            title: 'Collaborative Environment',
-            description: 'Work together with like-minded peers and mentors',
+            icon: '🤝',
+            title: 'Collaboration & Community',
+            description: 'Building a supportive environment where members share knowledge and grow together.',
         },
         {
             icon: '💡',
-            title: 'Innovation Focus',
-            description: 'Explore cutting-edge technologies and creative solutions',
+            title: 'Innovation & Creativity',
+            description: 'Encouraging creative thinking to develop modern and impactful digital solutions.',
         },
         {
-            icon: '🏆',
-            title: 'Competitions',
-            description: 'Participate in hackathons and coding competitions',
+            icon: '🚀',
+            title: 'Future Readiness',
+            description: 'Preparing members to become the next generation of digital innovators and professionals.',
         },
     ];
 
@@ -422,63 +422,13 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Memories/Documentation Section */}
-            <section id="memories" className="bg-[#161616] py-20">
-                <div className="mx-auto max-w-7xl px-6">
-                    <div className="mb-16 text-center">
-                        <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
-                            Our Memories
-                        </Badge>
-                        <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
-                            Club <span className="text-[var(--color-secondary)]">Activities</span>
-                        </h2>
-                        <p className="mx-auto max-w-3xl text-xl text-[var(--color-secondary)]">
-                            Relive the amazing moments and events that make our community special
-                        </p>
-                    </div>
-
-                    {/* Memories Grid */}
-                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {memories.map((memory) => (
-                            <Card
-                                key={memory.id}
-                                className="group overflow-hidden border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
-                            >
-                                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[var(--color-secondary)]/20 to-[#EFEEEA]/10">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent opacity-60"></div>
-                                    <div className="absolute right-4 bottom-4 left-4">
-                                        <div className="flex items-center justify-between">
-                                            <Badge className="bg-[#161616] text-[var(--color-secondary)]">{memory.type}</Badge>
-                                            <span className="rounded bg-[#161616] px-2 py-1 text-xs text-[var(--color-secondary)]">
-                                                {memory.date}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <CardHeader>
-                                    <CardTitle className="font-primary text-[#EFEEEA] transition-colors duration-300 group-hover:text-[var(--color-secondary)]">
-                                        {memory.title}
-                                    </CardTitle>
-                                    <CardDescription className="text-[var(--color-secondary)]">{memory.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-2">
-                                        {memory.highlights.map((highlight, index) => (
-                                            <div key={index} className="flex items-center text-sm text-[var(--color-secondary)]">
-                                                <div className="mr-2 h-1.5 w-1.5 rounded-full bg-[var(--color-secondary)]"></div>
-                                                {highlight}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* Animated Feature Showcase - Only 3 Feature Cards */}
-            <section className="mb-16 px-12">
+            <section className="mb-16 px-12 pb-20">
+                <div className='mb-16 text-center'>
+                    <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
+                        What are we going to <span className="text-[#99a1af]">learn?</span>
+                    </h2>
+                </div>
                 <div className="grid items-center gap-12 lg:grid-cols-2">
                     {/* Left Side - Feature Cards */}
                     <div className="space-y-6">
@@ -598,8 +548,63 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Memories/Documentation Section */}
+            <section id="memories" className="bg-[#1a1a1a] py-20">
+                <div className="mx-auto max-w-7xl px-6">
+                    <div className="mb-16 text-center">
+                        <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
+                            Our Memories
+                        </Badge>
+                        <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
+                            Club <span className="text-[var(--color-secondary)]">Activities</span>
+                        </h2>
+                        <p className="mx-auto max-w-3xl text-xl text-[var(--color-secondary)]">
+                            Relive the amazing moments and events that make our community special
+                        </p>
+                    </div>
+
+                    {/* Memories Grid */}
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        {memories.map((memory) => (
+                            <Card
+                                key={memory.id}
+                                className="group overflow-hidden border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
+                            >
+                                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[var(--color-secondary)]/20 to-[#EFEEEA]/10">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent opacity-60"></div>
+                                    <div className="absolute right-4 bottom-4 left-4">
+                                        <div className="flex items-center justify-between">
+                                            <Badge className="bg-[#161616] text-[var(--color-secondary)]">{memory.type}</Badge>
+                                            <span className="rounded bg-[#161616] px-2 py-1 text-xs text-[var(--color-secondary)]">
+                                                {memory.date}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <CardHeader>
+                                    <CardTitle className="font-primary text-[#EFEEEA] transition-colors duration-300 group-hover:text-[var(--color-secondary)]">
+                                        {memory.title}
+                                    </CardTitle>
+                                    <CardDescription className="text-[var(--color-secondary)]">{memory.description}</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-2">
+                                        {memory.highlights.map((highlight, index) => (
+                                            <div key={index} className="flex items-center text-sm text-[var(--color-secondary)]">
+                                                <div className="mr-2 h-1.5 w-1.5 rounded-full bg-[var(--color-secondary)]"></div>
+                                                {highlight}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Features Section */}
-            <section id="features" className="bg-[#1a1a1a] py-20">
+            <section id="features" className="py-20">
                 <div className="mx-auto max-w-6xl px-6">
                     <div className="mb-16 text-center">
                         <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
