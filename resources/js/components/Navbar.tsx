@@ -38,7 +38,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
             </div>
             <span className="text-xl font-bold font-primary">SCC</span>
           </div>
-          
+
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
             {menuItems.map((item) => (
@@ -65,8 +65,8 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                   >
                     <div className="w-8 h-8 bg-[#EFEEEA] rounded-full flex items-center justify-center">
                       {user.avatar ? (
-                        <img 
-                          src={user.avatar} 
+                        <img
+                          src={user.avatar}
                           alt={user.name}
                           className="w-8 h-8 rounded-full object-cover"
                         />
@@ -115,32 +115,11 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
 
             {/* Join Waitlist/Attendance Button - Desktop */}
             <div className="hidden md:block">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                    Attendance
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-[#1a1a1a] border-[#2a2a2a] text-[#EFEEEA]">
-                  <DialogHeader>
-                    <DialogTitle className="font-primary">Join Stemba Computer Club</DialogTitle>
-                    <DialogDescription className="text-[var(--color-secondary)]">
-                      Enter your email to get notified when registrations open.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4">
-                    <Input 
-                      placeholder="Enter your email" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA]"
-                    />
-                    <Button className="w-full bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                      Notify Me
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <Link href="/user/presensi">
+                <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
+                  Attendance
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -177,7 +156,7 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                   {item}
                 </button>
               ))}
-              
+
               {/* Mobile Auth Section */}
               <div className="pt-2 border-t border-[#2a2a2a]">
                 {user ? (
@@ -185,8 +164,8 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                     <div className="flex items-center gap-3 py-2">
                       <div className="w-8 h-8 bg-[#EFEEEA] rounded-full flex items-center justify-center">
                         {user.avatar ? (
-                          <img 
-                            src={user.avatar} 
+                          <img
+                            src={user.avatar}
                             alt={user.name}
                             className="w-8 h-8 rounded-full object-cover"
                           />
@@ -226,6 +205,15 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                 )}
               </div>
 
+              {/* Attendance Button - Mobile */}
+              <div className="pt-2">
+                <Link href="/user/presensi" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
+                    Attendance
+                  </Button>
+                </Link>
+              </div>
+
               {/* Join Waitlist Button - Mobile */}
               <div className="pt-2">
                 <Dialog>
@@ -242,8 +230,8 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                       </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4">
-                      <Input 
-                        placeholder="Enter your email" 
+                      <Input
+                        placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA]"
