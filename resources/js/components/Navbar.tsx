@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@components/ui/dialog';
+import { Link } from "@inertiajs/react";
 
 interface NavbarProps {
   scrollToSection: (sectionId: string) => void;
@@ -58,29 +59,10 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
           <div className="hidden md:block">
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
+                <Link href="/user/presensi" className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9] p-3 rounded">
                   Attendence
-                </Button>
+                </Link>
               </DialogTrigger>
-              <DialogContent className="bg-[#1a1a1a] border-[#2a2a2a] text-[#EFEEEA]">
-                <DialogHeader>
-                  <DialogTitle className="font-primary">Join Stemba Computer Club</DialogTitle>
-                  <DialogDescription className="text-[var(--color-secondary)]">
-                    Enter your email to get notified when registrations open.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <Input 
-                    placeholder="Enter your email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA]"
-                  />
-                  <Button className="w-full bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                    Notify Me
-                  </Button>
-                </div>
-              </DialogContent>
             </Dialog>
           </div>
         </div>
