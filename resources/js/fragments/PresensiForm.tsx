@@ -100,7 +100,7 @@ const CustomSelect = ({
 }
 
 const PresensiForm = () => {
-  const { data, setData, post, processing, reset, errors } = useForm({
+  const [formData, setFormData] = useState<PresensiData>({
     nama: "",
     kelas: "",
     email: "",
@@ -164,7 +164,7 @@ const PresensiForm = () => {
             Attendance Date: XX/XX/20XX
           </Badge>
         </CardHeader>
-
+        
         <CardContent className="pb-8 px-8">
           {isSubmitted ? (
             <div className="text-center py-12">
@@ -186,7 +186,7 @@ const PresensiForm = () => {
                   <FormControl>
                     <Input
                       name="nama"
-                      value={data.nama}
+                      value={formData.nama}
                       onChange={handleChange}
                       placeholder="Insert your full name"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
@@ -200,7 +200,7 @@ const PresensiForm = () => {
                   <FormControl>
                     <Input
                       name="kelas"
-                      value={data.kelas}
+                      value={formData.kelas}
                       onChange={handleChange}
                       placeholder="Ex: X SIJA 1, XI SIJA 2"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2 "
@@ -217,7 +217,7 @@ const PresensiForm = () => {
                     <Input
                       name="email"
                       type="email"
-                      value={data.email}
+                      value={formData.email}
                       onChange={handleChange}
                       placeholder="email@example.com"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
@@ -231,7 +231,7 @@ const PresensiForm = () => {
                   <FormControl>
                     <Input
                       name="kode"
-                      value={data.kode}
+                      value={formData.kode}
                       onChange={handleChange}
                       placeholder="Insert the code provided"
                       className="bg-[#161616] border-[#2a2a2a] text-[#EFEEEA] focus:border-[#99a1af] h-12 text-base mt-2"
