@@ -14,6 +14,15 @@ const Home = () => {
     const [showCursor, setShowCursor] = useState(true);
     const terminalRef = useRef<HTMLDivElement>(null);
     const [activeFeature, setActiveFeature] = useState(0);
+    const [showAchievements, setShowAchievements] = useState(false);
+
+    // Function untuk menampilkan achievements ketika user berinteraksi dengan dots
+    const handleFeatureChange = (index: number) => {
+        setActiveFeature(index);
+        if (!showAchievements) {
+            setShowAchievements(true);
+        }
+    };
 
     useEffect(() => {
         setIsVisible(true);
@@ -86,14 +95,6 @@ const Home = () => {
             terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
         }
     }, [terminalText]);
-
-    // Animasi features rotation
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveFeature((prev) => (prev + 1) % features.length);
-        }, 4000);
-        return () => clearInterval(interval);
-    }, []);
 
     const scrollToSection = (sectionId: string) => {
         const element = document.getElementById(sectionId);
@@ -251,46 +252,28 @@ const Home = () => {
     // Features data untuk Why Join Us section
     const joinUsFeatures = [
         {
-            icon: '🎯',
-            title: 'Personalized Mentorship',
-            description: '1-on-1 guidance from industry experts and senior members',
-            gradient: 'from-purple-500 to-pink-500',
-            stats: '50+ Mentors',
+            icon: '🛡️',
+            title: 'Cyber Security',
+            description:
+                "Secure the Digital World. Gain the skills to protect systems, data, and networks from modern cyber threats. Through ethical hacking, network defense, and forensic analysis, you'll learn to think like a hacker — for the right reasons.",
+            stats: 'Cyber Security',
+            gradient: 'from-blue-500 to-purple-600',
         },
         {
-            icon: '💼',
-            title: 'Project Portfolio',
-            description: 'Build real-world projects that impress employers',
-            gradient: 'from-blue-500 to-cyan-500',
-            stats: '15+ Projects',
+            icon: '💻',
+            title: 'Programming (Web Development)',
+            description:
+                "Build the Web of Tomorrow. From simple websites to dynamic web applications — learn how to code, design, and deploy interactive digital experiences. You'll master both front-end and back-end development using modern tools and frameworks.",
+            stats: 'Web Development',
+            gradient: 'from-green-500 to-blue-600',
         },
         {
-            icon: '🚀',
-            title: 'Career Launchpad',
-            description: 'Exclusive internship opportunities and job referrals',
-            gradient: 'from-green-500 to-emerald-500',
-            stats: '80% Placement',
-        },
-        {
-            icon: '👥',
-            title: 'Vibrant Community',
-            description: 'Connect with 200+ passionate tech enthusiasts',
-            gradient: 'from-orange-500 to-red-500',
-            stats: '200+ Members',
-        },
-        {
-            icon: '📚',
-            title: 'Learning Resources',
-            description: 'Access to premium courses and learning materials',
-            gradient: 'from-indigo-500 to-purple-500',
-            stats: '100+ Resources',
-        },
-        {
-            icon: '⚡',
-            title: 'Fast-Track Growth',
-            description: 'Accelerate your learning with structured pathways',
-            gradient: 'from-yellow-500 to-orange-500',
-            stats: '2x Growth',
+            icon: '🎨',
+            title: 'UI/UX Design',
+            description:
+                "Design Experiences that Matter. Combine creativity and empathy to design user-centered digital products. From wireframes to prototypes, you'll learn how to create interfaces that not only look great — but feel great to use.",
+            stats: 'UI/UX Design',
+            gradient: 'from-pink-500 to-orange-600',
         },
     ];
 
@@ -313,8 +296,8 @@ const Home = () => {
                         <h1 className="mb-6 font-primary text-5xl font-bold tracking-tight md:text-7xl">Stemba Computer Club</h1>
 
                         <p className="mb-8 text-xl leading-relaxed text-[var(--color-secondary)] md:text-2xl">
-                            Where <span className="text-[#EFEEEA]">code meets creativity</span> and innovation knows no bounds. Join the next
-                            generation of tech innovators.
+                            A place where students learn, share knowledge, explore new challenges, and grow together as the next wave of digital
+                            innovators.
                         </p>
 
                         <div className="flex flex-wrap gap-4">
@@ -387,6 +370,58 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* About Section */}
+            <section id="about" className="px-6 py-20">
+                <div className="mx-auto max-w-6xl">
+                    <div className="mb-16 text-center">
+                        <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
+                            About Us
+                        </Badge>
+                        <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
+                            Welcome to <span className="text-[#99a1af]">Stemba Computer Club</span>
+                        </h2>
+                        <p className="mx-auto max-w-3xl text-xl text-[var(--color-secondary)]">
+                            A vibrant community where technology enthusiasts come together to learn, innovate, and shape the future through code.
+                        </p>
+                    </div>
+                    <div className="grid items-center gap-12 lg:grid-cols-2">
+                        <div className="space-y-6">
+                            <p className="text-lg leading-relaxed text-[var(--color-secondary)]">
+                                Stemba Computer Club (SCC) is a student community from the SIJA Department (Information Systems, Networking, and
+                                Applications) at SMKN 7 Semarang.
+                            </p>
+                            <p className="text-lg leading-relaxed text-[var(--color-secondary)]">
+                                We are passionate about technology, programming, UI/UX design, and cybersecurity — a place where students learn, share
+                                knowledge, explore new challenges, and grow together as the next wave of digital innovators.
+                            </p>
+                            <div className="flex gap-4">
+                                <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">Join Our Community</Button>
+                                <Button variant="outline" className="border-[#99a1af] text-[#EFEEEA] hover:bg-[#99a1af]/10">
+                                    View Projects
+                                </Button>
+                            </div>
+                        </div>
+
+                        <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
+                            <CardContent className="p-6">
+                                <div className="grid grid-cols-2 gap-4">
+                                    {features.map((feature, index) => (
+                                        <div
+                                            key={feature.title}
+                                            className="rounded-lg border border-[#2a2a2a] bg-[#161616] p-4 transition-all duration-300 hover:border-[#99a1af]"
+                                        >
+                                            <div className="mb-2 text-2xl">{feature.icon}</div>
+                                            <h3 className="mb-1 font-primary font-bold text-[#EFEEEA]">{feature.title}</h3>
+                                            <p className="text-sm text-[#99a1af]">{feature.description}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+            </section>
+
             {/* Memories/Documentation Section */}
             <section id="memories" className="bg-[#161616] py-20">
                 <div className="mx-auto max-w-7xl px-6">
@@ -442,165 +477,129 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Why Join Us Section */}
-            <section id="features" className="bg-[#1a1a1a] py-20">
-                <div className="mx-auto max-w-7xl px-6">
-                    <div className="mb-16 text-center">
-                        <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
-                            Why Join Us
-                        </Badge>
-                        <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
-                            Your <span className="text-[var(--color-secondary)]">Tech Journey</span> Starts Here
-                        </h2>
-                        <p className="mx-auto max-w-3xl text-xl text-[var(--color-secondary)]">
-                            Experience the difference with our unique approach to tech education and community building
-                        </p>
-                    </div>
-
-                    {/* Animated Feature Showcase */}
-                    <div className="mb-16 grid items-center gap-12 lg:grid-cols-2">
-                        <div className="space-y-6">
-                            <div className="relative h-96">
-                                {joinUsFeatures.map((feature, index) => (
-                                    <div
-                                        key={feature.title}
-                                        className={`absolute inset-0 transform transition-all duration-1000 ${
-                                            index === activeFeature ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
-                                        }`}
-                                    >
-                                        <Card className="relative h-full overflow-hidden border-[#2a2a2a] bg-gradient-to-br from-[#161616] to-[#1a1a1a]">
-                                            <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-10`}></div>
-                                            <CardContent className="relative z-10 flex h-full flex-col justify-center p-8">
-                                                <div className="mb-4 text-5xl">{feature.icon}</div>
-                                                <h3 className="mb-3 font-primary text-2xl font-bold text-[#EFEEEA]">{feature.title}</h3>
-                                                <p className="mb-6 text-lg text-[var(--color-secondary)]">{feature.description}</p>
-                                                <div className="font-primary text-3xl font-bold text-[var(--color-secondary)]">{feature.stats}</div>
-                                            </CardContent>
-                                        </Card>
-                                    </div>
-                                ))}
-                            </div>
+            {/* Animated Feature Showcase - Only 3 Feature Cards */}
+            <section className="mb-16 px-12">
+                <div className="grid items-center gap-12 lg:grid-cols-2">
+                    {/* Left Side - Feature Cards */}
+                    <div className="space-y-6">
+                        <div className="relative h-96">
+                            {joinUsFeatures.map((feature, index) => (
+                                <div
+                                    key={feature.title}
+                                    className={`absolute inset-0 transform transition-all duration-1000 ${
+                                        index === activeFeature ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
+                                    }`}
+                                >
+                                    <Card className="relative h-full overflow-hidden border-[#2a2a2a] bg-gradient-to-br from-[#161616] to-[#1a1a1a]">
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-10`}></div>
+                                        <CardContent className="relative z-10 flex h-full flex-col justify-center p-8">
+                                            <div className="mb-4 text-5xl">{feature.icon}</div>
+                                            <h3 className="mb-3 font-primary text-2xl font-bold text-[#EFEEEA]">{feature.title}</h3>
+                                            <p className="mb-6 text-lg text-[var(--color-secondary)]">{feature.description}</p>
+                                            <div className="font-primary text-3xl font-bold text-[var(--color-secondary)]">{feature.stats}</div>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            ))}
                         </div>
 
-                        <div className="space-y-6">
-                            <h3 className="mb-6 font-primary text-2xl font-bold text-[#EFEEEA]">What You'll Achieve</h3>
-                            {[
-                                'Master in-demand tech skills through hands-on projects',
-                                'Build a professional network with industry experts',
-                                'Create an impressive portfolio that stands out',
-                                'Gain real-world experience before graduation',
-                                'Develop leadership and teamwork abilities',
-                                'Access exclusive career opportunities',
-                            ].map((item, index) => (
-                                <div key={index} className="group flex items-start space-x-4">
-                                    <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-secondary)] transition-transform duration-300 group-hover:scale-110">
-                                        <div className="h-2 w-2 rounded-full bg-[#161616]"></div>
-                                    </div>
-                                    <p className="flex-1 text-lg text-[var(--color-secondary)] transition-colors duration-300 group-hover:text-[#EFEEEA]">
-                                        {item}
-                                    </p>
-                                </div>
+                        {/* Feature Navigation Dots - Moved under the cards */}
+                        <div className="flex justify-center space-x-3">
+                            {joinUsFeatures.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleFeatureChange(index)}
+                                    className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                                        index === activeFeature
+                                            ? 'w-8 bg-[var(--color-secondary)]'
+                                            : 'bg-[var(--color-secondary)]/30 hover:bg-[var(--color-secondary)]/50'
+                                    }`}
+                                />
                             ))}
                         </div>
                     </div>
 
-                    {/* Feature Navigation Dots */}
-                    <div className="mb-12 flex justify-center space-x-3">
-                        {joinUsFeatures.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setActiveFeature(index)}
-                                className={`h-3 w-3 rounded-full transition-all duration-300 ${
-                                    index === activeFeature
-                                        ? 'w-8 bg-[var(--color-secondary)]'
-                                        : 'bg-[var(--color-secondary)]/30 hover:bg-[var(--color-secondary)]/50'
-                                }`}
-                            />
-                        ))}
-                    </div>
-
-                    {/* Additional Features Grid */}
-                    <div className="grid gap-8 md:grid-cols-3">
-                        {[
-                            {
-                                icon: '🎓',
-                                title: 'Structured Learning Paths',
-                                description: 'Follow curated roadmaps for different tech domains',
-                            },
-                            {
-                                icon: '🤝',
-                                title: 'Peer Learning',
-                                description: 'Learn from and with other passionate students',
-                            },
-                            {
-                                icon: '🌐',
-                                title: 'Global Network',
-                                description: 'Connect with alumni working at top tech companies',
-                            },
-                        ].map((feature, index) => (
-                            <Card
-                                key={feature.title}
-                                className="group border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
-                            >
-                                <CardContent className="p-6">
-                                    <div className="mb-4 text-4xl transition-transform duration-300 group-hover:scale-110">{feature.icon}</div>
-                                    <CardTitle className="mb-2 font-primary text-[#EFEEEA]">{feature.title}</CardTitle>
-                                    <CardDescription className="text-[var(--color-secondary)]">{feature.description}</CardDescription>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* About Section */}
-            <section id="about" className="px-6 py-20">
-                <div className="mx-auto max-w-6xl">
-                    <div className="mb-16 text-center">
-                        <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
-                            About Us
-                        </Badge>
-                        <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
-                            Welcome to <span className="text-[#99a1af]">Stemba Computer Club</span>
-                        </h2>
-                        <p className="mx-auto max-w-3xl text-xl text-[var(--color-secondary)]">
-                            A vibrant community where technology enthusiasts come together to learn, innovate, and shape the future through code.
-                        </p>
-                    </div>
-                    <div className="grid items-center gap-12 lg:grid-cols-2">
-                        <div className="space-y-6">
-                            <p className="text-lg leading-relaxed text-[var(--color-secondary)]">
-                                Founded with a vision to democratize technology education, Stemba Computer Club has been at the forefront of nurturing
-                                young tech talent since our inception.
-                            </p>
-                            <p className="text-lg leading-relaxed text-[var(--color-secondary)]">
-                                We believe in hands-on learning, collaborative projects, and creating an inclusive environment where every member can
-                                thrive and discover their passion for technology.
-                            </p>
-                            <div className="flex gap-4">
-                                <Button className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">Join Our Community</Button>
-                                <Button variant="outline" className="border-[#99a1af] text-[#EFEEEA] hover:bg-[#99a1af]/10">
-                                    View Projects
-                                </Button>
-                            </div>
-                        </div>
-
-                        <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                            <CardContent className="p-6">
-                                <div className="grid grid-cols-2 gap-4">
-                                    {features.map((feature, index) => (
-                                        <div
-                                            key={feature.title}
-                                            className="rounded-lg border border-[#2a2a2a] bg-[#161616] p-4 transition-all duration-300 hover:border-[#99a1af]"
-                                        >
-                                            <div className="mb-2 text-2xl">{feature.icon}</div>
-                                            <h3 className="mb-1 font-primary font-bold text-[#EFEEEA]">{feature.title}</h3>
-                                            <p className="text-sm text-[#99a1af]">{feature.description}</p>
+                    {/* Right Side - Achievements Content */}
+                    <div className="space-y-6">
+                        <h3 className="mb-6 font-primary text-2xl font-bold text-[#EFEEEA]">What You'll Achieve</h3>
+                        {activeFeature === 0 && ( // Cyber Security
+                            <>
+                                {[
+                                    'Learn ethical hacking and penetration testing fundamentals',
+                                    'Understand how to secure systems and prevent cyberattacks',
+                                    'Explore digital forensics and incident response',
+                                    'Join CTF (Capture The Flag) competitions to test your skills',
+                                    'Build a solid foundation for a cybersecurity career',
+                                ].map((item, index) => (
+                                    <div key={index} className="group flex items-start space-x-4">
+                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-secondary)] transition-transform duration-300 group-hover:scale-110">
+                                            <div className="h-2 w-2 rounded-full bg-[#161616]"></div>
                                         </div>
-                                    ))}
+                                        <p className="flex-1 text-lg text-[var(--color-secondary)] transition-colors duration-300 group-hover:text-[#EFEEEA]">
+                                            {item}
+                                        </p>
+                                    </div>
+                                ))}
+                                <div className="mt-8 border-t border-[#2a2a2a] pt-6">
+                                    <h4 className="mb-3 font-primary text-lg font-bold text-[#EFEEEA]">Pathway to the Future:</h4>
+                                    <p className="text-lg text-[var(--color-secondary)]">
+                                        Cyber Analyst • Penetration Tester • Security Engineer
+                                    </p>
                                 </div>
-                            </CardContent>
-                        </Card>
+                            </>
+                        )}
+                        {activeFeature === 1 && ( // Programming
+                            <>
+                                {[
+                                    'Learn HTML, CSS, and JavaScript fundamentals',
+                                    'Build responsive websites with modern frameworks',
+                                    'Collaborate on real projects using Git and teamwork tools',
+                                    'Gain hands-on experience through coding challenges and hackathons',
+                                    'Create a portfolio that showcases your coding journey',
+                                ].map((item, index) => (
+                                    <div key={index} className="group flex items-start space-x-4">
+                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-secondary)] transition-transform duration-300 group-hover:scale-110">
+                                            <div className="h-2 w-2 rounded-full bg-[#161616]"></div>
+                                        </div>
+                                        <p className="flex-1 text-lg text-[var(--color-secondary)] transition-colors duration-300 group-hover:text-[#EFEEEA]">
+                                            {item}
+                                        </p>
+                                    </div>
+                                ))}
+                                <div className="mt-8 border-t border-[#2a2a2a] pt-6">
+                                    <h4 className="mb-3 font-primary text-lg font-bold text-[#EFEEEA]">Pathway to the Future:</h4>
+                                    <p className="text-lg text-[var(--color-secondary)]">
+                                        Web Developer • Front-End Engineer • Full-Stack Developer
+                                    </p>
+                                </div>
+                            </>
+                        )}
+                        {activeFeature === 2 && ( // UI/UX Design
+                            <>
+                                {[
+                                    'Understand the principles of good design and usability',
+                                    'Learn how to use tools like Figma and Adobe XD',
+                                    'Conduct user research and testing for real-world insight',
+                                    'Create interactive prototypes and design systems',
+                                    'Build a professional design portfolio that stands out',
+                                ].map((item, index) => (
+                                    <div key={index} className="group flex items-start space-x-4">
+                                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-secondary)] transition-transform duration-300 group-hover:scale-110">
+                                            <div className="h-2 w-2 rounded-full bg-[#161616]"></div>
+                                        </div>
+                                        <p className="flex-1 text-lg text-[var(--color-secondary)] transition-colors duration-300 group-hover:text-[#EFEEEA]">
+                                            {item}
+                                        </p>
+                                    </div>
+                                ))}
+                                <div className="mt-8 border-t border-[#2a2a2a] pt-6">
+                                    <h4 className="mb-3 font-primary text-lg font-bold text-[#EFEEEA]">Pathway to the Future:</h4>
+                                    <p className="text-lg text-[var(--color-secondary)]">
+                                        UI/UX Designer • Product Designer • Interaction Designer
+                                    </p>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </section>
