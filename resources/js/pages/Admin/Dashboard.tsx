@@ -87,7 +87,7 @@ const AdminDashboard = () => {
                                 <AvatarImage src="/avatars/admin.jpg" />
                                 <AvatarFallback className="bg-[#EFEEEA] font-primary text-[#161616]">AD</AvatarFallback>
                             </Avatar>
-                            <Button variant="outline" className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10">
+                            <Button variant="outline" className="border-[--color-secondary] text-[#EFEEEA] hover:bg-[--color-secondary]/10">
                                 Logout
                             </Button>
                         </div>
@@ -101,14 +101,11 @@ const AdminDashboard = () => {
                 <section className="mb-8">
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {stats.map((stat, index) => (
-                            <Card
-                                key={index}
-                                className="border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:border-[var(--color-secondary)]"
-                            >
+                            <Card key={index} className="border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:border-[--color-secondary]">
                                 <CardContent className="p-6">
                                     <div className="mb-2 font-primary text-3xl font-bold text-[#EFEEEA]">{stat.number}</div>
                                     <div className="mb-1 font-medium text-[#EFEEEA]">{stat.label}</div>
-                                    <div className="text-sm text-[var(--color-secondary)]">{stat.change}</div>
+                                    <div className="text-sm text-[--color-secondary]">{stat.change}</div>
                                 </CardContent>
                             </Card>
                         ))}
@@ -125,7 +122,7 @@ const AdminDashboard = () => {
                                 className={`min-w-[120px] flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all duration-200 ${
                                     activeTab === tab
                                         ? 'bg-[#EFEEEA] text-[#161616]'
-                                        : 'text-[var(--color-secondary)] hover:bg-[#2a2a2a] hover:text-[#EFEEEA]'
+                                        : 'text-[--color-secondary] hover:bg-[#2a2a2a] hover:text-[#EFEEEA]'
                                 }`}
                             >
                                 <span className="hidden sm:inline">{tab.replace('-', ' ')}</span>
@@ -157,7 +154,7 @@ const AdminDashboard = () => {
                             <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                                 <CardHeader>
                                     <CardTitle className="font-primary text-[#EFEEEA]">Recent Activity</CardTitle>
-                                    <CardDescription className="text-[var(--color-secondary)]">
+                                    <CardDescription className="text-[--color-secondary]">
                                         Latest registrations and attendance records
                                     </CardDescription>
                                 </CardHeader>
@@ -176,9 +173,9 @@ const AdminDashboard = () => {
                                             {attendanceData.slice(0, 5).map((record) => (
                                                 <TableRow key={record.id} className="border-[#2a2a2a]">
                                                     <TableCell className="text-[#EFEEEA]">{record.name}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{record.class}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{record.branch}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{record.date}</TableCell>
+                                                    <TableCell className="text-[--color-secondary]">{record.class}</TableCell>
+                                                    <TableCell className="text-[--color-secondary]">{record.branch}</TableCell>
+                                                    <TableCell className="text-[--color-secondary]">{record.date}</TableCell>
                                                     <TableCell>
                                                         <Badge
                                                             variant="secondary"
@@ -215,7 +212,7 @@ const AdminDashboard = () => {
                                                     </div>
                                                     <div>
                                                         <div className="font-medium text-[#EFEEEA]">{student.name}</div>
-                                                        <div className="text-sm text-[var(--color-secondary)]">
+                                                        <div className="text-sm text-[--color-secondary]">
                                                             {student.class} • {student.branch}
                                                         </div>
                                                     </div>
@@ -242,13 +239,13 @@ const AdminDashboard = () => {
                                                 >
                                                     <div>
                                                         <div className="font-medium text-[#EFEEEA]">{code.code}</div>
-                                                        <div className="text-sm text-[var(--color-secondary)]">Period: {code.period}</div>
+                                                        <div className="text-sm text-[--color-secondary]">Period: {code.period}</div>
                                                     </div>
                                                     <div className="text-right">
                                                         <div className="text-[#EFEEEA]">
                                                             {code.uses}/{code.maxUses}
                                                         </div>
-                                                        <div className="text-sm text-[var(--color-secondary)]">uses</div>
+                                                        <div className="text-sm text-[--color-secondary]">uses</div>
                                                     </div>
                                                 </div>
                                             ))}
@@ -264,7 +261,7 @@ const AdminDashboard = () => {
                             <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                                 <CardHeader>
                                     <CardTitle className="font-primary text-[#EFEEEA]">Generate New Invite Code</CardTitle>
-                                    <CardDescription className="text-[var(--color-secondary)]">
+                                    <CardDescription className="text-[--color-secondary]">
                                         Create unique invite codes for different student periods
                                     </CardDescription>
                                 </CardHeader>
@@ -310,9 +307,9 @@ const AdminDashboard = () => {
                                             {inviteCodes.map((code) => (
                                                 <TableRow key={code.id} className="border-[#2a2a2a]">
                                                     <TableCell className="font-mono text-[#EFEEEA]">{code.code}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{code.period}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{code.createdAt}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">
+                                                    <TableCell className="text-[--color-secondary]">{code.period}</TableCell>
+                                                    <TableCell className="text-[--color-secondary]">{code.createdAt}</TableCell>
+                                                    <TableCell className="text-[--color-secondary]">
                                                         {code.uses}/{code.maxUses}
                                                     </TableCell>
                                                     <TableCell>
@@ -332,7 +329,7 @@ const AdminDashboard = () => {
                                                             variant="outline"
                                                             size="sm"
                                                             onClick={() => toggleCodeStatus(code.id)}
-                                                            className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
+                                                            className="border-[--color-secondary] text-[#EFEEEA] hover:bg-[--color-secondary]/10"
                                                         >
                                                             {code.isActive ? 'Deactivate' : 'Activate'}
                                                         </Button>
@@ -351,7 +348,7 @@ const AdminDashboard = () => {
                         <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                             <CardHeader>
                                 <CardTitle className="font-primary text-[#EFEEEA]">Attendance Records</CardTitle>
-                                <CardDescription className="text-[var(--color-secondary)]">Weekly class attendance tracking</CardDescription>
+                                <CardDescription className="text-[--color-secondary]">Weekly class attendance tracking</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <div className="mb-6 flex gap-4">
@@ -383,10 +380,10 @@ const AdminDashboard = () => {
                                         {attendanceData.map((record) => (
                                             <TableRow key={record.id} className="border-[#2a2a2a]">
                                                 <TableCell className="text-[#EFEEEA]">{record.name}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.class}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.email}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.branch}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.date}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{record.class}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{record.email}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{record.branch}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{record.date}</TableCell>
                                                 <TableCell>
                                                     <Badge
                                                         variant="secondary"
@@ -413,7 +410,7 @@ const AdminDashboard = () => {
                             <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                                 <CardHeader>
                                     <CardTitle className="font-primary text-[#EFEEEA]">Student Leaderboard</CardTitle>
-                                    <CardDescription className="text-[var(--color-secondary)]">
+                                    <CardDescription className="text-[--color-secondary]">
                                         Track attendance performance across different branches and years
                                     </CardDescription>
                                 </CardHeader>
@@ -446,7 +443,7 @@ const AdminDashboard = () => {
                                         {leaderboardData.map((student) => (
                                             <Card
                                                 key={student.rank}
-                                                className="border-[#2a2a2a] bg-[#161616] transition-all duration-300 hover:border-[var(--color-secondary)]"
+                                                className="border-[#2a2a2a] bg-[#161616] transition-all duration-300 hover:border-[--color-secondary]"
                                             >
                                                 <CardContent className="p-6">
                                                     <div className="flex items-center justify-between">
@@ -466,7 +463,7 @@ const AdminDashboard = () => {
                                                             </div>
                                                             <div>
                                                                 <div className="font-primary text-lg font-bold text-[#EFEEEA]">{student.name}</div>
-                                                                <div className="text-[var(--color-secondary)]">
+                                                                <div className="text-[--color-secondary]">
                                                                     {student.class} • {student.branch}
                                                                 </div>
                                                             </div>
@@ -474,14 +471,14 @@ const AdminDashboard = () => {
                                                         <div className="text-right">
                                                             <div className="font-primary text-2xl font-bold text-[#EFEEEA]">
                                                                 {student.attendance}
-                                                                <span className="text-lg text-[var(--color-secondary)]">/{student.total}</span>
+                                                                <span className="text-lg text-[--color-secondary]">/{student.total}</span>
                                                             </div>
-                                                            <div className="text-[var(--color-secondary)]">sessions</div>
+                                                            <div className="text-[--color-secondary]">sessions</div>
                                                         </div>
                                                     </div>
                                                     <div className="mt-4 h-2 w-full rounded-full bg-[#2a2a2a]">
                                                         <div
-                                                            className="h-2 rounded-full bg-[var(--color-secondary)] transition-all duration-500"
+                                                            className="h-2 rounded-full bg-[--color-secondary] transition-all duration-500"
                                                             style={{ width: `${(student.attendance / student.total) * 100}%` }}
                                                         ></div>
                                                     </div>
@@ -499,7 +496,7 @@ const AdminDashboard = () => {
                         <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                             <CardHeader>
                                 <CardTitle className="font-primary text-[#EFEEEA]">User Management</CardTitle>
-                                <CardDescription className="text-[var(--color-secondary)]">
+                                <CardDescription className="text-[--color-secondary]">
                                     Manage all registered users and their permissions
                                 </CardDescription>
                             </CardHeader>
@@ -559,14 +556,14 @@ const AdminDashboard = () => {
                                                         </Avatar>
                                                         <div>
                                                             <div className="font-medium text-[#EFEEEA]">{user.name}</div>
-                                                            <div className="text-sm text-[var(--color-secondary)]">user@email.com</div>
+                                                            <div className="text-sm text-[--color-secondary]">user@email.com</div>
                                                         </div>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{user.class}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{user.branch}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{user.period}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{user.joinDate}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{user.class}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{user.branch}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{user.period}</TableCell>
+                                                <TableCell className="text-[--color-secondary]">{user.joinDate}</TableCell>
                                                 <TableCell>
                                                     <Badge
                                                         variant="secondary"
@@ -583,7 +580,7 @@ const AdminDashboard = () => {
                                                     <Button
                                                         variant="outline"
                                                         size="sm"
-                                                        className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
+                                                        className="border-[--color-secondary] text-[#EFEEEA] hover:bg-[--color-secondary]/10"
                                                     >
                                                         Edit
                                                     </Button>
@@ -604,11 +601,11 @@ const AdminDashboard = () => {
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <CardTitle className="font-primary text-[#EFEEEA]">Competition Management</CardTitle>
-                                            <CardDescription className="text-[var(--color-secondary)]">
+                                            <CardDescription className="text-[--color-secondary]">
                                                 Add and manage competition information
                                             </CardDescription>
                                         </div>
-                                        <Button className="bg-[var(--color-secondary)] text-[#161616] hover:bg-[var(--color-secondary)]/90">
+                                        <Button className="bg-[--color-secondary] text-[#161616] hover:bg-[--color-secondary]/90">
                                             Add Competition
                                         </Button>
                                     </div>
@@ -627,7 +624,7 @@ const AdminDashboard = () => {
                                             <label className="text-sm font-medium text-[#EFEEEA]">Competition Name *</label>
                                             <Input
                                                 placeholder="Enter competition name"
-                                                className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA] placeholder:text-[var(--color-secondary)]"
+                                                className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA] placeholder:text-[--color-secondary]"
                                             />
                                         </div>
 
@@ -683,7 +680,7 @@ const AdminDashboard = () => {
                                             <textarea
                                                 placeholder="Enter competition description, rules, and requirements..."
                                                 rows={4}
-                                                className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[var(--color-secondary)] focus:ring-2 focus:ring-[var(--color-secondary)] focus:outline-none"
+                                                className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[--color-secondary] focus:ring-2 focus:ring-[--color-secondary] focus:outline-none"
                                             />
                                         </div>
 
@@ -693,17 +690,17 @@ const AdminDashboard = () => {
                                             <textarea
                                                 placeholder="List prizes for winners..."
                                                 rows={3}
-                                                className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[var(--color-secondary)] focus:ring-2 focus:ring-[var(--color-secondary)] focus:outline-none"
+                                                className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[--color-secondary] focus:ring-2 focus:ring-[--color-secondary] focus:outline-none"
                                             />
                                         </div>
-                                        
+
                                         {/* Link Information */}
                                         <div className="space-y-2 md:col-span-2">
                                             <label className="text-sm font-medium text-[#EFEEEA]">Link Information</label>
                                             <textarea
                                                 placeholder="Link competition...."
                                                 rows={3}
-                                                className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[var(--color-secondary)] focus:ring-2 focus:ring-[var(--color-secondary)] focus:outline-none"
+                                                className="w-full rounded-md border border-[#2a2a2a] bg-[#161616] px-3 py-2 text-[#EFEEEA] placeholder:text-[--color-secondary] focus:ring-2 focus:ring-[--color-secondary] focus:outline-none"
                                             />
                                         </div>
 
@@ -728,10 +725,7 @@ const AdminDashboard = () => {
                                                         </Button>
                                                     </div>
                                                 ))}
-                                                <Button
-                                                    variant="outline"
-                                                    className="border-[#2a2a2a] text-[var(--color-secondary)] hover:bg-[#2a2a2a]"
-                                                >
+                                                <Button variant="outline" className="border-[#2a2a2a] text-[--color-secondary] hover:bg-[#2a2a2a]">
                                                     Add Requirement
                                                 </Button>
                                             </div>
@@ -755,7 +749,7 @@ const AdminDashboard = () => {
 
                                     {/* Action Buttons */}
                                     <div className="mt-6 flex gap-3">
-                                        <Button className="bg-[var(--color-secondary)] text-[#161616] hover:bg-[var(--color-secondary)]/90">
+                                        <Button className="bg-[--color-secondary] text-[#161616] hover:bg-[--color-secondary]/90">
                                             Save Competition
                                         </Button>
                                         <Button variant="outline" className="border-[#2a2a2a] text-[#EFEEEA] hover:bg-[#2a2a2a]">
@@ -776,8 +770,7 @@ const AdminDashboard = () => {
                                 <CardContent>
                                     <div className="space-y-4">
                                         {[].length === 0 ? (
-                                            <div className="py-8 text-center text-[var(--color-secondary)]">
-                                              
+                                            <div className="py-8 text-center text-[--color-secondary]">
                                                 <p>No competitions added yet</p>
                                                 <p className="text-sm">Start by adding your first competition above</p>
                                             </div>
