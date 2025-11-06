@@ -4,9 +4,9 @@ use App\Http\Middleware\TimeAccessPresensiMiddleware;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('home');
+Route::get('/leaderboard', function () {
+    return inertia('Leaderboard');
+});
 
 Route::prefix('/auth')->group(function () {
     require_once __DIR__ . '/auth/auth.php';
@@ -20,4 +20,12 @@ Route::prefix('/user/')->group(function () {
 
 Route::get('/', function () {
     return inertia('Home');
+});
+
+Route::get('/admin/dashboard', function () {
+    return inertia('Admin/Dashboard');
+});
+
+Route::get('/auth/admin', function () {
+    return inertia('Admin/Auth');
 });
