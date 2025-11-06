@@ -27,7 +27,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-[#2a2a2a] mt-8 pt-8 text-center text-[var(--color-secondary)]">
-          <p>&copy; 2024 Stemba Computer Club. All rights reserved.</p>
+          <p>&copy; 2025 Stemba Computer Club. All rights reserved.</p>
         </div>
       </div>
     </footer>
