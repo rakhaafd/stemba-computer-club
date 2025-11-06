@@ -14,7 +14,7 @@ class UsersRoleController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
