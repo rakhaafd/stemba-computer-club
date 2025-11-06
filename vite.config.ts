@@ -22,12 +22,13 @@ export default defineConfig({
         jsx: 'automatic',
     },
     resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './resources/js'),
-            '@components': path.resolve(__dirname, './resources/js/components'),
-            '@pages': path.resolve(__dirname, './resources/js/pages'),
-            '@layouts': path.resolve(__dirname, './resources/js/layouts'),
-            '@fragments': path.resolve(__dirname, './resources/js/fragments'),
-        },
+    alias: {
+        '@': path.resolve(__dirname, './resources/js'),
+        '@components': path.resolve(__dirname, './resources/js/components'),
+        '@pages': path.resolve(__dirname, './resources/js/pages'),
+        '@layouts': path.resolve(__dirname, './resources/js/layouts'),
+        '@fragments': path.resolve(__dirname, './resources/js/fragments'), // Pastikan ini ada
+        '@actions': path.resolve(__dirname, './resources/js/actions'),
     },
+},
 });
