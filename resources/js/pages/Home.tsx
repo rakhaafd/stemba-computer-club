@@ -159,28 +159,34 @@ const Home = () => {
 
     const teamMembers = [
         {
-            name: 'Alex Chen',
-            role: 'Club President',
-            avatar: '/avatars/alex.jpg',
-            initial: 'AC',
+            name: 'Ahdan Firdaus',
+            role: 'President',
+            avatar: '/img/profile/ahdan.png',
         },
         {
-            name: 'Sarah Kim',
-            role: 'Tech Lead',
-            avatar: '/avatars/sarah.jpg',
-            initial: 'SK',
+            name: 'Rakha Fausta',
+            role: 'Co Lead',
+            avatar: '/img/profile/rakha.png',
         },
         {
-            name: 'Mike Rodriguez',
-            role: 'Project Manager',
-            avatar: '/avatars/mike.jpg',
-            initial: 'MR',
+            name: 'Marcelino Alfin',
+            role: 'Vice Lead',
+            avatar: '/img/profile/alpin.png',
         },
         {
-            name: 'Emily Wang',
-            role: 'Design Lead',
-            avatar: '/avatars/emily.jpg',
-            initial: 'EW',
+            name: 'Kheira Abinaya',
+            role: 'Supervisor',
+            avatar: '/img/profile/khei.png',
+        },
+        {
+            name: 'Muhammad Alpharado',
+            role: 'Staff',
+            avatar: '/img/profile/rado.png',
+        },
+        {
+            name: 'Elian Malik',
+            role: 'Staff',
+            avatar: '/img/profile/elian.png',
         },
     ];
 
@@ -670,39 +676,54 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Team Section */}
-            <section id="team" className="bg-[#1a1a1a] py-20">
-                <div className="mx-auto max-w-6xl px-6">
-                    <div className="mb-16 text-center">
-                        <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
-                            Meet The Team
-                        </Badge>
-                        <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
-                            Our <span className="text-[#99a1af]">Leadership</span>
-                        </h2>
-                        <p className="mx-auto max-w-3xl text-xl text-[#99a1af]">
-                            Passionate students dedicated to making technology education accessible to all.
-                        </p>
-                    </div>
-                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-                        {teamMembers.map((member) => (
-                            <Card
-                                key={member.name}
-                                className="border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
-                            >
-                                <CardContent className="p-8">
-                                    <Avatar className="mx-auto mb-6 h-28 w-28">
-                                        <AvatarImage src={member.avatar} className="object-cover" />
-                                        <AvatarFallback className="bg-[#EFEEEA] font-primary text-xl text-[#161616]">{member.initial}</AvatarFallback>
-                                    </Avatar>
-                                    <CardTitle className="font-primary text-xl text-[#EFEEEA]">{member.name}</CardTitle>
-                                    <CardDescription className="mt-3 text-lg text-[#99a1af]">{member.role}</CardDescription>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
+{/* Team Section - 3 Columns with Larger Cards */}
+<section id="team" className="bg-[#1a1a1a] py-20">
+    <div className="mx-auto max-w-7xl px-6"> {/* Mengubah max-w menjadi 7xl untuk container lebih lebar */}
+        <div className="mb-16 text-center">
+            <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
+                Meet The Team
+            </Badge>
+            <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
+                Our <span className="text-[#99a1af]">Leadership</span>
+            </h2>
+            <p className="mx-auto max-w-3xl text-xl text-[#99a1af]">
+                Passionate students dedicated to making technology education accessible to all.
+            </p>
+        </div>
+        {/* Grid 3 kolom */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {teamMembers.map((member) => (
+                <Card
+                    key={member.name}
+                    className="group border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)] hover:shadow-2xl hover:shadow-[var(--color-secondary)]/20"
+                >
+                    <CardContent className="p-10"> {/* Padding diperbesar */}
+                        {/* Avatar diperbesar lagi */}
+                        <Avatar className="mx-auto mb-8 h-44 w-44 border-4 border-[#2a2a2a] group-hover:border-[var(--color-secondary)] transition-all duration-300 group-hover:scale-110">
+                            <AvatarImage src={member.avatar} className="object-cover" />
+                            <AvatarFallback className="bg-[#EFEEEA] font-primary text-4xl text-[#161616]">
+                                {member.initial}
+                            </AvatarFallback>
+                        </Avatar>
+                        {/* Teks diperbesar lagi */}
+                        <CardTitle className="font-primary text-3xl text-[#EFEEEA] mb-4">
+                            {member.name}
+                        </CardTitle>
+                        <CardDescription className="text-2xl text-[#99a1af] font-semibold">
+                            {member.role}
+                        </CardDescription>
+                        {/* Tambahan informasi */}
+                        <div className="mt-6 pt-6 border-t border-[#2a2a2a] group-hover:border-[var(--color-secondary)] transition-colors duration-300">
+                            <p className="text-lg text-[var(--color-secondary)]">
+                                Driving innovation and community growth
+                            </p>
+                        </div>
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+    </div>
+</section>
 
             {/* CTA Section */}
             <section id="contact" className="px-6 py-20">
