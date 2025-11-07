@@ -423,8 +423,8 @@ const Home = () => {
             </section>
 
             {/* Animated Feature Showcase - Only 3 Feature Cards */}
-            <section className="mb-16 px-12 pb-20">
-                <div className='mb-16 text-center'>
+            <section className="mb-16 px-12 py-16">
+                <div className="mb-16 text-center">
                     <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
                         What are we going to <span className="text-[#99a1af]">learn?</span>
                     </h2>
@@ -549,7 +549,7 @@ const Home = () => {
             </section>
 
             {/* Memories/Documentation Section */}
-            <section id="memories" className="bg-[#1a1a1a] py-20">
+            <section id="memories" className="py-16">
                 <div className="mx-auto max-w-7xl px-6">
                     <div className="mb-16 text-center">
                         <Badge variant="secondary" className="mb-4 bg-[var(--color-secondary)] text-[#161616]">
@@ -619,32 +619,37 @@ const Home = () => {
                         {[
                             {
                                 title: 'Mentorship Program',
-                                description: 'Get guidance from experienced mentors and industry professionals',
+                                description:
+                                    'Learn directly from experienced mentors and industry professionals who will guide you every step of the way in your tech journey.',
                                 icon: '🎯',
                             },
                             {
                                 title: 'Project Portfolio',
-                                description: 'Build an impressive portfolio of real-world projects',
+                                description:
+                                    'Build a strong and meaningful portfolio through real-world, team-based projects that sharpen your technical and collaborative skills.',
                                 icon: '💼',
                             },
                             {
                                 title: 'Career Development',
-                                description: 'Prepare for tech careers with interview prep and resume workshops',
+                                description:
+                                    'Prepare for your future career with interview training, resume workshops, and insights from IT professionals.',
                                 icon: '🚀',
                             },
                             {
                                 title: 'Community Events',
-                                description: 'Participate in workshops, tech talks, and networking events',
+                                description:
+                                    'Join engaging workshops, tech talks, and networking events where you can share ideas and grow together with like-minded peers.',
                                 icon: '👥',
                             },
                             {
                                 title: 'Resource Library',
-                                description: 'Access curated learning resources and tools',
+                                description:
+                                    'Access curated learning materials and essential tools designed to help you expand your skills and stay ahead in the tech world.',
                                 icon: '📚',
                             },
                             {
                                 title: 'Flexible Learning',
-                                description: 'Learn at your own pace with structured learning paths',
+                                description: 'Learn at your own pace with structured learning paths — empowering you to grow anytime, anywhere.',
                                 icon: '⏱️',
                             },
                         ].map((feature, index) => (
@@ -653,53 +658,11 @@ const Home = () => {
                                 className="group border-[#2a2a2a] bg-[#161616] transition-all duration-300 hover:border-[#EFEEEA]"
                             >
                                 <CardHeader>
-                                    <div className="mb-2 text-3xl transition-transform duration-300 group-hover:scale-110">{feature.icon}</div>
+                                    <div className="mb-2 text-3xl transition-transform duration-300">{feature.icon}</div>
                                     <CardTitle className="font-primary text-[#EFEEEA]">{feature.title}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <CardDescription className="text-[#99a1af]">{feature.description}</CardDescription>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Activities Section */}
-            <section id="activities" className="px-6 py-20">
-                <div className="mx-auto max-w-6xl">
-                    <div className="mb-16 text-center">
-                        <Badge variant="secondary" className="mb-4 bg-[#99a1af] text-[#161616]">
-                            Our Focus Areas
-                        </Badge>
-                        <h2 className="mb-4 font-primary text-3xl font-bold md:text-4xl">
-                            Explore <span className="text-[#99a1af]">Technologies</span>
-                        </h2>
-                    </div>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {activities.map((activity, index) => (
-                            <Card
-                                key={activity.title}
-                                className="group border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:scale-105 hover:border-[#99a1af]"
-                            >
-                                <CardHeader>
-                                    <CardTitle className="font-primary text-[#EFEEEA] transition-colors duration-300 group-hover:text-[#99a1af]">
-                                        {activity.title}
-                                    </CardTitle>
-                                    <CardDescription className="text-[#99a1af]">{activity.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="flex flex-wrap gap-2">
-                                        {activity.skills.map((skill) => (
-                                            <Badge
-                                                key={skill}
-                                                variant="secondary"
-                                                className="border-[#2a2a2a] bg-[#161616] text-[var(--color-secondary)]"
-                                            >
-                                                {skill}
-                                            </Badge>
-                                        ))}
-                                    </div>
                                 </CardContent>
                             </Card>
                         ))}
