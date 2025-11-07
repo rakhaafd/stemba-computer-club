@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar';
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
@@ -16,6 +17,11 @@ const Leaderboard = () => {
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+
+    const scrollToSection = (sectionId: string) => {
+        const element = document.getElementById(sectionId);
+        element?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     // Data dummy untuk leaderboard (50 data untuk testing pagination)
     const mockLeaderboardData = [
@@ -524,9 +530,10 @@ const Leaderboard = () => {
 
     return (
         <div className="min-h-screen bg-[#161616] py-8 text-[#EFEEEA]">
+            <Navbar scrollToSection={scrollToSection} />
             <div className="mx-auto max-w-6xl px-6">
                 {/* Header */}
-                <div className="mb-8 text-center">
+                <div className="mb-8 pt-20 text-center">
                     <div className="mb-4 flex items-center justify-center gap-3">
                         <Trophy className="h-8 w-8 text-yellow-500" />
                         <h1 className="font-primary text-4xl font-bold">Leaderboard</h1>
@@ -591,9 +598,7 @@ const Leaderboard = () => {
                                                         setIsYearOpen(false);
                                                     }}
                                                     className={`w-full px-3 py-2 text-left transition-colors hover:bg-[#2a2a2a] ${
-                                                        selectedYear === year
-                                                            ? 'bg-[#99a1af]/20 text-[#99a1af]'
-                                                            : 'text-[#EFEEEA]'
+                                                        selectedYear === year ? 'bg-[#99a1af]/20 text-[#99a1af]' : 'text-[#EFEEEA]'
                                                     }`}
                                                 >
                                                     {year}
@@ -622,9 +627,7 @@ const Leaderboard = () => {
                                                         setIsFieldOpen(false);
                                                     }}
                                                     className={`w-full px-3 py-2 text-left transition-colors hover:bg-[#2a2a2a] ${
-                                                        selectedField === field.value
-                                                            ? 'bg-[#99a1af]/20 text-[#99a1af]'
-                                                            : 'text-[#EFEEEA]'
+                                                        selectedField === field.value ? 'bg-[#99a1af]/20 text-[#99a1af]' : 'text-[#EFEEEA]'
                                                     }`}
                                                 >
                                                     {field.label}

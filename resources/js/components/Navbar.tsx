@@ -21,35 +21,64 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-    const menuItems = ['about', 'features', 'activities', 'team', 'contact'];
-
     // Get auth from page props
     const auth = props.auth as { user: User | null } | undefined;
     const user = auth?.user;
+
+    // Function to handle navigation to home page sections
+    const handleNavigateToSection = (sectionId: string) => {
+        const currentPath = window.location.pathname;
+        
+        // If we're not on the home page, navigate to home page first
+        if (currentPath !== '/') {
+            window.location.href = `/#${sectionId}`;
+        } else {
+            // If we're already on home page, just scroll to section
+            scrollToSection(sectionId);
+        }
+        
+        // Close mobile menu if open
+        setIsMenuOpen(false);
+    };
+
+    // Menu items configuration
+    const menuItems = [
+        { id: 'about', label: 'About' },
+        { id: 'memories', label: 'Memories' }
+    ];
 
     return (
         <nav className="fixed top-0 z-50 w-full border-b border-[#2a2a2a] bg-[#161616]/90 backdrop-blur-sm">
             <div className="mx-auto max-w-7xl px-6 py-4">
                 <div className="flex items-center justify-between">
-                    {/* Logo */}
-                    <div className="flex items-center gap-3">
+                    {/* Logo - Redirect to home page */}
+                    <Link href="/" className="flex items-center gap-3 cursor-pointer">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EFEEEA]">
                             <span className="font-primary text-lg font-bold text-[#161616]">SCC</span>
                         </div>
-                        <span className="font-primary text-xl font-bold">SCC</span>
-                    </div>
+                        <span className="font-primary text-xl font-bold text-[#EFEEEA]">SCC</span>
+                    </Link>
 
                     {/* Desktop Menu */}
                     <div className="hidden items-center gap-8 md:flex">
-                        {menuItems.map((item) => (
-                            <button
-                                key={item}
-                                onClick={() => scrollToSection(item)}
-                                className="cursor-pointer font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
-                            >
-                                {item}
-                            </button>
-                        ))}
+                        <button
+                            onClick={() => handleNavigateToSection('about')}
+                            className="cursor-pointer font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
+                        >
+                            About
+                        </button>
+                        <Link
+                            href={'/leaderboard'}
+                            className="cursor-pointer font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
+                        >
+                            LeaderBoard
+                        </Link>
+                        <button
+                            onClick={() => handleNavigateToSection('memories')}
+                            className="cursor-pointer font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
+                        >
+                            Memories
+                        </button>
                     </div>
 
                     {/* Right Side - Auth Section */}
@@ -133,16 +162,22 @@ const Navbar = ({ scrollToSection }: NavbarProps) => {
                         <div className="flex flex-col space-y-4">
                             {menuItems.map((item) => (
                                 <button
-                                    key={item}
-                                    onClick={() => {
-                                        scrollToSection(item);
-                                        setIsMenuOpen(false);
-                                    }}
+                                    key={item.id}
+                                    onClick={() => handleNavigateToSection(item.id)}
                                     className="py-2 text-left font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
                                 >
-                                    {item}
+                                    {item.label}
                                 </button>
                             ))}
+
+                            {/* Leaderboard link for mobile */}
+                            <Link
+                                href="/leaderboard"
+                                className="py-2 text-left font-medium text-[var(--color-secondary)] capitalize transition-colors duration-200 hover:text-[#efeeea7b]"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                LeaderBoard
+                            </Link>
 
                             {/* Mobile Auth Section */}
                             <div className="border-t border-[#2a2a2a] pt-2">
