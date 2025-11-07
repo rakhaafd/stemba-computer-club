@@ -6,8 +6,6 @@ use App\Models\Presence;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePresenceRequest;
 use App\Http\Requests\UpdatePresenceRequest;
-use App\Models\PresenceCode;
-use App\Models\User;
 use App\Services\PresenceService;
 use Illuminate\Http\Request;
 
@@ -38,54 +36,21 @@ class PresenceController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         // ✅ 1. Validate input
         $validated = $request->validate([
-            'nama'  => ['required', 'string', 'max:255'],
-            'kelas' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
-            'kode'  => ['required', 'string'],
+            'nama'    => ['required', 'string', 'max:255'],
+            'kelas'   => ['required', 'string', 'max:255'],
+            'email'   => ['required', 'email'],
+            'kode'    => ['required', 'string'],
+            'subject' => ['required', 'string'],
         ]);
 
-        // ✅ 2. Find user
-        $user = User::where('email', $validated['email'])->first();
+        $new_model = $this->service->store($validated);
 
-        if (! $user) {
-            return back()->withErrors(['email' => 'Email tidak ditemukan di sistem.']);
-        }
-
-        // ✅ 3. Validate presence code
-        $presenceCode = PresenceCode::first();
-
-        if (! $presenceCode || $presenceCode->code !== $validated['kode']) {
-            return back()->withErrors(['kode' => 'Kode presensi tidak valid.']);
-        }
-
-        // ✅ 4. Determine material (you can customize this part)
-        // For now, we’ll assume the current material is the latest one
-        dd("wait");
-        $materialId = $this->service->getCurrentMaterialId(); // ← implement in your service
-
-        // ✅ 5. Check duplicate presence
-        $alreadyPresent = Presence::where('user_id', $user->id)
-            ->where('material_id', $materialId)
-            ->exists();
-
-        if ($alreadyPresent) {
-            return back()->withErrors(['email' => 'Kamu sudah melakukan presensi untuk materi ini.']);
-        }
-
-        // ✅ 6. Store presence using your service
-        $presence = $this->service->store([
-            'user_id' => $user->id,
-            'material_id' => $materialId,
-            'status' => 'present',
-            'check_in_time' => now(),
-        ]);
-
-        // ✅ 7. Redirect back with success
+        // ✅ 7. Redirect success
         return redirect()->back()->with('success', 'Presensi berhasil disimpan.');
     }
+
 
 
     /**

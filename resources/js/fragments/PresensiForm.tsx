@@ -14,6 +14,7 @@ interface PresensiData {
   email: string
   kode: string
   subject: string
+  error: string
 }
 
 const CustomSelect = ({
@@ -100,7 +101,9 @@ export default function PresensiForm() {
     email: "",
     kode: "",
     subject: "",
+    error: ""
   })
+  
 
   // ✅ Handle form submission (like Auth)
   const handleSubmit = (e: React.FormEvent) => {
@@ -115,6 +118,8 @@ export default function PresensiForm() {
         }, 2500)
       },
       onError: () => {
+        console.log("AAAAAAAAAAAAAAAAAAA")
+        console.log(errors)
         alert("Failed to submit attendance form.")
       },
     })
