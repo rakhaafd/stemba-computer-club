@@ -690,13 +690,13 @@ const Home = () => {
                                 key={member.name}
                                 className="border-[#2a2a2a] bg-[#161616] text-center transition-all duration-300 hover:scale-105 hover:border-[var(--color-secondary)]"
                             >
-                                <CardContent className="p-6">
-                                    <Avatar className="mx-auto mb-4 h-20 w-20">
-                                        <AvatarImage src={member.avatar} />
-                                        <AvatarFallback className="bg-[#EFEEEA] font-primary text-[#161616]">{member.initial}</AvatarFallback>
+                                <CardContent className="p-8">
+                                    <Avatar className="mx-auto mb-6 h-28 w-28">
+                                        <AvatarImage src={member.avatar} className="object-cover" />
+                                        <AvatarFallback className="bg-[#EFEEEA] font-primary text-xl text-[#161616]">{member.initial}</AvatarFallback>
                                     </Avatar>
-                                    <CardTitle className="font-primary text-[#EFEEEA]">{member.name}</CardTitle>
-                                    <CardDescription className="mt-2 text-[#99a1af]">{member.role}</CardDescription>
+                                    <CardTitle className="font-primary text-xl text-[#EFEEEA]">{member.name}</CardTitle>
+                                    <CardDescription className="mt-3 text-lg text-[#99a1af]">{member.role}</CardDescription>
                                 </CardContent>
                             </Card>
                         ))}
