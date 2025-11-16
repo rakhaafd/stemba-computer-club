@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PresenceCodeSeeder::class,
             RegisterCodeSeeder::class,
             MaterialSeeder::class,
+            CurrentMaterialSeeder::class,
         ]);
     }
 }
