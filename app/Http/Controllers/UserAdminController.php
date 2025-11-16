@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserAdminRequest;
 use App\Http\Requests\UpdateUserAdminRequest;
 use App\Models\UserAdmin;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Request;
 
 class UserAdminController extends Controller
 {
@@ -79,5 +79,14 @@ class UserAdminController extends Controller
     public function destroy(UserAdmin $userAdmin)
     {
         //
+    }
+
+    public function logout(Request $request) {
+        Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/auth/admin/login');
     }
 }

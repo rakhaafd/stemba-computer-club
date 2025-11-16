@@ -5,3 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('login', UserAuth::class);
 Route::post('/register',[UserAuth::class,'register']);
+Route::post('/logout',[UserAuth::class,'logout']);

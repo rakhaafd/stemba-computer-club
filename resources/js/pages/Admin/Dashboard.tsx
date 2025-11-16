@@ -6,6 +6,7 @@ import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { useEffect, useState } from 'react';
+import { Link} from '@inertiajs/react';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('overview');
@@ -87,9 +88,15 @@ const AdminDashboard = () => {
                                 <AvatarImage src="/avatars/admin.jpg" />
                                 <AvatarFallback className="bg-[#EFEEEA] font-primary text-[#161616]">AD</AvatarFallback>
                             </Avatar>
-                            <Button variant="outline" className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10">
+                            <Link 
+                            variant="outline" 
+                            className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
+                            href="/auth/admin/logout"
+                            method="post"
+                            as="button"
+                            >
                                 Logout
-                            </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>
