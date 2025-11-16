@@ -9,7 +9,10 @@ Route::get('/leaderboard', function () {
 });
 
 Route::prefix('/auth')->group(function () {
-    require_once __DIR__ . '/auth/auth.php';
+    require_once __DIR__ . '/auth/user.php';
+    Route::prefix('/admin')->group(function () {
+        require_once __DIR__ . '/auth/admin.php';
+    });
 });
 
 Route::prefix('/user/')->group(function () {
@@ -26,6 +29,6 @@ Route::get('/admin/dashboard', function () {
     return inertia('Admin/Dashboard');
 });
 
-Route::get('/auth/admin', function () {
-    return inertia('Admin/Auth');
+Route::get('/admin/dashboard', function () {
+    return inertia('Admin/Dashboard');
 });

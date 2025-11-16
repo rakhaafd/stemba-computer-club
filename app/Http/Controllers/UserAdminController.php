@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserAdminRequest;
 use App\Http\Requests\UpdateUserAdminRequest;
 use App\Models\UserAdmin;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserAdminController extends Controller
 {
@@ -13,7 +15,7 @@ class UserAdminController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Admin/Auth');
     }
 
     /**
@@ -27,9 +29,24 @@ class UserAdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserAdminRequest $request)
+    public function store(Request $request)
     {
-        //
+        $credentials = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
+        // $info = 'invalid';
+        if (Auth::guard('admin')->attempt($credentials)) {
+            // $info = 'sucesss';
+            // dd($info);
+            $request->session()->regenerate();
+            return redirect()->intended('/admin/dashboard');
+        }
+        // dd($info);
+        dd('invalid credential');
+        return back()->withErrors([
+            'email' => 'Invalid credentials.',
+        ]);
     }
 
     /**
