@@ -5,7 +5,7 @@ import { Badge } from "@components/ui/badge"
 import PresensiForm from "@fragments/PresensiForm"
 import Footer from "@/components/Footer"
 
-const Presensi = () => {
+const Presensi = ({subject}) => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Presensi = () => {
 
       {/* Form Section - FULL SCREEN */}
       <section id="presensi-form">
-        <PresensiForm />  {/* ← LANGSUNG RENDER TANPA CONTAINER */}
+        <PresensiForm subjects={subject}/>  {/* ← LANGSUNG RENDER TANPA CONTAINER */}
       </section>
 
       {/* Footer */}

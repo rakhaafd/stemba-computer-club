@@ -90,9 +90,9 @@ const CustomSelect = ({
   )
 }
 
-export default function PresensiForm() {
+export default function PresensiForm({subjects}) {
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const subjects = ["UI/UX Design", "Cyber Security", "Web Programming"]
+  // const subjects = ["UI/UX Design", "Cyber Security", "Web Programming"]
 
   // ✅ Inertia form setup
   const { data, setData, post, processing, errors, reset } = useForm<PresensiData>({
