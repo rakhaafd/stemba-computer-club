@@ -1,37 +1,36 @@
 const Footer = () => {
-  return (
-    <footer className="border-t border-[#2a2a2a] py-12 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-[#EFEEEA] rounded-full flex items-center justify-center">
-                <span className="text-[#161616] font-bold text-lg font-primary">SCC</span>
-              </div>
-              <span className="text-xl font-bold font-primary">Stemba Computer Club</span>
+    return (
+        <footer className="border-t border-[#2a2a2a] px-6 py-12">
+            <div className="mx-auto max-w-6xl">
+                <div className="grid gap-8 md:grid-cols-3">
+                    <div className="md:col-span-2">
+                        <div className="mb-4 flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EFEEEA]">
+                                <span className="font-primary text-lg font-bold text-[#161616]">SCC</span>
+                            </div>
+                            <span className="font-primary text-xl font-bold">Stemba Computer Club</span>
+                        </div>
+                        <p className="max-w-md text-[var(--color-secondary)]">
+                            Empowering the next generation of tech innovators through collaborative learning and hands-on projects.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 className="mb-4 font-primary font-bold text-[#EFEEEA]">Contact</h3>
+                        <div className="space-y-2 text-[var(--color-secondary)]">
+                            <div>stembascc@gmail.com</div>
+                            <div>@scc_stemba on instagram</div>
+                            <div>Meeting: Every Friday 3-5 PM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-8 border-t border-[#2a2a2a] pt-8 text-center text-[var(--color-secondary)]">
+                    <p>&copy; 2025 Stemba Computer Club. All rights reserved.</p>
+                </div>
             </div>
-            <p className="text-[var(--color-secondary)] max-w-md">
-              Empowering the next generation of tech innovators through collaborative learning 
-              and hands-on projects.
-            </p>
-          </div>
-          
-          <div>
-            <h3 className="font-bold text-[#EFEEEA] mb-4 font-primary">Contact</h3>
-            <div className="space-y-2 text-[var(--color-secondary)]">
-              <div>stemba.cc@email.com</div>
-              <div>STEMBA School Campus</div>
-              <div>Meeting: Every Wednesday 3-5 PM</div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="border-t border-[#2a2a2a] mt-8 pt-8 text-center text-[var(--color-secondary)]">
-          <p>&copy; 2024 Stemba Computer Club. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 };
 
 export default Footer;

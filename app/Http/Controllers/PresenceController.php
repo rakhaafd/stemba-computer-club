@@ -6,9 +6,15 @@ use App\Models\Presence;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePresenceRequest;
 use App\Http\Requests\UpdatePresenceRequest;
+use App\Services\PresenceService;
+use Illuminate\Http\Request;
 
 class PresenceController extends Controller
 {
+    public function __construct(public PresenceService $service)
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,10 +34,24 @@ class PresenceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePresenceRequest $request)
+    public function store(Request $request)
     {
-        //
+        // ✅ 1. Validate input
+        $validated = $request->validate([
+            'nama'    => ['required', 'string', 'max:255'],
+            'kelas'   => ['required', 'string', 'max:255'],
+            'email'   => ['required', 'email'],
+            'kode'    => ['required', 'string'],
+            'subject' => ['required', 'string'],
+        ]);
+
+        $new_model = $this->service->store($validated);
+
+        // ✅ 7. Redirect success
+        return redirect()->back()->with('success', 'Presensi berhasil disimpan.');
     }
+
+
 
     /**
      * Display the specified resource.
