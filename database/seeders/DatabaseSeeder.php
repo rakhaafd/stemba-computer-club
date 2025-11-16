@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             PresenceCodeSeeder::class,
+            RegisterCodeSeeder::class,
+            MaterialSeeder::class,
         ]);
     }
 }

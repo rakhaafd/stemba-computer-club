@@ -1,4 +1,4 @@
-z"use client"
+"use client"
 
 import { useState } from "react"
 import { useForm } from "@inertiajs/react"
