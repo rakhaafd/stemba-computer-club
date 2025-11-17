@@ -6,6 +6,7 @@ use App\Models\Presence;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePresenceRequest;
 use App\Http\Requests\UpdatePresenceRequest;
+use App\Models\CurrentMaterial;
 use App\Services\PresenceService;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,12 @@ class PresenceController extends Controller
      */
     public function index()
     {
-        return inertia('Presensi');
+        $materi = CurrentMaterial::get();
+        // dd($materi);
+        $subject = [$materi[0]->material];
+        return inertia('Presensi',[
+            'subject' => $subject,
+        ]);
     }
 
     /**
