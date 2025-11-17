@@ -6,7 +6,7 @@ import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { useEffect, useState } from 'react';
-import { Link, useForm} from '@inertiajs/react';
+import { Link, useForm, usePage} from '@inertiajs/react';
 
 
 const AdminDashboard = () => {
@@ -20,7 +20,6 @@ const AdminDashboard = () => {
     processing: regCodeProcessing,
     errors: regCodeErrors
     } = useForm({
-    code: "",
     generation_year: "",
     usage_total: "",
     });
@@ -40,6 +39,11 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         setIsVisible(true);
+        console.log("RESETTING FORM STATE");
+        setRegCodeData({
+            generation_year: "",
+            usage_total: "",
+        });
     }, []);
 
     // Mock data - replace with actual API calls
@@ -77,21 +81,11 @@ const AdminDashboard = () => {
 
     const generateInviteCode = (e: React.FormEvent) => {
         e.preventDefault();
-        const code = `STEMBA${newCode.period || '2027'}`;
-        regCodePost("/auth/admin/code"); // Inertia POST route
-        setInviteCodes([
-            ...inviteCodes,
-            {
-                id: inviteCodes.length + 1,
-                code,
-                period: newCode.period || '2027',
-                createdAt: new Date().toISOString().split('T')[0],
-                uses: 0,
-                maxUses: newCode.maxUses,
-                isActive: true,
-            },
-        ]);
-        setNewCode({ code: '', period: '', maxUses: 50 });
+        const {props} = usePage()
+        // setRegCodeData("code", code);
+        regCodePost("/admin/code"); // Inertia POST route
+
+        setRegCodeData({generation_year: '', usage_total: ''});
     };
 
     const toggleCodeStatus = (id: number) => {
@@ -309,16 +303,20 @@ const AdminDashboard = () => {
                                     className="mb-4 grid gap-4 md:grid-cols-3"
                                     >
                                         <Input
+                                            type='text'
                                             placeholder="Period (e.g., 2027)"
-                                            value={newCode.period}
-                                            onChange={(e) => setNewCode({ ...newCode, period: e.target.value })}
+                                            value={regCodeData.generation_year}
+                                            onChange={(e) => setRegCodeData("generation_year", e.target.value)}
                                             className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
                                         />
+                                        {regCodeErrors.generation_year && (
+                                        <p className="text-red-500 text-xs">{regCodeErrors.generation_year}</p>
+                                        )}
                                         <Input
                                             type="number"
                                             placeholder="Max Uses"
-                                            value={newCode.maxUses}
-                                            onChange={(e) => setNewCode({ ...newCode, maxUses: parseInt(e.target.value) || 50 })}
+                                            value={regCodeData.usage_total}
+                                            onChange={(e) => setRegCodeData("usage_total", parseInt(e.target.value) || 50)}
                                             className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
                                         />
                                         <Button type='submit' disabled={regCodeProcessing} className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">

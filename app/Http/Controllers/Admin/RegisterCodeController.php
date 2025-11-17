@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\RegisterCode;
+use App\Services\Admin\RegisterCodeService;
 use Illuminate\Http\Request;
 
 class RegisterCodeController extends Controller
 {
+    public function __construct(public RegisterCodeService $code)
+    {
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +34,18 @@ class RegisterCodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'generation_year'   => ['required', 'string', 'max:255'],
+            'usage_total'   => ['required', 'integer'],
+        ]);
+
+        if ($this->code->check_is_year_available($validated['generation_year'])) {
+            return back()->withErrors([
+            'generation_year' => 'angkatan sudah memiliki regis code',
+            ]);
+        }
+        $code = $this->code->add_code($validated);
+        return back()->with('status', 'success');
     }
 
     /**

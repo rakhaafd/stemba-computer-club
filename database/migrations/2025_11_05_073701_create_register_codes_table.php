@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->smallInteger('generation_year');
             $table->integer('usage');
-            $table->integer('total_usage');
+            $table->integer('usage_total');
             $table->boolean('is_activated');
             $table->timestamps();
         });
