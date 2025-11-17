@@ -6,11 +6,37 @@ import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { useEffect, useState } from 'react';
-import { Link} from '@inertiajs/react';
+import { Link, useForm} from '@inertiajs/react';
+
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('overview');
     const [isVisible, setIsVisible] = useState(false);
+
+    const {
+    data: regCodeData,
+    setData: setRegCodeData,
+    post: regCodePost,
+    processing: regCodeProcessing,
+    errors: regCodeErrors
+    } = useForm({
+    code: "",
+    generation_year: "",
+    usage_total: "",
+    });
+
+// const {
+//     data: compData,
+//     setData: setCompData,
+//     post: compPost,
+//     processing: compProcessing,
+//     errors: compErrors
+//     } = useForm({
+//     name: "",
+//     description: "",
+//     date: "",
+//     });
+
 
     useEffect(() => {
         setIsVisible(true);
@@ -49,8 +75,10 @@ const AdminDashboard = () => {
         { number: '16', label: 'Weekly Sessions', change: 'This academic year' },
     ];
 
-    const generateInviteCode = () => {
+    const generateInviteCode = (e: React.FormEvent) => {
+        e.preventDefault();
         const code = `STEMBA${newCode.period || '2027'}`;
+        regCodePost("/auth/admin/code"); // Inertia POST route
         setInviteCodes([
             ...inviteCodes,
             {
@@ -276,7 +304,10 @@ const AdminDashboard = () => {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="mb-4 grid gap-4 md:grid-cols-3">
+                                    <form
+                                    onSubmit={generateInviteCode} 
+                                    className="mb-4 grid gap-4 md:grid-cols-3"
+                                    >
                                         <Input
                                             placeholder="Period (e.g., 2027)"
                                             value={newCode.period}
@@ -290,10 +321,10 @@ const AdminDashboard = () => {
                                             onChange={(e) => setNewCode({ ...newCode, maxUses: parseInt(e.target.value) || 50 })}
                                             className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
                                         />
-                                        <Button onClick={generateInviteCode} className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
+                                        <Button type='submit' disabled={regCodeProcessing} className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
                                             Generate Code
                                         </Button>
-                                    </div>
+                                    </form>
                                 </CardContent>
                             </Card>
 

@@ -22,6 +22,8 @@ export default function Auth() {
     password: "",
   });
 
+  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     post("/auth/admin/login"); // Inertia POST route
