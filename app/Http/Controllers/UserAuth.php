@@ -98,10 +98,13 @@ class UserAuth extends Controller
         ]);
         // dd($request->all());
         // ✅ Check register code
-        $code = RegisterCode::first(); // only one active code
-        if (!$code || $validated['kode'] !== $code->code) {
+        $code = RegisterCode::where('code',$validated['kode'])->first(); // only one active code
+        if (!$code) {
             return back()->withErrors(['kode' => 'Kode pendaftaran tidak valid.']);
         }
+
+        $validated['generation_year'] = $code->generation_year;
+        // dd($validated);
 
         // ✅ Create user
         $user = $this->user->register($validated);

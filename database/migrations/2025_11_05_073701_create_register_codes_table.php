@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('register_codes', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
+            $table->smallInteger('generation_year');
+            $table->integer('usage');
+            $table->integer('total_usage');
+            $table->boolean('is_activated');
             $table->timestamps();
         });
     }

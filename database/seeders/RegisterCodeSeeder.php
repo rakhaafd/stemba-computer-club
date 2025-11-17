@@ -15,6 +15,10 @@ class RegisterCodeSeeder extends Seeder
     {
         RegisterCode::create([
             'code' => 'WEEK1-UIUX', // initial code
+            'generation_year' => 2023,
+            'usage' => 0,
+            'usage_total' => 100,
+            'is_activated' => 1,
         ]);
     }
 }
