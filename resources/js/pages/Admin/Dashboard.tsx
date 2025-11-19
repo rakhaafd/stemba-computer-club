@@ -5,8 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@comp
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
+import { Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { Link} from '@inertiajs/react';
+
+// Tabs
+// import LeaderboardTab from '@components/tabs/LeaderboardTab';
+// import UsersTab from '@components/tabs/UsersTab';
+// import CompetitionsTab from '@components/tabs/CompetitionsTab';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('overview');
@@ -49,26 +54,14 @@ const AdminDashboard = () => {
         { number: '16', label: 'Weekly Sessions', change: 'This academic year' },
     ];
 
-    const generateInviteCode = () => {
-        const code = `STEMBA${newCode.period || '2027'}`;
-        setInviteCodes([
-            ...inviteCodes,
-            {
-                id: inviteCodes.length + 1,
-                code,
-                period: newCode.period || '2027',
-                createdAt: new Date().toISOString().split('T')[0],
-                uses: 0,
-                maxUses: newCode.maxUses,
-                isActive: true,
-            },
-        ]);
-        setNewCode({ code: '', period: '', maxUses: 50 });
-    };
-
-    const toggleCodeStatus = (id: number) => {
-        setInviteCodes(inviteCodes.map((code) => (code.id === id ? { ...code, isActive: !code.isActive } : code)));
-    };
+    const tabs = [
+        { id: 'overview', label: 'Overview', shortLabel: 'Overview' },
+        { id: 'invite-codes', label: 'Invite Codes', shortLabel: 'Invites' },
+        { id: 'attendance', label: 'Attendance', shortLabel: 'Attendance' },
+        // { id: 'leaderboard', label: 'Leaderboard', shortLabel: 'Leader' },
+        // { id: 'users', label: 'Users', shortLabel: 'Users' },
+        // { id: 'competitions', label: 'Competitions', shortLabel: 'Competitions' },
+    ];
 
     return (
         <div className="min-h-screen overflow-hidden bg-[#161616] text-[#EFEEEA]">
@@ -88,12 +81,12 @@ const AdminDashboard = () => {
                                 <AvatarImage src="/avatars/admin.jpg" />
                                 <AvatarFallback className="bg-[#EFEEEA] font-primary text-[#161616]">AD</AvatarFallback>
                             </Avatar>
-                            <Link 
-                            variant="outline" 
-                            className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
-                            href="/auth/admin/logout"
-                            method="post"
-                            as="button"
+                            <Link
+                                variant="outline"
+                                className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
+                                href="/auth/admin/logout"
+                                method="post"
+                                as="button"
                             >
                                 Logout
                             </Link>
@@ -125,7 +118,7 @@ const AdminDashboard = () => {
                 {/* Navigation Tabs */}
                 <section className="mb-8">
                     <div className="flex flex-wrap gap-1 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] p-1">
-                        {['overview', 'invite-codes', 'attendance', 'leaderboard', 'users', 'competitions'].map((tab) => (
+                        {tabs.map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
@@ -135,22 +128,8 @@ const AdminDashboard = () => {
                                         : 'text-[var(--color-secondary)] hover:bg-[#2a2a2a] hover:text-[#EFEEEA]'
                                 }`}
                             >
-                                <span className="hidden sm:inline">{tab.replace('-', ' ')}</span>
-                                <span className="sm:hidden">
-                                    {tab === 'overview'
-                                        ? 'Overview'
-                                        : tab === 'invite-codes'
-                                          ? 'Invites'
-                                          : tab === 'attendance'
-                                            ? 'Attendance'
-                                            : tab === 'leaderboard'
-                                              ? 'Leader'
-                                              : tab === 'users'
-                                                ? 'Users'
-                                                : tab === 'competitions'
-                                                  ? 'Competitions'
-                                                  : tab}
-                                </span>
+                                <span className="hidden sm:inline">{tab.label}</span>
+                                <span className="sm:hidden">{tab.shortLabel}</span>
                             </button>
                         ))}
                     </div>
@@ -158,261 +137,13 @@ const AdminDashboard = () => {
 
                 {/* Tab Content */}
                 <section>
-                    {/* Overview Tab */}
                     {activeTab === 'overview' && (
-                        <div className="space-y-6">
-                            <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                                <CardHeader>
-                                    <CardTitle className="font-primary text-[#EFEEEA]">Recent Activity</CardTitle>
-                                    <CardDescription className="text-[var(--color-secondary)]">
-                                        Latest registrations and attendance records
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow className="border-[#2a2a2a]">
-                                                <TableHead className="text-white">Name</TableHead>
-                                                <TableHead className="text-white">Class</TableHead>
-                                                <TableHead className="text-white">Branch</TableHead>
-                                                <TableHead className="text-white">Date</TableHead>
-                                                <TableHead className="text-white">Status</TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {attendanceData.slice(0, 5).map((record) => (
-                                                <TableRow key={record.id} className="border-[#2a2a2a]">
-                                                    <TableCell className="text-[#EFEEEA]">{record.name}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{record.class}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{record.branch}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{record.date}</TableCell>
-                                                    <TableCell>
-                                                        <Badge
-                                                            variant="secondary"
-                                                            className={
-                                                                record.status === 'Present'
-                                                                    ? 'border-green-500/30 bg-green-500/20 text-green-400'
-                                                                    : 'border-red-500/30 bg-red-500/20 text-red-400'
-                                                            }
-                                                        >
-                                                            {record.status}
-                                                        </Badge>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </CardContent>
-                            </Card>
-
-                            <div className="grid gap-6 md:grid-cols-2">
-                                <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                                    <CardHeader>
-                                        <CardTitle className="font-primary text-[#EFEEEA]">Top Performers</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {leaderboardData.slice(0, 3).map((student) => (
-                                            <div
-                                                key={student.rank}
-                                                className="flex items-center justify-between border-b border-[#2a2a2a] py-3 last:border-0"
-                                            >
-                                                <div className="flex items-center gap-3">
-                                                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EFEEEA] text-sm font-bold text-[#161616]">
-                                                        {student.rank}
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-medium text-[#EFEEEA]">{student.name}</div>
-                                                        <div className="text-sm text-[var(--color-secondary)]">
-                                                            {student.class} • {student.branch}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <Badge variant="secondary" className="bg-[#EFEEEA] text-[#161616]">
-                                                    {student.attendance}/{student.total}
-                                                </Badge>
-                                            </div>
-                                        ))}
-                                    </CardContent>
-                                </Card>
-
-                                <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                                    <CardHeader>
-                                        <CardTitle className="font-primary text-[#EFEEEA]">Active Invite Codes</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {inviteCodes
-                                            .filter((code) => code.isActive)
-                                            .map((code) => (
-                                                <div
-                                                    key={code.id}
-                                                    className="flex items-center justify-between border-b border-[#2a2a2a] py-3 last:border-0"
-                                                >
-                                                    <div>
-                                                        <div className="font-medium text-[#EFEEEA]">{code.code}</div>
-                                                        <div className="text-sm text-[var(--color-secondary)]">Period: {code.period}</div>
-                                                    </div>
-                                                    <div className="text-right">
-                                                        <div className="text-[#EFEEEA]">
-                                                            {code.uses}/{code.maxUses}
-                                                        </div>
-                                                        <div className="text-sm text-[var(--color-secondary)]">uses</div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </div>
+                        <OverviewTab attendanceData={attendanceData} leaderboardData={leaderboardData} inviteCodes={inviteCodes} />
                     )}
 
-                    {/* Invite Codes Tab */}
-                    {activeTab === 'invite-codes' && (
-                        <div className="space-y-6">
-                            <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                                <CardHeader>
-                                    <CardTitle className="font-primary text-[#EFEEEA]">Generate New Invite Code</CardTitle>
-                                    <CardDescription className="text-[var(--color-secondary)]">
-                                        Create unique invite codes for different student periods
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="mb-4 grid gap-4 md:grid-cols-3">
-                                        <Input
-                                            placeholder="Period (e.g., 2027)"
-                                            value={newCode.period}
-                                            onChange={(e) => setNewCode({ ...newCode, period: e.target.value })}
-                                            className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
-                                        />
-                                        <Input
-                                            type="number"
-                                            placeholder="Max Uses"
-                                            value={newCode.maxUses}
-                                            onChange={(e) => setNewCode({ ...newCode, maxUses: parseInt(e.target.value) || 50 })}
-                                            className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
-                                        />
-                                        <Button onClick={generateInviteCode} className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                                            Generate Code
-                                        </Button>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                    {activeTab === 'invite-codes' && <InviteCodesTab inviteCodes={inviteCodes} setInviteCodes={setInviteCodes} />}
 
-                            <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                                <CardHeader>
-                                    <CardTitle className="font-primary text-[#EFEEEA]">Active Invite Codes</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow className="border-[#2a2a2a]">
-                                                <TableHead className="font-medium text-white">Code</TableHead>
-                                                <TableHead className="font-medium text-white">Period</TableHead>
-                                                <TableHead className="font-medium text-white">Created</TableHead>
-                                                <TableHead className="font-medium text-white">Usage</TableHead>
-                                                <TableHead className="font-medium text-white">Status</TableHead>
-                                                <TableHead className="font-medium text-white">Actions</TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {inviteCodes.map((code) => (
-                                                <TableRow key={code.id} className="border-[#2a2a2a]">
-                                                    <TableCell className="font-mono text-[#EFEEEA]">{code.code}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{code.period}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">{code.createdAt}</TableCell>
-                                                    <TableCell className="text-[var(--color-secondary)]">
-                                                        {code.uses}/{code.maxUses}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Badge
-                                                            variant="secondary"
-                                                            className={
-                                                                code.isActive
-                                                                    ? 'border-green-500/30 bg-green-500/20 text-green-400'
-                                                                    : 'border-red-500/30 bg-red-500/20 text-red-400'
-                                                            }
-                                                        >
-                                                            {code.isActive ? 'Active' : 'Inactive'}
-                                                        </Badge>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Button
-                                                            variant="outline"
-                                                            size="sm"
-                                                            onClick={() => toggleCodeStatus(code.id)}
-                                                            className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
-                                                        >
-                                                            {code.isActive ? 'Deactivate' : 'Activate'}
-                                                        </Button>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    )}
-
-                    {/* Attendance Tab */}
-                    {activeTab === 'attendance' && (
-                        <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                            <CardHeader>
-                                <CardTitle className="font-primary text-[#EFEEEA]">Attendance Records</CardTitle>
-                                <CardDescription className="text-[var(--color-secondary)]">Weekly class attendance tracking</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="mb-6 flex gap-4">
-                                    <Select defaultValue="all">
-                                        <SelectTrigger className="w-32 border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]">
-                                            <SelectValue placeholder="Branch" />
-                                        </SelectTrigger>
-                                        <SelectContent className="border-[#2a2a2a] bg-[#1a1a1a] text-[#EFEEEA]">
-                                            <SelectItem value="all">All Branches</SelectItem>
-                                            <SelectItem value="programming">Programming</SelectItem>
-                                            <SelectItem value="uiux">UI/UX</SelectItem>
-                                            <SelectItem value="cybersecurity">Cyber Security</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                    <Input type="date" className="w-40 border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]" defaultValue="2024-01-15" />
-                                </div>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow className="border-[#2a2a2a]">
-                                            <TableHead className="text-white">Name</TableHead>
-                                            <TableHead className="text-white">Class</TableHead>
-                                            <TableHead className="text-white">Email</TableHead>
-                                            <TableHead className="text-white">Branch</TableHead>
-                                            <TableHead className="text-white">Date</TableHead>
-                                            <TableHead className="text-white">Status</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {attendanceData.map((record) => (
-                                            <TableRow key={record.id} className="border-[#2a2a2a]">
-                                                <TableCell className="text-[#EFEEEA]">{record.name}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.class}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.email}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.branch}</TableCell>
-                                                <TableCell className="text-[var(--color-secondary)]">{record.date}</TableCell>
-                                                <TableCell>
-                                                    <Badge
-                                                        variant="secondary"
-                                                        className={
-                                                            record.status === 'Present'
-                                                                ? 'border-green-500/30 bg-green-500/20 text-green-400'
-                                                                : 'border-red-500/30 bg-red-500/20 text-red-400'
-                                                        }
-                                                    >
-                                                        {record.status}
-                                                    </Badge>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </CardContent>
-                        </Card>
-                    )}
+                    {activeTab === 'attendance' && <AttendanceTab attendanceData={attendanceData} />}
 
                     {/* Leaderboard Tab */}
                     {activeTab === 'leaderboard' && (
