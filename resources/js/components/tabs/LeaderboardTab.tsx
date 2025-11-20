@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { Badge } from '@components/ui/badge';
-import { Button } from '@components/ui/button';
-import { Input } from '@components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 
-interface Leaderboard {
-    id: number;
+interface Student {
+    rank: number;
     name: string;
     class: string;
     branch: string;
@@ -15,126 +12,141 @@ interface Leaderboard {
 }
 
 interface LeaderboardTabProps {
-    Leaderboards: Leaderboard[];
-    setLeaderboards: (codes: Leaderboard[]) => void;
+    leaderboardData: Student[];
 }
 
-const LeaderboardTab = ({ Leaderboards, setLeaderboards }: LeaderboardTabProps) => {
-    const [newCode, setNewCode] = useState({
-        code: '',
-        period: '',
-        maxUses: 50,
-    });
-
-    const generateLeaderboard = () => {
-        const code = `STEMBA${newCode.period || '2027'}`;
-        const updatedCodes = [
-            ...Leaderboards,
-            {
-                id: Leaderboards.length + 1,
-                code,
-                period: newCode.period || '2027',
-                createdAt: new Date().toISOString().split('T')[0],
-                uses: 0,
-                maxUses: newCode.maxUses,
-                isActive: true,
-            },
-        ];
-        setLeaderboards(updatedCodes);
-        setNewCode({ code: '', period: '', maxUses: 50 });
-    };
-
-    const toggleCodeStatus = (id: number) => {
-        const updatedCodes = Leaderboards.map((code) => 
-            code.id === id ? { ...code, isActive: !code.isActive } : code
-        );
-        setLeaderboards(updatedCodes);
-    };
-
+const LeaderboardTab = ({ leaderboardData }: LeaderboardTabProps) => {
     return (
         <div className="space-y-6">
             <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                 <CardHeader>
-                    <CardTitle className="font-primary text-[#EFEEEA]">Generate New Invite Code</CardTitle>
+                    <CardTitle className="font-primary text-[#EFEEEA]">Student Leaderboard</CardTitle>
                     <CardDescription className="text-[var(--color-secondary)]">
-                        Create unique invite codes for different student periods
+                        Track attendance performance across different branches and years
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="mb-4 grid gap-4 md:grid-cols-3">
-                        <Input
-                            placeholder="Period (e.g., 2027)"
-                            value={newCode.period}
-                            onChange={(e) => setNewCode({ ...newCode, period: e.target.value })}
-                            className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
-                        />
-                        <Input
-                            type="number"
-                            placeholder="Max Uses"
-                            value={newCode.maxUses}
-                            onChange={(e) => setNewCode({ ...newCode, maxUses: parseInt(e.target.value) || 50 })}
-                            className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
-                        />
-                        <Button onClick={generateLeaderboard} className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
-                            Generate Code
-                        </Button>
+                    <div className="mb-6 flex gap-4">
+                        <Select defaultValue="2024">
+                            <SelectTrigger className="w-32 border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]">
+                                <SelectValue placeholder="Year" />
+                            </SelectTrigger>
+                            <SelectContent className="border-[#2a2a2a] bg-[#1a1a1a] text-[#EFEEEA]">
+                                <SelectItem value="2024">2024</SelectItem>
+                                <SelectItem value="2023">2023</SelectItem>
+                                <SelectItem value="2022">2022</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <Select defaultValue="all">
+                            <SelectTrigger className="w-40 border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]">
+                                <SelectValue placeholder="Branch" />
+                            </SelectTrigger>
+                            <SelectContent className="border-[#2a2a2a] bg-[#1a1a1a] text-[#EFEEEA]">
+                                <SelectItem value="all">All Branches</SelectItem>
+                                <SelectItem value="programming">Programming</SelectItem>
+                                <SelectItem value="uiux">UI/UX</SelectItem>
+                                <SelectItem value="cybersecurity">Cyber Security</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="space-y-4">
+                        {leaderboardData.map((student) => (
+                            <Card
+                                key={student.rank}
+                                className="border-[#2a2a2a] bg-[#161616] transition-all duration-300 hover:border-[var(--color-secondary)]"
+                            >
+                                <CardContent className="p-6">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-4">
+                                            <div
+                                                className={`flex h-12 w-12 items-center justify-center rounded-full font-primary text-lg font-bold ${
+                                                    student.rank === 1
+                                                        ? 'border border-yellow-500/30 bg-yellow-500/20 text-yellow-400'
+                                                        : student.rank === 2
+                                                          ? 'border border-gray-400/30 bg-gray-400/20 text-gray-300'
+                                                          : student.rank === 3
+                                                            ? 'border border-orange-500/30 bg-orange-500/20 text-orange-400'
+                                                            : 'border border-[#2a2a2a] bg-[#2a2a2a] text-[#EFEEEA]'
+                                                }`}
+                                            >
+                                                {student.rank}
+                                            </div>
+                                            <div>
+                                                <div className="font-primary text-lg font-bold text-[#EFEEEA]">{student.name}</div>
+                                                <div className="text-[var(--color-secondary)]">
+                                                    {student.class} • {student.branch}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <div className="font-primary text-2xl font-bold text-[#EFEEEA]">
+                                                {student.attendance}
+                                                <span className="text-lg text-[var(--color-secondary)]">/{student.total}</span>
+                                            </div>
+                                            <div className="text-[var(--color-secondary)]">sessions</div>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4 h-2 w-full rounded-full bg-[#2a2a2a]">
+                                        <div
+                                            className="h-2 rounded-full bg-[var(--color-secondary)] transition-all duration-500"
+                                            style={{ width: `${(student.attendance / student.total) * 100}%` }}
+                                        ></div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
                     </div>
                 </CardContent>
             </Card>
 
-            <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
-                <CardHeader>
-                    <CardTitle className="font-primary text-[#EFEEEA]">Active Invite Codes</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="border-[#2a2a2a]">
-                                <TableHead className="font-medium text-white">Code</TableHead>
-                                <TableHead className="font-medium text-white">Period</TableHead>
-                                <TableHead className="font-medium text-white">Created</TableHead>
-                                <TableHead className="font-medium text-white">Usage</TableHead>
-                                <TableHead className="font-medium text-white">Status</TableHead>
-                                <TableHead className="font-medium text-white">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {Leaderboards.map((code) => (
-                                <TableRow key={code.id} className="border-[#2a2a2a]">
-                                    <TableCell className="font-mono text-[#EFEEEA]">{code.code}</TableCell>
-                                    <TableCell className="text-[var(--color-secondary)]">{code.period}</TableCell>
-                                    <TableCell className="text-[var(--color-secondary)]">{code.createdAt}</TableCell>
-                                    <TableCell className="text-[var(--color-secondary)]">
-                                        {code.uses}/{code.maxUses}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Badge
-                                            variant="secondary"
-                                            className={
-                                                code.isActive
-                                                    ? 'border-green-500/30 bg-green-500/20 text-green-400'
-                                                    : 'border-red-500/30 bg-red-500/20 text-red-400'
-                                            }
-                                        >
-                                            {code.isActive ? 'Active' : 'Inactive'}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="outline"
-                                            size="sm"
-                                            onClick={() => toggleCodeStatus(code.id)}
-                                            className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
-                                        >
-                                            {code.isActive ? 'Deactivate' : 'Activate'}
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
+            {/* Additional Statistics */}
+            <div className="grid gap-6 md:grid-cols-3">
+                <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
+                    <CardContent className="p-6">
+                        <div className="text-center">
+                            <div className="mb-2 font-primary text-3xl font-bold text-yellow-400">🥇</div>
+                            <div className="font-medium text-[#EFEEEA]">Top Performer</div>
+                            <div className="text-sm text-[var(--color-secondary)]">
+                                {leaderboardData[0]?.name || 'N/A'}
+                            </div>
+                            <Badge variant="secondary" className="mt-2 bg-yellow-500/20 text-yellow-400">
+                                {leaderboardData[0]?.attendance}/{leaderboardData[0]?.total} sessions
+                            </Badge>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
+                    <CardContent className="p-6">
+                        <div className="text-center">
+                            <div className="mb-2 font-primary text-3xl font-bold text-gray-300">🥈</div>
+                            <div className="font-medium text-[#EFEEEA]">Runner Up</div>
+                            <div className="text-sm text-[var(--color-secondary)]">
+                                {leaderboardData[1]?.name || 'N/A'}
+                            </div>
+                            <Badge variant="secondary" className="mt-2 bg-gray-500/20 text-gray-300">
+                                {leaderboardData[1]?.attendance}/{leaderboardData[1]?.total} sessions
+                            </Badge>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
+                    <CardContent className="p-6">
+                        <div className="text-center">
+                            <div className="mb-2 font-primary text-3xl font-bold text-orange-400">🥉</div>
+                            <div className="font-medium text-[#EFEEEA]">Third Place</div>
+                            <div className="text-sm text-[var(--color-secondary)]">
+                                {leaderboardData[2]?.name || 'N/A'}
+                            </div>
+                            <Badge variant="secondary" className="mt-2 bg-orange-500/20 text-orange-400">
+                                {leaderboardData[2]?.attendance}/{leaderboardData[2]?.total} sessions
+                            </Badge>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 };
