@@ -16,39 +16,6 @@ const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('overview');
     const [isVisible, setIsVisible] = useState(false);
 
-    const {
-    data: regCodeData,
-    setData: setRegCodeData,
-    post: regCodePost,
-    processing: regCodeProcessing,
-    errors: regCodeErrors
-    } = useForm({
-    generation_year: "",
-    usage_total: "",
-    });
-
-// const {
-//     data: compData,
-//     setData: setCompData,
-//     post: compPost,
-//     processing: compProcessing,
-//     errors: compErrors
-//     } = useForm({
-//     name: "",
-//     description: "",
-//     date: "",
-//     });
-
-
-    useEffect(() => {
-        setIsVisible(true);
-        console.log("RESETTING FORM STATE");
-        setRegCodeData({
-            generation_year: "",
-            usage_total: "",
-        });
-    }, []);
-
     // Mock data - replace with actual API calls
     const [inviteCodes, setInviteCodes] = useState([
         { id: 1, code: 'STEMBA2027', period: '2027', createdAt: '2024-01-15', uses: 45, maxUses: 100, isActive: true },
@@ -109,11 +76,6 @@ const AdminDashboard = () => {
         },
     ]);
 
-    const [newCode, setNewCode] = useState({
-        code: '',
-        period: '',
-        maxUses: 50,
-    });
 
     const stats = [
         { number: '127', label: 'Total Members', change: '+12 this month' },
@@ -122,18 +84,6 @@ const AdminDashboard = () => {
         { number: '16', label: 'Weekly Sessions', change: 'This academic year' },
     ];
 
-    const generateInviteCode = (e: React.FormEvent) => {
-        e.preventDefault();
-        const {props} = usePage()
-        // setRegCodeData("code", code);
-        regCodePost("/admin/code"); // Inertia POST route
-
-        setRegCodeData({generation_year: '', usage_total: ''});
-    };
-
-    const toggleCodeStatus = (id: number) => {
-        setInviteCodes(inviteCodes.map((code) => (code.id === id ? { ...code, isActive: !code.isActive } : code)));
-    };
     const tabs = [
         { id: 'overview', label: 'Overview', shortLabel: 'Overview' },
         { id: 'invite-codes', label: 'Invite Codes', shortLabel: 'Invites' },
