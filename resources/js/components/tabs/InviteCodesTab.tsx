@@ -5,15 +5,16 @@ import { Badge } from "@components/ui/badge";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { useForm, usePage } from "@inertiajs/react";
+import axios from "axios";
 
 interface InviteCode {
     id: number;
     code: string;
-    period: string;
-    createdAt: string;
-    uses: number;
-    maxUses: number;
-    isActive: boolean;
+    generation_year: string;
+    created_at: string;
+    usage: number;
+    usage_total: number;
+    is_activated: boolean;
 }
 
 interface InviteCodesTabProps {
@@ -21,7 +22,17 @@ interface InviteCodesTabProps {
     setInviteCodes: (codes: InviteCode[]) => void;
 }
 
-const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) => {
+const InviteCodesTab = () => {
+    const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([]);
+    useEffect(() => {
+    axios.get("/api/admin/code")
+        .then(res => {
+            console.log("API RESULT:", res.data);
+            setInviteCodes(res.data);
+        })
+        .catch(err => console.error(err));
+}, []);
+
     const {
         data,
         setData,
@@ -47,7 +58,7 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
 
     const toggleCodeStatus = (id: number) => {
         const updatedCodes = inviteCodes.map((code) =>
-            code.id === id ? { ...code, isActive: !code.isActive } : code
+            code.id === id ? { ...code, is_activated: !code.is_activated } : code
         );
         setInviteCodes(updatedCodes);
     };
@@ -119,20 +130,20 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
                             {inviteCodes.map((code) => (
                                 <TableRow key={code.id} className="border-[#2a2a2a]">
                                     <TableCell className="font-mono text-[#EFEEEA]">{code.code}</TableCell>
-                                    <TableCell className="text-[var(--color-secondary)]">{code.period}</TableCell>
-                                    <TableCell className="text-[var(--color-secondary)]">{code.createdAt}</TableCell>
+                                    <TableCell className="text-[var(--color-secondary)]">{code.generation_year}</TableCell>
+                                    <TableCell className="text-[var(--color-secondary)]">{code.created_at}</TableCell>
                                     <TableCell className="text-[var(--color-secondary)]">
-                                        {code.uses}/{code.maxUses}
+                                        {code.usage}/{code.usage_total}
                                     </TableCell>
                                     <TableCell>
                                         <Badge
                                             className={
-                                                code.isActive
+                                                code.is_activated
                                                     ? "border-green-500/30 bg-green-500/20 text-green-400"
                                                     : "border-red-500/30 bg-red-500/20 text-red-400"
                                             }
                                         >
-                                            {code.isActive ? "Active" : "Inactive"}
+                                            {code.is_activated ? "Active" : "Inactive"}
                                         </Badge>
                                     </TableCell>
                                     <TableCell>
@@ -142,7 +153,7 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
                                             onClick={() => toggleCodeStatus(code.id)}
                                             className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
                                         >
-                                            {code.isActive ? "Deactivate" : "Activate"}
+                                            {code.is_activated ? "Deactivate" : "Activate"}
                                         </Button>
                                     </TableCell>
                                 </TableRow>
