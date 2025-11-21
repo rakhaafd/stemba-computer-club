@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
-import { Badge } from '@components/ui/badge';
-import { Button } from '@components/ui/button';
-import { Input } from '@components/ui/input';
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@components/ui/table";
+import { Badge } from "@components/ui/badge";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { useForm, usePage } from "@inertiajs/react";
 
 interface InviteCode {
     id: number;
@@ -21,32 +22,32 @@ interface InviteCodesTabProps {
 }
 
 const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) => {
-    const [newCode, setNewCode] = useState({
-        code: '',
-        period: '',
-        maxUses: 50,
+    // ⬇️ UseForm harus di top-level
+    const {
+        data,
+        setData,
+        post,
+        processing,
+        errors,
+        reset
+    } = useForm({
+        generation_year: "",
+        usage_total: "",
     });
 
-    const generateInviteCode = () => {
-        const code = `STEMBA${newCode.period || '2027'}`;
-        const updatedCodes = [
-            ...inviteCodes,
-            {
-                id: inviteCodes.length + 1,
-                code,
-                period: newCode.period || '2027',
-                createdAt: new Date().toISOString().split('T')[0],
-                uses: 0,
-                maxUses: newCode.maxUses,
-                isActive: true,
+    // ⬇️ Submit handler
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        post("/admin/code", {
+            onSuccess: () => {
+                reset(); // reset form setelah sukses
             },
-        ];
-        setInviteCodes(updatedCodes);
-        setNewCode({ code: '', period: '', maxUses: 50 });
+        });
     };
 
     const toggleCodeStatus = (id: number) => {
-        const updatedCodes = inviteCodes.map((code) => 
+        const updatedCodes = inviteCodes.map((code) =>
             code.id === id ? { ...code, isActive: !code.isActive } : code
         );
         setInviteCodes(updatedCodes);
@@ -54,6 +55,7 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
 
     return (
         <div className="space-y-6">
+            {/* Card: Buat Invite Code */}
             <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                 <CardHeader>
                     <CardTitle className="font-primary text-[#EFEEEA]">Generate New Invite Code</CardTitle>
@@ -61,31 +63,45 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
                         Create unique invite codes for different student periods
                     </CardDescription>
                 </CardHeader>
+
                 <CardContent>
-                    <div className="mb-4 grid gap-4 md:grid-cols-3">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="mb-4 grid gap-4 md:grid-cols-3"
+                    >
                         <Input
+                            type="text"
                             placeholder="Period (e.g., 2027)"
-                            value={newCode.period}
-                            onChange={(e) => setNewCode({ ...newCode, period: e.target.value })}
+                            value={data.generation_year}
+                            onChange={(e) => setData("generation_year", e.target.value)}
                             className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
                         />
+
                         <Input
                             type="number"
                             placeholder="Max Uses"
-                            value={newCode.maxUses}
-                            onChange={(e) => setNewCode({ ...newCode, maxUses: parseInt(e.target.value) || 50 })}
+                            value={data.usage_total}
+                            onChange={(e) => setData("usage_total", e.target.value)}
                             className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
                         />
-                        <Button onClick={generateInviteCode} className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]">
+
+                        <Button
+                            type="submit"
+                            disabled={processing}
+                            className="bg-[#EFEEEA] text-[#161616] hover:bg-[#e0ded9]"
+                        >
                             Generate Code
                         </Button>
-                    </div>
+                    </form>
                 </CardContent>
             </Card>
 
+            {/* Card: List Invite Codes */}
             <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
                 <CardHeader>
-                    <CardTitle className="font-primary text-[#EFEEEA]">Active Invite Codes</CardTitle>
+                    <CardTitle className="font-primary text-[#EFEEEA]">
+                        Active Invite Codes
+                    </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Table>
@@ -99,6 +115,7 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
                                 <TableHead className="font-medium text-white">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
+
                         <TableBody>
                             {inviteCodes.map((code) => (
                                 <TableRow key={code.id} className="border-[#2a2a2a]">
@@ -110,14 +127,13 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
                                     </TableCell>
                                     <TableCell>
                                         <Badge
-                                            variant="secondary"
                                             className={
                                                 code.isActive
-                                                    ? 'border-green-500/30 bg-green-500/20 text-green-400'
-                                                    : 'border-red-500/30 bg-red-500/20 text-red-400'
+                                                    ? "border-green-500/30 bg-green-500/20 text-green-400"
+                                                    : "border-red-500/30 bg-red-500/20 text-red-400"
                                             }
                                         >
-                                            {code.isActive ? 'Active' : 'Inactive'}
+                                            {code.isActive ? "Active" : "Inactive"}
                                         </Badge>
                                     </TableCell>
                                     <TableCell>
@@ -127,7 +143,7 @@ const InviteCodesTab = ({ inviteCodes, setInviteCodes }: InviteCodesTabProps) =>
                                             onClick={() => toggleCodeStatus(code.id)}
                                             className="border-[var(--color-secondary)] text-[#EFEEEA] hover:bg-[var(--color-secondary)]/10"
                                         >
-                                            {code.isActive ? 'Deactivate' : 'Activate'}
+                                            {code.isActive ? "Deactivate" : "Activate"}
                                         </Button>
                                     </TableCell>
                                 </TableRow>
