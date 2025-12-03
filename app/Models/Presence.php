@@ -19,4 +19,8 @@ class Presence extends Model
     public function material() {
         return $this->belongsTo(Material::class, 'material_id');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
