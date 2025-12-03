@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@components/ui/badge";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import { useForm, usePage } from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
 import axios from "axios";
 
 interface InviteCode {
@@ -57,6 +57,8 @@ const InviteCodesTab = () => {
     };
 
     const toggleCodeStatus = (id: number) => {
+        console.log(id)
+        router.put(`/admin/code/${id}`)
         const updatedCodes = inviteCodes.map((code) =>
             code.id === id ? { ...code, is_activated: !code.is_activated } : code
         );
@@ -136,7 +138,7 @@ const InviteCodesTab = () => {
                                         {code.usage}/{code.usage_total}
                                     </TableCell>
                                     <TableCell>
-                                        <Badge
+                                        <Badge 
                                             className={
                                                 code.is_activated
                                                     ? "border-green-500/30 bg-green-500/20 text-green-400"

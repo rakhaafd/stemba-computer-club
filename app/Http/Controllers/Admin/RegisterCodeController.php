@@ -67,9 +67,11 @@ class RegisterCodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RegisterCode $registerCode)
+    public function update(Request $request, RegisterCode $code)
     {
-        //
+        $code->is_activated = false;
+        $code->save();
+        return redirect()->back();
     }
 
     /**
