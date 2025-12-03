@@ -3,6 +3,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@components/ui/badge';
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface AttendanceRecord {
     id: number;
@@ -18,7 +20,18 @@ interface AttendanceTabProps {
     attendanceData: AttendanceRecord[];
 }
 
-const AttendanceTab = ({ attendanceData }: AttendanceTabProps) => {
+const AttendanceTab = () => {
+const [attendanceData, setAttendanceData] = useState<AttendanceRecord[]>([]);
+
+    // ambil data api please
+    useEffect(() => {
+    axios.get("/api/admin/attendance")
+        .then(res => {
+            console.log("API RESULT:", res.data);
+            setAttendanceData(res.data);
+        })
+        .catch(err => console.error(err));
+}, []);
     return (
         <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
             <CardHeader>

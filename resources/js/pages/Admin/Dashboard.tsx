@@ -173,7 +173,7 @@ const AdminDashboard = () => {
 
                     {activeTab === 'invite-codes' && <InviteCodesTab/>}
 
-                    {activeTab === 'attendance' && <AttendanceTab attendanceData={attendanceData} />}
+                    {activeTab === 'attendance' && <AttendanceTab/>}
 
                     {activeTab === 'leaderboard' && <LeaderboardTab leaderboardData={leaderboardData} />}
 
