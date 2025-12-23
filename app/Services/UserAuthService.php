@@ -15,6 +15,8 @@ class UserAuthService
             'email' => $data['email'],
             'generation_year' => $data['generation_year'],
             'password' => Hash::make($data['password']),
+            'is_active' => 1,
+            'sessions' => 0,
         ]);
     }
 }

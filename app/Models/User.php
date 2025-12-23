@@ -23,6 +23,8 @@ class User extends Authenticatable
         'kelas',
         'generation_year',
         'password',
+        'is_active',
+        'sessions',
     ];
 
     /**

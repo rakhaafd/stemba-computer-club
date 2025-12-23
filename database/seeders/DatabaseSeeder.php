@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             RegisterCodeSeeder::class,
             MaterialSeeder::class,
             CurrentMaterialSeeder::class,
+            UserAdminSeeder::class,
         ]);
     }
 }

@@ -70,5 +70,8 @@ class PresenceService
             'check_in_time' => $now,
             'week_number'   => $weekNumber,
         ]);
+
+        $user->sessions = $user->sessions + 1;
+        $user->save();
     }
 }
