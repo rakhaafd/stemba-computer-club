@@ -69,7 +69,10 @@ class RegisterCodeController extends Controller
      */
     public function update(Request $request, RegisterCode $code)
     {
-        $code->is_activated = false;
+        if ($code->is_activated) {
+            $code->is_activated = false;
+        }
+        $code->is_activated = true;
         $code->save();
         return redirect()->back();
     }

@@ -67,7 +67,12 @@ class UserAuth extends Controller
      */
     public function edit(User $user)
     {
-        //
+        if ($user->is_activate) {
+            $user->is_activate = false;
+        }
+        $user->is_activate = true;
+        $user->save();
+        return redirect()->back();
     }
 
     /**

@@ -6,6 +6,8 @@ import { Button } from '@components/ui/button';
 import { Avatar, AvatarFallback } from '@components/ui/avatar';
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
+import { router } from "@inertiajs/react";
+
 import axios from 'axios';
 
 interface User {
@@ -88,9 +90,10 @@ const UsersTab = () => {
 
     const toggleUserStatus = (id: number) => {
         if (setUsers) {
+            router.put(`/auth/login/${id}`)
             const updatedUsers = usersData.map(user => 
                 user.id === id 
-                    ? { ...user, status: user.status === 'Active' ? 'Inactive' : 'Active' as 'Active' | 'Inactive' }
+                    ? { ...user, status: user.status === 1 ? 0 : 1 as 'Active' | 'Inactive' }
                     : user
             );
             setUsers(updatedUsers);
@@ -190,12 +193,12 @@ const UsersTab = () => {
                                             <Badge
                                                 variant="secondary"
                                                 className={
-                                                    user.status === 'Active'
+                                                    user.status === 1
                                                         ? 'border-green-500/30 bg-green-500/20 text-green-400'
                                                         : 'border-red-500/30 bg-red-500/20 text-red-400'
                                                 }
                                             >
-                                                {user.status}
+                                                {user.status === 1 ? 'Active':'Deactivate'}
                                             </Badge>
                                         </TableCell>
                                         <TableCell>
@@ -212,12 +215,12 @@ const UsersTab = () => {
                                                     size="sm"
                                                     onClick={() => toggleUserStatus(user.id)}
                                                     className={
-                                                        user.status === 'Active'
+                                                        user.status == 0
                                                             ? 'border-red-500/30 text-red-400 hover:bg-red-500/20'
                                                             : 'border-green-500/30 text-green-400 hover:bg-green-500/20'
                                                     }
                                                 >
-                                                    {user.status === 'Active' ? 'Deactivate' : 'Activate'}
+                                                    {user.status == 1 ? 'Active':'Deactivate'}
                                                 </Button>
                                             </div>
                                         </TableCell>
