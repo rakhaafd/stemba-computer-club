@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
 import { Badge } from '@components/ui/badge';
@@ -6,6 +6,7 @@ import { Button } from '@components/ui/button';
 import { Avatar, AvatarFallback } from '@components/ui/avatar';
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
+import axios from 'axios';
 
 interface User {
     id: number;
@@ -15,7 +16,7 @@ interface User {
     branch: string;
     period: string;
     joinDate: string;
-    status: 'Active' | 'Inactive';
+    status: 1 | 0;
 }
 
 interface UsersTabProps {
@@ -23,12 +24,21 @@ interface UsersTabProps {
     setUsers?: (users: User[]) => void;
 }
 
-const UsersTab = ({ users = [], setUsers }: UsersTabProps) => {
+const UsersTab = () => {
+    const [users, setUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [statusFilter, setStatusFilter] = useState<'all' | 'Active' | 'Inactive'>('all');
+    const [statusFilter, setStatusFilter] = useState<'all' | 1 | 0>('all');
     const [branchFilter, setBranchFilter] = useState('all');
 
     // Default users data jika tidak disediakan via props
+    useEffect(() => {
+    axios.get("/api/admin/users")
+        .then(res => {
+            console.log("API RESULT:", res.data);
+            setUsers(res.data);
+        })
+        .catch(err => console.error(err));
+    }, []);
     const defaultUsers: User[] = [
         {
             id: 1,
@@ -62,7 +72,9 @@ const UsersTab = ({ users = [], setUsers }: UsersTabProps) => {
         },
     ];
 
-    const usersData = users.length > 0 ? users : defaultUsers;
+    // const usersData = users.length > 0 ? users : defaultUsers;
+    const usersData = users
+
 
     const filteredUsers = usersData.filter(user => {
         const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
