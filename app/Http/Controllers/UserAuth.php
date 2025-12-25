@@ -67,21 +67,21 @@ class UserAuth extends Controller
      */
     public function edit(User $user)
     {
-        if ($user->is_activate) {
-            $user->is_activate = false;
-        }
-        $user->is_activate = true;
-        $user->save();
-        return redirect()->back();
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $login)
     {
-        //
+        // Toggle is_active
+        $login->is_active = !$login->is_active;
+        $login->save();
+
+        return redirect()->back();
     }
+
 
     /**
      * Remove the specified resource from storage.

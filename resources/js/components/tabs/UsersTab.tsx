@@ -7,23 +7,17 @@ import { Avatar, AvatarFallback } from '@components/ui/avatar';
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { router } from "@inertiajs/react";
-
 import axios from 'axios';
 
 interface User {
     id: number;
     name: string;
     email: string;
-    class: string;
+    kelas: string;
     branch: string;
     period: string;
     joinDate: string;
-    status: 1 | 0;
-}
-
-interface UsersTabProps {
-    users?: User[];
-    setUsers?: (users: User[]) => void;
+    is_active: 1 | 0;
 }
 
 const UsersTab = () => {
@@ -32,72 +26,41 @@ const UsersTab = () => {
     const [statusFilter, setStatusFilter] = useState<'all' | 1 | 0>('all');
     const [branchFilter, setBranchFilter] = useState('all');
 
-    // Default users data jika tidak disediakan via props
     useEffect(() => {
-    axios.get("/api/admin/users")
-        .then(res => {
-            console.log("API RESULT:", res.data);
-            setUsers(res.data);
-        })
-        .catch(err => console.error(err));
+        axios.get("/api/admin/users")
+            .then(res => {
+                console.log("API RESULT:", res.data);
+                setUsers(res.data);
+            })
+            .catch(err => console.error(err));
     }, []);
-    const defaultUsers: User[] = [
-        {
-            id: 1,
-            name: 'John Doe',
-            email: 'john@email.com',
-            class: '12A',
-            branch: 'Programming',
-            period: '2024',
-            joinDate: '2024-01-10',
-            status: 'Active',
-        },
-        {
-            id: 2,
-            name: 'Sarah Smith',
-            email: 'sarah@email.com',
-            class: '11B',
-            branch: 'UI/UX',
-            period: '2024',
-            joinDate: '2024-01-12',
-            status: 'Active',
-        },
-        {
-            id: 3,
-            name: 'Mike Johnson',
-            email: 'mike@email.com',
-            class: '12C',
-            branch: 'Cyber Security',
-            period: '2024',
-            joinDate: '2024-01-08',
-            status: 'Inactive',
-        },
-    ];
 
-    // const usersData = users.length > 0 ? users : defaultUsers;
-    const usersData = users
+    const filteredUsers = users.filter(user => {
+        const matchesSearch =
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.kelas.toLowerCase().includes(searchTerm.toLowerCase());
 
+        const matchesStatus =
+            statusFilter === 'all' ||
+            (statusFilter === 1 && user.is_active === 1) ||
+            (statusFilter === 0 && user.is_active === 0);
 
-    const filteredUsers = usersData.filter(user => {
-        const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            user.class.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesStatus = statusFilter === 'all' || user.status === statusFilter;
-        const matchesBranch = branchFilter === 'all' || user.branch === branchFilter;
-        
+        const matchesBranch =
+            branchFilter === 'all' || user.branch === branchFilter;
+
         return matchesSearch && matchesStatus && matchesBranch;
     });
 
     const toggleUserStatus = (id: number) => {
-        if (setUsers) {
-            router.put(`/auth/login/${id}`)
-            const updatedUsers = usersData.map(user => 
-                user.id === id 
-                    ? { ...user, status: user.status === 1 ? 0 : 1 as 'Active' | 'Inactive' }
-                    : user
-            );
-            setUsers(updatedUsers);
-        }
+        // Call backend API (dummy PUT for example)
+        router.put(`/auth/login/${id}`);
+        
+        // Update state locally
+        const updatedUsers = users.map(user =>
+            user.id === id ? { ...user, is_active: user.is_active === 1 ? 0 : 1 } : user
+        );
+        setUsers(updatedUsers);
     };
 
     const getInitials = (name: string) => {
@@ -118,7 +81,7 @@ const UsersTab = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    {/* Search and Filter Section */}
+                    {/* Search and Filter */}
                     <div className="mb-6 grid gap-4 md:grid-cols-3">
                         <Input
                             placeholder="Search users..."
@@ -126,14 +89,17 @@ const UsersTab = () => {
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]"
                         />
-                        <Select value={statusFilter} onValueChange={(value: 'all' | 'Active' | 'Inactive') => setStatusFilter(value)}>
+                        <Select
+                            value={statusFilter}
+                            onValueChange={(value) => setStatusFilter(value as 'all' | 1 | 0)}
+                        >
                             <SelectTrigger className="border-[#2a2a2a] bg-[#161616] text-[#EFEEEA]">
                                 <SelectValue placeholder="Filter by status" />
                             </SelectTrigger>
                             <SelectContent className="border-[#2a2a2a] bg-[#1a1a1a] text-[#EFEEEA]">
                                 <SelectItem value="all">All Status</SelectItem>
-                                <SelectItem value="Active">Active</SelectItem>
-                                <SelectItem value="Inactive">Inactive</SelectItem>
+                                <SelectItem value={1}>Active</SelectItem>
+                                <SelectItem value={0}>Inactive</SelectItem>
                             </SelectContent>
                         </Select>
                         <Select value={branchFilter} onValueChange={setBranchFilter}>
@@ -170,7 +136,7 @@ const UsersTab = () => {
                                     </TableCell>
                                 </TableRow>
                             ) : (
-                                filteredUsers.map((user) => (
+                                filteredUsers.map(user => (
                                     <TableRow key={user.id} className="border-[#2a2a2a]">
                                         <TableCell>
                                             <div className="flex items-center gap-3">
@@ -185,7 +151,7 @@ const UsersTab = () => {
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-[var(--color-secondary)]">{user.class}</TableCell>
+                                        <TableCell className="text-[var(--color-secondary)]">{user.kelas}</TableCell>
                                         <TableCell className="text-[var(--color-secondary)]">{user.branch}</TableCell>
                                         <TableCell className="text-[var(--color-secondary)]">{user.period}</TableCell>
                                         <TableCell className="text-[var(--color-secondary)]">{user.joinDate}</TableCell>
@@ -193,12 +159,12 @@ const UsersTab = () => {
                                             <Badge
                                                 variant="secondary"
                                                 className={
-                                                    user.status === 1
+                                                    user.is_active === 1
                                                         ? 'border-green-500/30 bg-green-500/20 text-green-400'
                                                         : 'border-red-500/30 bg-red-500/20 text-red-400'
                                                 }
                                             >
-                                                {user.status === 1 ? 'Active':'Deactivate'}
+                                                {user.is_active === 1 ? 'Active' : 'Inactive'}
                                             </Badge>
                                         </TableCell>
                                         <TableCell>
@@ -215,12 +181,12 @@ const UsersTab = () => {
                                                     size="sm"
                                                     onClick={() => toggleUserStatus(user.id)}
                                                     className={
-                                                        user.status == 0
+                                                        user.is_active === 0
                                                             ? 'border-red-500/30 text-red-400 hover:bg-red-500/20'
                                                             : 'border-green-500/30 text-green-400 hover:bg-green-500/20'
                                                     }
                                                 >
-                                                    {user.status == 1 ? 'Active':'Deactivate'}
+                                                    {user.is_active === 1 ? 'Active' : 'Deactivate'}
                                                 </Button>
                                             </div>
                                         </TableCell>
@@ -233,8 +199,8 @@ const UsersTab = () => {
                     {/* Summary Stats */}
                     <div className="mt-6 flex flex-wrap gap-4 text-sm text-[var(--color-secondary)]">
                         <div>Total Users: <span className="text-[#EFEEEA]">{filteredUsers.length}</span></div>
-                        <div>Active: <span className="text-green-400">{filteredUsers.filter(u => u.status === 'Active').length}</span></div>
-                        <div>Inactive: <span className="text-red-400">{filteredUsers.filter(u => u.status === 'Inactive').length}</span></div>
+                        <div>Active: <span className="text-green-400">{filteredUsers.filter(u => u.is_active === 1).length}</span></div>
+                        <div>Inactive: <span className="text-red-400">{filteredUsers.filter(u => u.is_active === 0).length}</span></div>
                     </div>
                 </CardContent>
             </Card>
