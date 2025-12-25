@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Badge } from '@components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Student {
     rank: number;
@@ -11,11 +13,22 @@ interface Student {
     total: number;
 }
 
+
 interface LeaderboardTabProps {
-    leaderboardData: Student[];
+    student: Student[];
+    setStudent: (codes: Student[]) => void;
 }
 
-const LeaderboardTab = ({ leaderboardData }: LeaderboardTabProps) => {
+const LeaderboardTab = () => {
+    const [students, setStudents] = useState<Student[]>([]);
+    useEffect(() => {
+        axios.get("/api/admin/leaderboard",{ params: { filter: 'Total' } })
+            .then(res => {
+                console.log("API RESULT:", res.data);
+                setStudents(res.data);
+            })
+            .catch(err => console.error(err));
+    }, []);
     return (
         <div className="space-y-6">
             <Card className="border-[#2a2a2a] bg-[#1a1a1a]">
@@ -51,9 +64,9 @@ const LeaderboardTab = ({ leaderboardData }: LeaderboardTabProps) => {
                     </div>
 
                     <div className="space-y-4">
-                        {leaderboardData.map((student) => (
+                        {students.map((student) => (
                             <Card
-                                key={student.rank}
+                                key={console.log(student)}
                                 className="border-[#2a2a2a] bg-[#161616] transition-all duration-300 hover:border-[var(--color-secondary)]"
                             >
                                 <CardContent className="p-6">
@@ -108,10 +121,10 @@ const LeaderboardTab = ({ leaderboardData }: LeaderboardTabProps) => {
                             <div className="mb-2 font-primary text-3xl font-bold text-yellow-400">🥇</div>
                             <div className="font-medium text-[#EFEEEA]">Top Performer</div>
                             <div className="text-sm text-[var(--color-secondary)]">
-                                {leaderboardData[0]?.name || 'N/A'}
+                                {students[0]?.name || 'N/A'}
                             </div>
                             <Badge variant="secondary" className="mt-2 bg-yellow-500/20 text-yellow-400">
-                                {leaderboardData[0]?.attendance}/{leaderboardData[0]?.total} sessions
+                                {students[0]?.attendance}/{students[0]?.total} sessions
                             </Badge>
                         </div>
                     </CardContent>
@@ -123,10 +136,10 @@ const LeaderboardTab = ({ leaderboardData }: LeaderboardTabProps) => {
                             <div className="mb-2 font-primary text-3xl font-bold text-gray-300">🥈</div>
                             <div className="font-medium text-[#EFEEEA]">Runner Up</div>
                             <div className="text-sm text-[var(--color-secondary)]">
-                                {leaderboardData[1]?.name || 'N/A'}
+                                {students[1]?.name || 'N/A'}
                             </div>
                             <Badge variant="secondary" className="mt-2 bg-gray-500/20 text-gray-300">
-                                {leaderboardData[1]?.attendance}/{leaderboardData[1]?.total} sessions
+                                {students[1]?.attendance}/{students[1]?.total} sessions
                             </Badge>
                         </div>
                     </CardContent>
@@ -138,10 +151,10 @@ const LeaderboardTab = ({ leaderboardData }: LeaderboardTabProps) => {
                             <div className="mb-2 font-primary text-3xl font-bold text-orange-400">🥉</div>
                             <div className="font-medium text-[#EFEEEA]">Third Place</div>
                             <div className="text-sm text-[var(--color-secondary)]">
-                                {leaderboardData[2]?.name || 'N/A'}
+                                {students[2]?.name || 'N/A'}
                             </div>
                             <Badge variant="secondary" className="mt-2 bg-orange-500/20 text-orange-400">
-                                {leaderboardData[2]?.attendance}/{leaderboardData[2]?.total} sessions
+                                {students[2]?.attendance}/{students[2]?.total} sessions
                             </Badge>
                         </div>
                     </CardContent>
