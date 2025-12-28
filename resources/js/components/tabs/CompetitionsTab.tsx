@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select';
 import { Badge } from '@components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table';
+import axios from 'axios';
 
 interface Competition {
     id: number;
@@ -30,7 +31,19 @@ interface CompetitionsTabProps {
     setCompetitions?: (competitions: Competition[]) => void;
 }
 
-const CompetitionsTab = ({ competitions = [], setCompetitions }: CompetitionsTabProps) => {
+const CompetitionsTab = () => {
+     const [competitions, setCompetitions] = useState<Competition[]>([]);
+     useEffect(() => {
+    axios.get("/api/admin/competition")
+        .then(res => {
+            if (res.data.success == true) {
+                console.log("API RESULT:", res.data.data);
+                setCompetitions(res.data.data);
+            }
+        })
+        .catch(err => console.error(err));
+}, []);
+
     const [isAddingCompetition, setIsAddingCompetition] = useState(false);
     const [newCompetition, setNewCompetition] = useState({
         name: '',
