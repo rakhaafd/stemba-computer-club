@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             MaterialSeeder::class,
             CurrentMaterialSeeder::class,
             UserAdminSeeder::class,
+            CompetitionTypeSeeder::class,
+            CompetitionSeeder::class,
+            CompetitionRegistrationSeeder::class,
         ]);
     }
 }
