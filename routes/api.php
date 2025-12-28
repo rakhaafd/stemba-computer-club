@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\RegisterCodeApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AttendanceApiController;
+use App\Http\Controllers\Api\CompetitionApiController;
 use App\Http\Controllers\Api\LeaderBoardApiController;
 use App\Http\Controllers\Api\UsersApiController;
 
@@ -25,4 +26,8 @@ Route::middleware(['web', 'admin'])->prefix('admin')->group(function () {
 
 Route::middleware(['web', 'admin'])->prefix('admin')->group(function () {
     Route::get('/leaderboard', [LeaderBoardApiController::class, 'index']);
+});
+
+Route::middleware(['web', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/competition', [CompetitionApiController::class, 'index']);
 });
