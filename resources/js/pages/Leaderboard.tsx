@@ -6,10 +6,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@comp
 import { ChevronDown, ChevronLeft, ChevronRight, Crown, Filter, Medal, Star, Trophy } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const Leaderboard = () => {
-    const [selectedYear, setSelectedYear] = useState<string>('2024');
+interface LeaderboardProps {
+    leaderboardData: any[];
+}
+
+const Leaderboard = ({ leaderboardData: initialData }: LeaderboardProps) => {
+    const [selectedYear, setSelectedYear] = useState<string>('2025');
     const [selectedField, setSelectedField] = useState<string>('all');
-    const [leaderboardData, setLeaderboardData] = useState<any[]>([]);
+    const [leaderboardData, setLeaderboardData] = useState<any[]>([]); // filtered data
+    const [originalData, setOriginalData] = useState<any[]>(initialData); // full dataset
     const [isLoading, setIsLoading] = useState(true);
     const [isYearOpen, setIsYearOpen] = useState(false);
     const [isFieldOpen, setIsFieldOpen] = useState(false);
@@ -23,395 +28,8 @@ const Leaderboard = () => {
         element?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    // Data dummy untuk leaderboard (50 data untuk testing pagination)
-    const mockLeaderboardData = [
-        {
-            id: 1,
-            name: 'Alex Chen',
-            avatar: '/avatars/alex.jpg',
-            initial: 'AC',
-            field: 'programming',
-            attendance: 95,
-            rank: 1,
-            projects: 8,
-            joinedYear: 2023,
-        },
-        {
-            id: 2,
-            name: 'Sarah Kim',
-            avatar: '/avatars/sarah.jpg',
-            initial: 'SK',
-            field: 'cyber-security',
-            attendance: 92,
-            rank: 2,
-            projects: 7,
-            joinedYear: 2023,
-        },
-        {
-            id: 3,
-            name: 'Mike Rodriguez',
-            avatar: '/avatars/mike.jpg',
-            initial: 'MR',
-            field: 'ui-ux',
-            attendance: 88,
-            rank: 3,
-            projects: 6,
-            joinedYear: 2024,
-        },
-        {
-            id: 4,
-            name: 'Emily Wang',
-            avatar: '/avatars/emily.jpg',
-            initial: 'EW',
-            field: 'programming',
-            attendance: 85,
-            rank: 4,
-            projects: 5,
-            joinedYear: 2023,
-        },
-        {
-            id: 5,
-            name: 'James Wilson',
-            avatar: '/avatars/james.jpg',
-            initial: 'JW',
-            field: 'cyber-security',
-            attendance: 82,
-            rank: 5,
-            projects: 4,
-            joinedYear: 2024,
-        },
-        {
-            id: 6,
-            name: 'Lisa Park',
-            avatar: '/avatars/lisa.jpg',
-            initial: 'LP',
-            field: 'ui-ux',
-            attendance: 80,
-            rank: 6,
-            projects: 5,
-            joinedYear: 2023,
-        },
-        {
-            id: 7,
-            name: 'David Kumar',
-            avatar: '/avatars/david.jpg',
-            initial: 'DK',
-            field: 'programming',
-            attendance: 78,
-            rank: 7,
-            projects: 4,
-            joinedYear: 2024,
-        },
-        {
-            id: 8,
-            name: 'Maria Gonzalez',
-            avatar: '/avatars/maria.jpg',
-            initial: 'MG',
-            field: 'cyber-security',
-            attendance: 75,
-            rank: 8,
-            projects: 3,
-            joinedYear: 2023,
-        },
-        {
-            id: 9,
-            name: 'Tom Hanks',
-            avatar: '/avatars/tom.jpg',
-            initial: 'TH',
-            field: 'ui-ux',
-            attendance: 72,
-            rank: 9,
-            projects: 3,
-            joinedYear: 2024,
-        },
-        {
-            id: 10,
-            name: 'Anna Lee',
-            avatar: '/avatars/anna.jpg',
-            initial: 'AL',
-            field: 'programming',
-            attendance: 70,
-            rank: 10,
-            projects: 2,
-            joinedYear: 2024,
-        },
-        // Data tambahan untuk testing pagination
-        {
-            id: 11,
-            name: 'Ryan Park',
-            avatar: '/avatars/ryan.jpg',
-            initial: 'RP',
-            field: 'cyber-security',
-            attendance: 68,
-            rank: 11,
-            projects: 2,
-            joinedYear: 2023,
-        },
-        {
-            id: 12,
-            name: 'Sophia Martinez',
-            avatar: '/avatars/sophia.jpg',
-            initial: 'SM',
-            field: 'ui-ux',
-            attendance: 65,
-            rank: 12,
-            projects: 2,
-            joinedYear: 2024,
-        },
-        {
-            id: 13,
-            name: 'Daniel Brown',
-            avatar: '/avatars/daniel.jpg',
-            initial: 'DB',
-            field: 'programming',
-            attendance: 62,
-            rank: 13,
-            projects: 1,
-            joinedYear: 2024,
-        },
-        {
-            id: 14,
-            name: 'Olivia Taylor',
-            avatar: '/avatars/olivia.jpg',
-            initial: 'OT',
-            field: 'cyber-security',
-            attendance: 60,
-            rank: 14,
-            projects: 1,
-            joinedYear: 2023,
-        },
-        {
-            id: 15,
-            name: 'Kevin Johnson',
-            avatar: '/avatars/kevin.jpg',
-            initial: 'KJ',
-            field: 'ui-ux',
-            attendance: 58,
-            rank: 15,
-            projects: 1,
-            joinedYear: 2024,
-        },
-        {
-            id: 16,
-            name: 'Emma Davis',
-            avatar: '/avatars/emma.jpg',
-            initial: 'ED',
-            field: 'programming',
-            attendance: 55,
-            rank: 16,
-            projects: 1,
-            joinedYear: 2023,
-        },
-        {
-            id: 17,
-            name: 'Michael Clark',
-            avatar: '/avatars/michael.jpg',
-            initial: 'MC',
-            field: 'cyber-security',
-            attendance: 52,
-            rank: 17,
-            projects: 1,
-            joinedYear: 2024,
-        },
-        {
-            id: 18,
-            name: 'Jessica White',
-            avatar: '/avatars/jessica.jpg',
-            initial: 'JW',
-            field: 'ui-ux',
-            attendance: 50,
-            rank: 18,
-            projects: 1,
-            joinedYear: 2023,
-        },
-        {
-            id: 19,
-            name: 'Christopher Lee',
-            avatar: '/avatars/chris.jpg',
-            initial: 'CL',
-            field: 'programming',
-            attendance: 48,
-            rank: 19,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 20,
-            name: 'Amanda Garcia',
-            avatar: '/avatars/amanda.jpg',
-            initial: 'AG',
-            field: 'cyber-security',
-            attendance: 45,
-            rank: 20,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 21,
-            name: 'Brian Miller',
-            avatar: '/avatars/brian.jpg',
-            initial: 'BM',
-            field: 'ui-ux',
-            attendance: 42,
-            rank: 21,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 22,
-            name: 'Nicole Wilson',
-            avatar: '/avatars/nicole.jpg',
-            initial: 'NW',
-            field: 'programming',
-            attendance: 40,
-            rank: 22,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 23,
-            name: 'Jason Moore',
-            avatar: '/avatars/jason.jpg',
-            initial: 'JM',
-            field: 'cyber-security',
-            attendance: 38,
-            rank: 23,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 24,
-            name: 'Michelle Harris',
-            avatar: '/avatars/michelle.jpg',
-            initial: 'MH',
-            field: 'ui-ux',
-            attendance: 35,
-            rank: 24,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 25,
-            name: 'Robert Taylor',
-            avatar: '/avatars/robert.jpg',
-            initial: 'RT',
-            field: 'programming',
-            attendance: 33,
-            rank: 25,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 26,
-            name: 'Jennifer Brown',
-            avatar: '/avatars/jennifer.jpg',
-            initial: 'JB',
-            field: 'cyber-security',
-            attendance: 30,
-            rank: 26,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 27,
-            name: 'William Davis',
-            avatar: '/avatars/william.jpg',
-            initial: 'WD',
-            field: 'ui-ux',
-            attendance: 28,
-            rank: 27,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 28,
-            name: 'Elizabeth Wilson',
-            avatar: '/avatars/elizabeth.jpg',
-            initial: 'EW',
-            field: 'programming',
-            attendance: 25,
-            rank: 28,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 29,
-            name: 'Richard Moore',
-            avatar: '/avatars/richard.jpg',
-            initial: 'RM',
-            field: 'cyber-security',
-            attendance: 22,
-            rank: 29,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 30,
-            name: 'Susan Johnson',
-            avatar: '/avatars/susan.jpg',
-            initial: 'SJ',
-            field: 'ui-ux',
-            attendance: 20,
-            rank: 30,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 31,
-            name: 'Thomas Anderson',
-            avatar: '/avatars/thomas.jpg',
-            initial: 'TA',
-            field: 'programming',
-            attendance: 18,
-            rank: 31,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 32,
-            name: 'Patricia Martin',
-            avatar: '/avatars/patricia.jpg',
-            initial: 'PM',
-            field: 'cyber-security',
-            attendance: 15,
-            rank: 32,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 33,
-            name: 'Charles Thompson',
-            avatar: '/avatars/charles.jpg',
-            initial: 'CT',
-            field: 'ui-ux',
-            attendance: 12,
-            rank: 33,
-            projects: 0,
-            joinedYear: 2024,
-        },
-        {
-            id: 34,
-            name: 'Karen Garcia',
-            avatar: '/avatars/karen.jpg',
-            initial: 'KG',
-            field: 'programming',
-            attendance: 10,
-            rank: 34,
-            projects: 0,
-            joinedYear: 2023,
-        },
-        {
-            id: 35,
-            name: 'Christopher Martinez',
-            avatar: '/avatars/christopher.jpg',
-            initial: 'CM',
-            field: 'cyber-security',
-            attendance: 8,
-            rank: 35,
-            projects: 0,
-            joinedYear: 2024,
-        },
-    ];
+    // Data dummy untuk leaderboard (50 data untuk testing pagination), i delete it
+    
 
     const fields = [
         { value: 'all', label: 'All Fields' },
@@ -420,7 +38,7 @@ const Leaderboard = () => {
         { value: 'ui-ux', label: 'UI/UX Design' },
     ];
 
-    const years = ['2024', '2023', '2022'];
+    const years = ['2025','2024', '2023', '2022'];
 
     // Calculate pagination
     const totalItems = leaderboardData.length;
@@ -430,23 +48,30 @@ const Leaderboard = () => {
     const currentItems = leaderboardData.slice(startIndex, endIndex);
 
     useEffect(() => {
-        setIsLoading(true);
-        const timer = setTimeout(() => {
-            const filteredData = mockLeaderboardData
-                .filter((member) => (selectedField === 'all' || member.field === selectedField) && member.joinedYear <= parseInt(selectedYear))
-                .sort((a, b) => b.attendance - a.attendance) // Sort by attendance descending
-                .map((member, index) => ({
-                    ...member,
-                    rank: index + 1,
-                }));
+    setIsLoading(true);
+    console.log(originalData)
+    const timer = setTimeout(() => {
+        const filteredData = originalData
+            .filter(
+                (member) =>
+                    (selectedField === 'all' || member.field === selectedField) &&
+                    member.joinedYear <= parseInt(selectedYear)
+            )
+            .sort((a, b) => b.attendance - a.attendance)
+            .map((member, index) => ({
+                ...member,
+                rank: index + 1,
+            }));
+        console.log("=====")
+        console.log(filteredData)
+        setLeaderboardData(filteredData);
+        setIsLoading(false);
+        setCurrentPage(1);
+    }, 500);
 
-            setLeaderboardData(filteredData);
-            setIsLoading(false);
-            setCurrentPage(1); // Reset to first page when filters change
-        }, 500);
+    return () => clearTimeout(timer);
+}, [selectedYear, selectedField, originalData]);
 
-        return () => clearTimeout(timer);
-    }, [selectedYear, selectedField]);
 
     const getRankIcon = (rank: number) => {
         switch (rank) {
@@ -641,7 +266,7 @@ const Leaderboard = () => {
                                     variant="outline"
                                     className="border-[#99a1af] text-[#EFEEEA] hover:bg-[#99a1af]/10"
                                     onClick={() => {
-                                        setSelectedYear('2024');
+                                        setSelectedYear('2025');
                                         setSelectedField('all');
                                     }}
                                 >

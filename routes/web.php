@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\LeaderboardController;
 use App\Http\Middleware\TimeAccessPresensiMiddleware;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/leaderboard', function () {
-    return inertia('Leaderboard');
+Route::controller(LeaderboardController::class)->group(function () {
+    Route::get('/leaderboard', 'index');
 });
 
 Route::prefix('/auth')->group(function () {

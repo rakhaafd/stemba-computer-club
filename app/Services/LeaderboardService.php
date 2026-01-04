@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Services;
 
-use App\Http\Controllers\Controller;
 use App\Models\Material;
+use App\Models\Presence;
+use App\Models\PresenceCode;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class LeaderBoardApiController extends Controller
+class LeaderboardService
 {
-    public function index(Request $request)
+     public function get($request)
 {
-    $filter = $request->input('filter'); // "Total", "Cyber Security", etc.
+    // $filter = $request->input('filter'); // "Total", "Cyber Security", etc.
+
+    $filter = "Total"; // "Total", "Cyber Security", etc.
 
     // Get total sessions
     if ($filter == "Total") {
@@ -39,7 +40,7 @@ class LeaderBoardApiController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'branch' => "-", // replace with $user->branch if available
+                'field' => "programming", // replace with $user->branch if available
                 'class' => $user->kelas,
                 'attendance' => $total,
                 'total' => $total_session,
@@ -64,8 +65,6 @@ class LeaderBoardApiController extends Controller
         return $item;
     });
 
-    return response()->json($attendanceData);
+    return $attendanceData;
 }
-
-
 }
